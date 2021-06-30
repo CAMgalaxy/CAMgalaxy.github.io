@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- for Microsoft Browser? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"
+        integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./src/jquery.js" crossorigin="anonymous"></script>
+    <script src="./src/Elements.js" crossorigin="anonymous"></script>
+    <script src="./src/variables.js" crossorigin="anonymous"></script>
+    <script src="./src/nodeCAM.js" crossorigin="anonymous"></script>
+    <script src="./src/connectorCAM.js" crossorigin="anonymous"></script>
+    <script src="./src/eventListeners_backend.js"></script>
+    <script src="./src/eventListeners_frontend.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <title>Document</title>
+
+</head>
+
+
+
+<body>
+    <!-- HEADER -->
+    <div class="headerdiv">
+        <div style="float:left;width:80%">
+            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive Affective Maps</span>
+            <img src="./img/logoCAM.svg" alt="img Valence logo not found" style="height:3rem; width:auto;">
+        </div>
+        <div style="float:right;width:20%; text-align:right;">
+            <span>CAM Project: X</span>
+            <i class="material-icons">cancel</i>
+        </div>
+    </div>
+
+    <!-- SVG, components  -->
+    <div class="container">
+        <div class="boxCAMSVG">
+            <div style="float:left;width:50%; border-bottom: 1px solid black; vertical-align: middle;">
+                <i class="material-icons">zoom_in</i>
+                <i class="material-icons">zoom_out</i>
+                <i class="material-icons">fit_screen</i>
+
+
+            </div>
+            <div
+                style="float:right;width:50%; text-align:right; border-bottom: 1px solid black; vertical-align: middle;">
+                <i class="material-icons">save</i>
+                <button class="material-icons" onclick="onDownloadSVGfile()"
+                    title="Save CAM as picture">crop_original</button>
+                <button class="material-icons" onclick="onDownloadCAMdata()"
+                    title="Save CAM as file">vertical_align_bottom</button>
+                <i class="material-icons">vertical_align_top</i>
+                <button id="deleteCAM" class="material-icons" style="color:red"> delete </button>
+            </div>
+
+
+
+
+            <svg id="CAMSVG">
+            </svg>
+
+        </div>
+        <div class="box">
+            <div>
+                <div id="headerrightcomponents"><u>Properties of element:</u></div>
+            </div>
+            <br>
+            <div>
+                <div>
+                    Text: <input id="inptextnode" type="text">
+                </div>
+                <br>
+                Type:
+                <div>
+                    <input id="setnode_positve" title="set node to positive" type="image" src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))"
+                        style="width: 50px; height: 40px;" />
+
+                        <input id="setnode_negative" title="set node to negative" type="image" src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))"
+                        style="width: 50px; height: 40px;" />
+                        
+                        <input id="setnode_ambivalent" title="set node to ambivalent" type="image" src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
+                        style="width: 50px; height: 40px;" />
+
+                        <input id="setnode_neutral" title="set node to neutral" type="image" src="./img/neutral_node.svg#svgView(viewBox(0,5,180,120))"
+                        style="width: 50px; height: 40px;" />
+                </div>
+    
+                <div>
+                    Strength: <input id="inpvaluenode" type="range" min="1" max="3" value="1" class="slider">
+                </div>
+
+                <br>
+                <div>
+                    Comment:
+                </div>
+                <textarea id="inpcommentnode" rows="5" cols="30">
+                </textarea>
+
+                <div>
+                    <button id="currentColorRed" type="button" class="buttonunddel"> Undo </button>
+                    <button id="currentColorRed2" type="button" class="buttonunddel"> Delete </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="box">
+            <div>
+                <div id="headerrightcomponents"><u>Quick reference:</u></div>
+            </div>
+            <br>
+            aaaaaaaaaaaaa
+            bbbbbbbbbbbbb
+        </div>
+    </div>
+
+    <!-- FOOTER (Copyright) -->
+    <div class="footerdiv">
+        © 2021 Copyright: Julius Fenn &amp; Florian Gouret &amp; Carter Rhea &amp; ???
+    </div>
+
+</body>
+
+
+
+<script>
+   //CAM.addElements()
+   CAM.addElement(new NodeCAM(1,"Positive concept",{x:200, y:100}));
+        CAM.addElement(new NodeCAM(-2,"Negative concept",{x:200, y:500}));
+
+        CAM.addElement(new NodeCAM(3,"Strongly positive concept",{x:600, y:100}));
+        CAM.addElement(new NodeCAM(-3,"Strongly negative concept",{x:600, y:500}));
+
+        CAM.addElement(new NodeCAM(10,"Strongly negative concept",{x:350, y:300}));
+
+        CAM.addElement(new NodeCAM(0,"Neutral concept",{x:650, y:300}));
+
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[0], CAM.elements[1], 7, false)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[0], CAM.elements[4], 7, true)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[2], CAM.elements[4], 7, true)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[3], CAM.elements[4], 7, true)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[1], CAM.elements[4], 7, true)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[3], CAM.elements[5], 7, true)
+        CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        connector1.establishConnection(CAM.elements[2], CAM.elements[5], 7, true)
+        CAM.addElement(connector1);
+
+        //CAM.addElement(new NodeCAM(0,"Food",{x:200, y:400}));
+
+//        CAM.addElement(new NodeCAM(-2,"Food",{x:200, y:500}));
+
+        //CAM.addElement(new NodeCAM(2,"Sea",{x:Math.random()*500, y:Math.random()*500},1,1));
+        //CAM.addElement(new NodeCAM(4,"Cheese",{x:Math.random()*500, y:Math.random()*500},1,1));
+        //CAM.addElement(new NodeCAM(3,"Ham",{x:Math.random()*500, y:Math.random()*500},1,1));
+
+
+      
+
+        var connector1 = new ConnectorCAM();
+        //connector1.setConnection(CAM.elements[0], CAM.elements[2], 3, true)
+       // CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        //connector1.setConnection(CAM.elements[1], CAM.elements[2], 3, false)
+        //CAM.addElement(connector1);
+
+        var connector1 = new ConnectorCAM();
+        //connector1.setConnection(CAM.elements[3], CAM.elements[2], 5, false)
+        //CAM.addElement(connector1);
+
+
+
+        
+
+        CAM.draw();
+</script>
+
+</html>
