@@ -76,6 +76,12 @@ class Elements {
     deleteNode() {
         const connectors = this.elements.filter(elt => elt.kind === "Connector");
         const nodeID = this.currentNode.id;
+
+        if (!this.currentNode.getIsDeletable()){
+            console.log("This element cannot be deleted.");
+            return;
+        }
+
         connectors.forEach(element => {
             if (element.daughter.id === nodeID || element.mother.id === nodeID) {
                 element.deleteConnection();
@@ -164,7 +170,6 @@ class Elements {
         background.setAttribute("width", "100%");
         background.setAttribute("height", "100%");
         background.setAttribute("fill", "white");
-        
 
         svg.appendChild(background);
         const connectors = this.elements.filter(elt => elt.kind === "Connector");

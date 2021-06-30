@@ -1,6 +1,6 @@
 class NodeCAM {
 
-    constructor(value, text, position) {
+    constructor(value, text, position, isDraggable = true, isDeletable = true) {
         this.id = uuid.v4();
         this.value = value;
         this.text = text;
@@ -18,6 +18,8 @@ class NodeCAM {
         this.kind = "Node";
         this.isSelected = false;
         this.isConnectorSelected = false;
+        this.isDraggable = isDraggable;
+        this.isDeletable = isDeletable;
         this.eventLog = [];
 
         this.enterLog({type: "create node", value: value});
@@ -39,12 +41,16 @@ class NodeCAM {
     }
 
     setPosition(newPosition) {
-        this.position = newPosition;
+        if (this.isDraggable){
+            this.position = newPosition;
+        }
         return;
     }
 
     setIsActive(val) {
-        this.isActive = val;
+        if (this.isDeletable){
+            this.isActive = val;
+        }
         return;
     }
 
@@ -88,6 +94,9 @@ class NodeCAM {
         return this.kind;
     }
 
+    getIsDeletable() {
+        return this.isDeletable;
+    }
     isConnectToNode(node) {
         const connectedElement = this.wasConnectedTo.filter(elt => elt === node.id);
         return connectedElement.length === 0 ? false : true;
@@ -225,13 +234,13 @@ class NodeCAM {
         newText.setAttribute("alignment-baseline", "middle")
         newText.setAttribute("text-anchor", "middle")
         newText.setAttribute("class", "noselect")
-        //newText.setAttribute("font-size", "30px")
         newText.innerHTML = this.text;
         return newText;
     }
 
     getShapeSVG() {
-        if (this.value < 0 && this.value >=-3) {
+
+        if (this.value < 0) {
             let newRect = document.createElementNS(svgns, "polygon");
             newRect.setAttribute("id", this.id);
             newRect.setAttribute("class", "node");
@@ -280,7 +289,7 @@ class NodeCAM {
             return newRect;
         }
 
-        if (this.value >=1 && this.value < 4) {
+        if (this.value >=1 && this.value < 5) {
             let newRect = document.createElementNS(svgns, "ellipse");
             newRect.setAttribute("id", this.id);
             newRect.setAttribute("class", "node");

@@ -44,8 +44,10 @@ $(document).on("click", ".node", function (event) {
     CAM.selecteNode($(this)[0].id);
     CAM.draw();
 
-    document.getElementById("inptextnode").value = CAM.currentNode.getText();
-    document.getElementById("inpcommentnode").value = CAM.currentNode.getComment();
+    if (CAM.currentNode != null){
+        document.getElementById("inptextnode").value = CAM.currentNode.getText();
+        document.getElementById("inpcommentnode").value = CAM.currentNode.getComment();
+    }
 
 });
 

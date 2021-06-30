@@ -3,7 +3,7 @@
 
 class ConnectorCAM {
 
-    constructor() {
+    constructor(isDeletable = true) {
 
         this.id = uuid.v4(); // uuidv4.v4(); // to run "npm run test"
         this.value = null;
@@ -15,6 +15,7 @@ class ConnectorCAM {
         this.kind = "Connector"; // information for drawing edges / nodes
         this.isSelected = false;
         this.intensity = 3;
+        this.isDeletable = isDeletable;
         this.eventLog = [];
 
     }
@@ -97,7 +98,9 @@ class ConnectorCAM {
     }
 
     setIsActive(val) {
-        this.isActive = val;
+        if (this.isDeletable){
+            this.isActive = val;
+        }
     }
 
     setAgreement(val)
