@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- for Microsoft Browser? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./src/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"
+        integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./src/js/jquery.js" crossorigin="anonymous"></script>
+    <script src="./src/js/Elements.js" crossorigin="anonymous"></script>
+    <script src="./src/js/variables.js" crossorigin="anonymous"></script>
+    <script src="./src/js/nodeCAM.js" crossorigin="anonymous"></script>
+    <script src="./src/js/connectorCAM.js" crossorigin="anonymous"></script>
+    <script src="./src/js/eventListeners_backend.js"></script>
+    <script src="./src/js/eventListeners_frontend.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <title>Document</title>
+
+</head>
+
+
+
+<body>
+    <!-- HEADER -->
+    <div class="headerdiv">
+        <div style="float:left;width:80%">
+            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive Affective Maps</span>
+            <img src="./img/logoCAM.svg" alt="img Valence logo not found" style="height:3rem; width:auto;">
+        </div>
+        <div style="float:right;width:20%; text-align:right;">
+            <span>CAM Project: X</span>
+            <i class="material-icons">cancel</i>
+        </div>
+    </div>
+
+    <!-- SVG, components  -->
+    <div class="main">
+
+        <div class="boxCAMSVG">
+            <div class="canvas-header-left">
+                <i class="material-icons">zoom_in</i>
+                <i class="material-icons">zoom_out</i>
+                <i class="material-icons">fit_screen</i>
+            </div>
+
+            <div class="canvas-header-right">
+                <i class="material-icons">save</i>
+                <button class="material-icons" onclick="onDownloadSVGfile()"
+                    title="Save CAM as picture">crop_original</button>
+                <button class="material-icons" onclick="onDownloadCAMdata()"
+                    title="Save CAM as file">vertical_align_bottom</button>
+                <i class="material-icons">vertical_align_top</i>
+                <button id="deleteCAM" class="material-icons" style="color:red"> delete </button>
+            </div>
+
+            <div class="CAMContainer">
+                <svg id="CAMSVG">
+                </svg>
+            </div>
+
+        </div>
+        <!-- interactive components  -->
+        <div class="right-panel">
+            <!-- interactive component: DEFAULT -->
+            <div class="properties" id="interactionDefault" style="display: flex; align-items: center;">
+                <div style="text-align: center;">
+                    <i>Please click on a node or edge to change the values.</i>
+                </div>
+            </div>
+
+
+            <!-- interactive components: NODE -->
+            <div class="properties" id="interactionNode">
+                <div>
+                    <span class="header-panel">Properties of element:</span>
+                </div>
+                <br>
+                <div class="list-properties">
+
+                    <div class="properties-name">
+                        <span>Text:</span>
+                        <input id="inptextnode" type="text">
+                    </div>
+
+                    <div class="properties-type">
+                        Type:
+                        <div>
+                            <input id="setnode_positve" title="set node to positive" type="image"
+                                src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))"
+                                style="width: 50px; height: 40px;" />
+
+                            <input id="setnode_negative" title="set node to negative" type="image"
+                                src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))"
+                                style="width: 50px; height: 40px;" />
+
+                            <input id="setnode_ambivalent" title="set node to ambivalent" type="image"
+                                src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
+                                style="width: 50px; height: 40px;" />
+
+                            <input id="setnode_neutral" title="set node to neutral" type="image"
+                                src="./img/neutral_node.svg#svgView(viewBox(0,5,180,120))"
+                                style="width: 50px; height: 40px;" />
+                        </div>
+                    </div>
+                    <div class="properties-strength" id="interactionNodeStrength">
+                        <span>Strength: </span>
+                        <input id="inpvaluenode" type="range" min="1" max="3" value="1" class="slider">
+                    </div>
+
+                    <div class="properties-comment">
+                        <span>Comment:</span>
+                        <textarea id="inpcommentnode"></textarea>
+                    </div>
+
+                    <div style="text-align: left;">
+                        <button id="deleteNode" type="button"> Delete node </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- interactive components: EDGE -->
+            <div class="properties" id="interactionEdge">
+                <div>
+                    <span class="header-panel">Properties of edge:</span>
+                </div>
+                <br>
+                <div>
+                    Type of Link:
+                    <div style="text-align: center;">
+                        <button id="typeEdgeAgree" type="button" class="typeEdgeButton"> Positive support </button>
+                        <br>
+                        <button id="typeEdgeDisagree" type="button" class="typeEdgeButton"> Negative support </button>
+                    </div>
+                    <br>
+                </div>
+                <div class="properties-strength">
+                    Strength: <input id="inpValueEdge" type="range" min="1" max="3" value="1" class="slider">
+                </div>
+
+                <br>
+                <div style="text-align: left;">
+                    <button id="deleteEdge" type="button" class="deletebutton"> Delete edge </button>
+                </div>
+            </div>
+
+
+
+            <div class="information">
+                <div>
+                    <span id="headerrightcomponents"><u>Quick reference:</u></span>
+                </div>
+                <br>
+                Some texts here or some pictures...
+            </div>
+
+        </div>
+    </div>
+    <!-- FOOTER (Copyright) -->
+    <div class="footerdiv">
+        © 2021 Copyright: Florian Gouret &amp; Julius Fenn &amp; ???
+    </div>
+
+</body>
+
+
+
+<script>
+    // const line = "[{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"42b3f504-dffb-4020-b7f3-8693d533b48a\",\"value\":null,\"daughter\":{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":49,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"create connection\",\"value\":null}]}]";
+    // CAM.importElement(line);
+
+    //const line2 = "{\"id\":\"a8c057cb-7cac-4da0-8621-3489f2a0b56e\",\"value\":null,\"daughter\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:49.716Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":50,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:42:50.484Z\",\"type\":\"create connection\",\"value\":null}]}";
+    //CAM.importElement(line2);
+    //CAM.addElements()
+    CAM.addElement(new NodeCAM(1, "Positive concept (can't move, delete me)", {
+        x: 200,
+        y: 100
+    }, false, false));
+    CAM.addElement(new NodeCAM(-1, "Negative concept (can't move, but delete me)", {
+        x: 200,
+        y: 500
+    }, false, true));
+
+    var connector1 = new ConnectorCAM();
+    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], 3, true);
+    CAM.addElement(connector1);
+
+
+
+    /*
+            CAM.addElement(new NodeCAM(3,"Move me",{x:600, y:100}, true, false));
+            CAM.addElement(new NodeCAM(-3,"Strongly negative concept",{x:600, y:500}, false, false));
+
+            CAM.addElement(new NodeCAM(10,"Strongly negative concept",{x:350, y:300}, false, false));
+
+            CAM.addElement(new NodeCAM(0,"Neutral concept",{x:650, y:300}, false, false));
+
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[0], CAM.elements[1], 7, false)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[0], CAM.elements[4], 7, true)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[2], CAM.elements[4], 7, true)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[3], CAM.elements[4], 7, true)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[1], CAM.elements[4], 7, true)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[3], CAM.elements[5], 7, true)
+            CAM.addElement(connector1);
+
+            var connector1 = new ConnectorCAM();
+            connector1.establishConnection(CAM.elements[2], CAM.elements[5], 7, true)
+            CAM.addElement(connector1);
+
+            //CAM.addElement(new NodeCAM(0,"Food",{x:200, y:400}));
+
+    //        CAM.addElement(new NodeCAM(-2,"Food",{x:200, y:500}));
+
+            //CAM.addElement(new NodeCAM(2,"Sea",{x:Math.random()*500, y:Math.random()*500},1,1));
+            //CAM.addElement(new NodeCAM(4,"Cheese",{x:Math.random()*500, y:Math.random()*500},1,1));
+            //CAM.addElement(new NodeCAM(3,"Ham",{x:Math.random()*500, y:Math.random()*500},1,1));
+
+
+         */
+
+
+    CAM.draw();
+</script>
+
+</html>
