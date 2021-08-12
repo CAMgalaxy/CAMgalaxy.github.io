@@ -52,6 +52,12 @@ class NodeCAM {
         this.eventLog = node.eventLog;
     }
 
+    /* set functions */
+    setValue(newValue) {
+        this.value = newValue;
+        return;
+    }
+
     setText(newText) {
         this.text = newText;
         return;
@@ -59,11 +65,6 @@ class NodeCAM {
 
     setComment(newComment) {
         this.comment = newComment;
-        return;
-    }
-
-    setValue(newValue) {
-        this.value = newValue;
         return;
     }
 
@@ -85,22 +86,11 @@ class NodeCAM {
         this.isSelected = val;
     }
 
-    getIsSelected() {
-        return this.isSelected;
-    }
-
-    setConnectorSelected(val) {
+    setIsConnectorSelected(val) { 
         this.isConnectorSelected = val;
     }
 
-    getConnectorSelected() {
-        return this.isConnectorSelected;
-    }
-
-    getPosition() {
-        return this.position;
-    }
-
+    /* get functions */
     getValue() {
         return this.value;
     }
@@ -112,9 +102,22 @@ class NodeCAM {
     getComment() {
         return this.comment;
     }
+    
+    getPosition() {
+        return this.position;
+    }
 
+    
     getIsActive() {
         return this.isActive;
+    }
+
+    getIsSelected() {
+        return this.isSelected;
+    }
+
+    getIsConnectorSelected() { 
+        return this.isConnectorSelected;
     }
 
     getKind() {
@@ -125,15 +128,15 @@ class NodeCAM {
         return this.isDeletable;
     }
 
+    /* functions */
     isConnectToNode(nodeID) {
         const connectedElement = this.wasConnectedTo.filter(elt => elt === nodeID);
         return connectedElement.length === 0 ? false : true;
     }
 
-
     addConnection(nodeID, kind) {
 
-        if (this.isConnectToNode(nodeID)) {
+        if (this.isConnectToNode(nodeID)) { // why this lines of code?
             console.log("A connection is already existing...");
             return false;
         }
@@ -218,7 +221,7 @@ class NodeCAM {
         if (field === "comment") this.setComment(value);
         if (field === "active") this.setIsActive(value);
         if (field === "selected") this.setIsSelected(value);
-        if (field === "connector") this.setConnectorSelected(value);
+        if (field === "connector") this.setIsConnectorSelected(value);
 
     }
 

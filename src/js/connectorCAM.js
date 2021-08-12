@@ -219,14 +219,9 @@ class ConnectorCAM {
 
         if (mother.isSelected || daughter.isSelected) {
             const selectedDraw = this.drawSelected(daughter, dist, angle, compensation);
-            console.log(123);
             group.appendChild(selectedDraw);
         }
-        
-
-
-
-
+    
         return group;
     }
 }

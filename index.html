@@ -45,18 +45,22 @@
 
         <div class="boxCAMSVG">
             <div class="canvas-header-left">
+                <!-- 
                 <i class="material-icons">zoom_in</i>
                 <i class="material-icons">zoom_out</i>
                 <i class="material-icons">fit_screen</i>
+                -->
             </div>
 
             <div class="canvas-header-right">
-                <i class="material-icons">save</i>
+                <div class="material-icons">save</div>
                 <button class="material-icons" onclick="onDownloadSVGfile()"
                     title="Save CAM as picture">crop_original</button>
                 <button class="material-icons" onclick="onDownloadCAMdata()"
                     title="Save CAM as file">vertical_align_bottom</button>
-                <i class="material-icons">vertical_align_top</i>
+                <button class="material-icons"
+                    onclick="uploadCAMdataMain(document.getElementById('getFile').click())">vertical_align_top</button>
+                <input type='file' id="getFile" style="display:none">
                 <button id="deleteCAM" class="material-icons" style="color:red"> delete </button>
             </div>
 
@@ -83,44 +87,48 @@
                 </div>
                 <br>
                 <div class="list-properties">
-
+                    <!-- > adjust text -->
                     <div class="properties-name">
                         <span>Text:</span>
                         <input id="inptextnode" type="text">
                     </div>
-
+                    <!-- > adjust type -->
                     <div class="properties-type">
                         Type:
                         <div>
                             <input id="setnode_positve" title="set node to positive" type="image"
                                 src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))"
-                                style="width: 50px; height: 40px;" />
+                                style="width: 70px; height: 40px;" />
 
                             <input id="setnode_negative" title="set node to negative" type="image"
                                 src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))"
-                                style="width: 50px; height: 40px;" />
+                                style="width: 70px; height: 40px;" />
 
                             <input id="setnode_ambivalent" title="set node to ambivalent" type="image"
                                 src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                                style="width: 50px; height: 40px;" />
+                                style="width: 70px; height: 40px;" />
 
                             <input id="setnode_neutral" title="set node to neutral" type="image"
                                 src="./img/neutral_node.svg#svgView(viewBox(0,5,180,120))"
-                                style="width: 50px; height: 40px;" />
+                                style="width: 70px; height: 40px;" />
                         </div>
                     </div>
+                    <!-- > adjust strength -->
                     <div class="properties-strength" id="interactionNodeStrength">
-                        <span>Strength: </span>
-                        <input id="inpvaluenode" type="range" min="1" max="3" value="1" class="slider">
+                        <span>Strength:</span> <span id="myValueNode"></span>
+                        <div style="text-align:center;">
+                            <input type="range" id="inpvaluenode" min="1" max="3" value="1" style="width: 80%;">
+                        </div>
                     </div>
-
+                    <!-- > adjust comment -->
                     <div class="properties-comment">
                         <span>Comment:</span>
                         <textarea id="inpcommentnode"></textarea>
                     </div>
-
+                    <!-- > delete node -->
+                    <br>
                     <div style="text-align: left;">
-                        <button id="deleteNode" type="button"> Delete node </button>
+                        <button id="deleteNode" type="button" class="typeDeleteButton"> Delete node </button>
                     </div>
                 </div>
             </div>
@@ -131,6 +139,7 @@
                     <span class="header-panel">Properties of edge:</span>
                 </div>
                 <br>
+                <!-- > adjust type of edge -->
                 <div>
                     Type of Link:
                     <div style="text-align: center;">
@@ -138,15 +147,28 @@
                         <br>
                         <button id="typeEdgeDisagree" type="button" class="typeEdgeButton"> Negative support </button>
                     </div>
-                    <br>
                 </div>
+                <!-- > adjust strength -->
+                <br>
                 <div class="properties-strength">
-                    Strength: <input id="inpValueEdge" type="range" min="1" max="3" value="1" class="slider">
+                    <span>Strength:</span> <span id="myValueEdge"></span>
+                    <div style="text-align:center;">
+                        <input type="range" id="inpValueEdge" min="1" max="3" value="1" style="width: 80%;">
+                    </div>
                 </div>
-
+                <!-- > adjust of connectivity of edge -->
+                <div>
+                    Direction of Influence:
+                    <div style="text-align: center;">
+                        <button type="button" class="material-icons" title="Concepts influence each other" class="typeEdgeButton" style="font-size: 50px;">sync_alt</button>
+                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction" class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
+                        <button type="button" class="material-icons" title="Change direction of influence of a one-sided connection" class="typeEdgeButton" style="font-size: 50px;">wifi_protected_setup</button>
+                    </div>
+                </div>
+                <!-- > delete edge -->
                 <br>
                 <div style="text-align: left;">
-                    <button id="deleteEdge" type="button" class="deletebutton"> Delete edge </button>
+                    <button id="deleteEdge" type="button" class="typeDeleteButton"> Delete edge </button>
                 </div>
             </div>
 
@@ -154,10 +176,99 @@
 
             <div class="information">
                 <div>
-                    <span id="headerrightcomponents"><u>Quick reference:</u></span>
+                    <span id="header-panel"><u>Quick reference:</u></span>
                 </div>
-                <br>
-                Some texts here or some pictures...
+
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'QRLegend')">Legend</button>
+                    <button class="tablinks" onclick="openTab(event, 'QRusingSoftware')">Using software</button>
+                    <button class="tablinks" onclick="openTab(event, 'QRButtons')">Buttons</button>
+                </div>
+
+
+                <!-- interactive component: DEFAULT -->
+                <div id="informationDefault"
+                    style="display: flex; align-items: center; height: 150px; text-align: center;">
+                    <i>Please click on the navigation bar if you need help how to draw a Cognitive Affective Map.</i>
+                </div>
+
+
+                <div id="QRLegend" class="tabcontent">
+                    <span onclick="closeTab()" class="topright">&times</span>
+
+                    <h3>Every concept is given a basic emotional value:</h3>
+                    <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                        <li><img src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Positive concept</li>
+                        <li><img src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Negative concept</li>
+                        <li><img src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Ambivalent concept</li>
+                        <li><img src="./img/neutral_node.svg#svgView(viewBox(0,5,180,120))" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Neutral concept</li>
+                        <h3>Draw links between concepts that are related to each other:</h3>
+                        <li><img src="./img/solid_lini_mini.svg" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Concepts support each other
+                        </li>
+                        <li><img src="./img/dashed_lini_mini.svg" alt=""
+                                style="width: 50px; height: 40px; vertical-align:middle;"> Concepts inhibit each other
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="QRusingSoftware" class="tabcontent">
+                    <span onclick="closeTab()" class="topright">&times</span>
+
+                    <h3>concepts: </h3>
+                    <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                        <li><u>to create:</u> click on the area of the white screen</li>
+                        <li><u>to change:</u> click on the drawn concept and you can change the following properties:
+                        </li>
+                        <li style="padding-left: 10px;"><b>Text:</b> content of the concept</li>
+                        <li style="padding-left: 10px;"><b>Type:</b> Emotional attribution of the concept</li>
+                        <li style="padding-left: 10px;"><b>Strength:</b> Strength of the emotional attribution</li>
+                        <li style="padding-left: 10px;"><b>Comment:</b> further explanation</li>
+                        <li><u>to delete:</u> click on the drawn concept and press 'Remove' on the keyboard or use the
+                            delete button</li>
+                        <h3>conncetions: </h3>
+                        <li><u>to create:</u> click on two drawn concepts</li>
+                        <li><u>to change:</u> click on the drawn connection and you can change the following properties:
+                        </li>
+                        <li style="padding-left: 10px;"><b>Type of Link:</b> positive support (solid line) or negative support (dashed line) between the two connected concepts</li>
+                        <li style="padding-left: 10px;"><b>Strength:</b> Strength of the connection</li>
+
+                        <li><u>Direction of Influence:</u> </li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">sync_alt</span> Concepts influence each other</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">wifi_protected_setup</span> Change direction of influence of a one-sided connection</li>
+
+                        <li><u>to delete:</u> click on the drawn concept and press 'Remove' on the keyboard or use the
+                            delete button</li>
+                    </ul>
+                </div>
+
+                <div id="QRButtons" class="tabcontent">
+                    <span onclick="closeTab()" class="topright">&times</span>
+
+                    <h3>Clicking on the buttons in the upper bar leads to the following results: </h3>
+                    <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                        <li>
+                            <div class="material-icons" style="vertical-align:middle;">save</div> save Cognitive
+                            Affective Map
+                        </li>
+                        <br>
+                        <li>
+                            <div class="material-icons" style="vertical-align:middle;">crop_original</div> download
+                            Cognitive Affective Map
+                        </li>
+                        <br>
+                        <li>
+                            <div class="material-icons" style="color:red; vertical-align:middle;">delete</div> delete
+                            Cognitive Affective Map
+                        </li>
+                    </ul>
+
+                </div>
             </div>
 
         </div>
@@ -168,6 +279,7 @@
     </div>
 
 </body>
+
 
 
 
@@ -192,54 +304,6 @@
     CAM.addElement(connector1);
 
 
-
-    /*
-            CAM.addElement(new NodeCAM(3,"Move me",{x:600, y:100}, true, false));
-            CAM.addElement(new NodeCAM(-3,"Strongly negative concept",{x:600, y:500}, false, false));
-
-            CAM.addElement(new NodeCAM(10,"Strongly negative concept",{x:350, y:300}, false, false));
-
-            CAM.addElement(new NodeCAM(0,"Neutral concept",{x:650, y:300}, false, false));
-
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[0], CAM.elements[1], 7, false)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[0], CAM.elements[4], 7, true)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[2], CAM.elements[4], 7, true)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[3], CAM.elements[4], 7, true)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[1], CAM.elements[4], 7, true)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[3], CAM.elements[5], 7, true)
-            CAM.addElement(connector1);
-
-            var connector1 = new ConnectorCAM();
-            connector1.establishConnection(CAM.elements[2], CAM.elements[5], 7, true)
-            CAM.addElement(connector1);
-
-            //CAM.addElement(new NodeCAM(0,"Food",{x:200, y:400}));
-
-    //        CAM.addElement(new NodeCAM(-2,"Food",{x:200, y:500}));
-
-            //CAM.addElement(new NodeCAM(2,"Sea",{x:Math.random()*500, y:Math.random()*500},1,1));
-            //CAM.addElement(new NodeCAM(4,"Cheese",{x:Math.random()*500, y:Math.random()*500},1,1));
-            //CAM.addElement(new NodeCAM(3,"Ham",{x:Math.random()*500, y:Math.random()*500},1,1));
-
-
-         */
 
 
     CAM.draw();

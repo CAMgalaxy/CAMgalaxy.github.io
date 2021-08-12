@@ -2,7 +2,7 @@ class Elements {
     constructor() {
         this.idCAM = uuid.v4();
         this.date = (new Date).getUTCSeconds();
-        this.elements = [];
+        this.elements = []; // delete -> empty array
         this.nodes = [];
         this.connectors = [];
         this.currentNode = null;
