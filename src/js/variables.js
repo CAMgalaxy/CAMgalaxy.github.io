@@ -33,5 +33,7 @@ polyL.setAttribute("points", "0 0, 10 3.5, 0 7");
 arrowLeft.appendChild(polyL);
 arrow.appendChild(arrowRight);
 
-// variables front end
-//var jsonObj = null;
+/* variables front end */
+// colors for highlighting selected elements
+const highlightSelected = "#33FFFF";
+const highlightAdjacent = "#C0C0C0";

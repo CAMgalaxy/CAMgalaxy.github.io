@@ -1,35 +1,19 @@
+/* *** INTERACTION PANEL RIGHT *** */
 $(function () {
-
+    /* default setting of interaction panel: */
     $('#interactionNode').hide();
     $('#interactionEdge').hide();
     $('#interactionDefault').show();
 
-
-    /* ... */
-    $("#deleteNode").on("click", (evt) => {
-        console.log("Deleted using botton");
-        CAM.deleteElement();
+    /* interactive components: NODE */
+    // > text
+    $('#inptextnode').on("input", function () {
+        console.log(this.value);
+        CAM.updateElement("text", this.value);
+        CAM.draw();
     });
 
-    $("#deleteEdge").on("click", (evt) => {
-        console.log("Deleted using botton");
-        CAM.deleteElement();
-    });
-
-
-    /* single buttons: */
-    $("#deleteCAM").on("click", () => {
-        let confirmdel = confirm("Do you really want to delete your CAM?");
-        if (confirmdel == true) {
-            CAM.connectors = [];
-            CAM.nodes = [];
-
-            console.log("complete CAM has been deleted");
-            CAM.draw();
-        }
-    });
-
-    /* single buttons for nodes: */
+    // > type
     $("#setnode_positve").on("click", () => {
         CAM.updateElement("value", 1);
         CAM.draw();
@@ -47,6 +31,20 @@ $(function () {
         CAM.draw();
     });
 
+    // > strength
+    $('#inpvaluenode').on("input", function () {
+        var myRange = document.querySelector('#inpvaluenode');
+        var myValue = document.querySelector('#myValueNode');
+
+        if (myRange.value === "1") {
+            myValue.innerHTML = "low";
+        } else if (myRange.value === "2") {
+            myValue.innerHTML = "middle";
+        } else if (myRange.value === "3") {
+            myValue.innerHTML = "high";
+        }
+    });
+
     $('#inpvaluenode').on("input", function () {
         console.log(this.value);
         if (CAM.currentNode != null) {
@@ -60,22 +58,22 @@ $(function () {
         }
     });
 
+    // > comment
+    $('#inpcommentnode').on("input", function () {
+        console.log(this.value);
+        CAM.updateElement("comment", this.value);
+        CAM.draw();
+    });
 
-    $('#inpvaluenode').on("input", function () {
-        var myRange = document.querySelector('#inpvaluenode');
-        var myValue = document.querySelector('#myValueNode');
-
-        if(myRange.value === "1"){
-            myValue.innerHTML = "low"; 
-        } else if(myRange.value === "2"){
-            myValue.innerHTML = "middle"; 
-        } else if(myRange.value === "3"){
-            myValue.innerHTML = "high"; 
-        } 
+    // > delete
+    $("#deleteNode").on("click", (evt) => {
+        console.log("Deleted using botton");
+        CAM.deleteElement();
     });
 
 
-    /* single buttons for edges: */
+    /* interactive components: EDGE */
+    // > type of edge
     $("#typeEdgeAgree").on("click", () => {
         CAM.currentConnector.setAgreement(true);
         CAM.draw();
@@ -86,6 +84,20 @@ $(function () {
         CAM.draw();
     });
 
+    // > strength
+    $('#inpValueEdge').on("input", function () {
+        var myRange = document.querySelector('#inpValueEdge');
+        var myValue = document.querySelector('#myValueEdge');
+
+        if (myRange.value === "1") {
+            myValue.innerHTML = "low";
+        } else if (myRange.value === "2") {
+            myValue.innerHTML = "middle";
+        } else if (myRange.value === "3") {
+            myValue.innerHTML = "high";
+        }
+    });
+
     $('#inpValueEdge').on("input", function () {
         console.log(this.value);
         if (CAM.currentConnector != null) {
@@ -94,60 +106,18 @@ $(function () {
         }
     });
 
+    // > PLACEHOLDER: direction of influence
 
-    $('#inpValueEdge').on("input", function () {
-        var myRange = document.querySelector('#inpValueEdge');
-        var myValue = document.querySelector('#myValueEdge'); 
-
-        if(myRange.value === "1"){
-            myValue.innerHTML = "low"; 
-        } else if(myRange.value === "2"){
-            myValue.innerHTML = "middle"; 
-        } else if(myRange.value === "3"){
-            myValue.innerHTML = "high"; 
-        } 
+    // > delete
+    $("#deleteEdge").on("click", (evt) => {
+        console.log("Deleted using botton");
+        CAM.deleteElement();
     });
 
-
-    $('#inptextnode').on("input", function () {
-        console.log(this.value);
-        CAM.updateElement("text", this.value);
-        CAM.draw();
-    });
-
-    $('#inpcommentnode').on("input", function () {
-        console.log(this.value);
-        CAM.updateElement("comment", this.value);
-        CAM.draw();
-    });
-
-
-
-/* old approach
-    $("#buttonupload").on("click", () => {
-        console.log("ok");
-
-        document.getElementById("buttonupload").onclick = async () => {
-            try {
-                //some code here which call some async function (not related so not writing here) 
-                alert('clicked.');
-            } catch (e) {
-                log(e);
-            }
-        };
-    });
-    */
 })
 
-
-/* single buttons: */
-/* > upload CAM as JSON file
-adjusted: https://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
-https://stackoverflow.com/questions/23344776/how-to-access-data-of-uploaded-json-file
-*/
-
-
-/* quick reference: */
+/* interactive components: INFORMATION */
+// > open single div using navigation bar
 function openTab(evt, QRname) {
     $('#informationDefault').hide();
 
@@ -164,6 +134,7 @@ function openTab(evt, QRname) {
     evt.currentTarget.className += " active";
 }
 
+// > closing active div clicking on cross topright
 function closeTab() {
     $('#informationDefault').show();
 
@@ -178,7 +149,51 @@ function closeTab() {
     }
 }
 
+/* *** BUTTON TOPS *** */
+// > PLACEHOLDER: save CAM
 
+/* > save SVG object as svg file
+adjusted: https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an */
+function downloadCAMsvg(svgEl, fileName) {
+    svgEl.setAttribute("xmlns", svgns);
+    var svgData = svgEl.outerHTML;
+    var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    var svgBlob = new Blob([preface, svgData], {
+        type: "image/svg+xml;charset=utf-8"
+    });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(svgBlob);
+    a.download = fileName;
+    a.click();
+}
+
+function onDownloadSVGfile() {
+    console.log("CAM picture (svg) has been saved");
+    downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.idCAM + ".svg");
+}
+
+
+/* > save CAM object as JSON file
+http://www.4codev.com/javascript/download-save-json-content-to-local-file-in-javascript-idpx473668115863369846.html */
+function downloadCAMdata(content, fileName, contentType) {
+    const a = document.createElement("a");
+    const file = new Blob([content], {
+        type: contentType
+    });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+function onDownloadCAMdata() {
+    console.log("CAM data has been saved");
+    downloadCAMdata(JSON.stringify(CAM), "CAMdata-" + CAM.idCAM + ".json", "text/plain");
+}
+
+
+/* > upload CAM as JSON file
+adjusted: https://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
+https://stackoverflow.com/questions/23344776/how-to-access-data-of-uploaded-json-file */
 async function uploadCAMdataMain() {
     // ! delete complete CAM if you import complete CAM
     // > if CAM is updated
@@ -212,10 +227,6 @@ async function uploadCAMdataMain() {
     return;
 }
 
-
-
-
-
 async function fileToJSON(file) {
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader()
@@ -224,8 +235,6 @@ async function fileToJSON(file) {
         fileReader.readAsText(file.item(0))
     })
 }
-
-
 
 async function drawCAMdata(jsonObj) {
     // draw nodes
@@ -262,40 +271,46 @@ async function drawCAMdata(jsonObj) {
 }
 
 
-/* > save CAM object as JSON file
-http://www.4codev.com/javascript/download-save-json-content-to-local-file-in-javascript-idpx473668115863369846.html 
-*/
-function downloadCAMdata(content, fileName, contentType) {
-    const a = document.createElement("a");
-    const file = new Blob([content], {
-        type: contentType
-    });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-}
+// > delete complete CAM
+$(function () {
+    $("#deleteCAM").on("click", () => {
+        let confirmdel = confirm("Do you really want to delete your CAM?");
+        if (confirmdel == true) {
+            CAM.connectors = [];
+            CAM.nodes = [];
 
-function onDownloadCAMdata() {
-    console.log("CAM data has been saved");
-    downloadCAMdata(JSON.stringify(CAM), "CAMdata-" + CAM.idCAM + ".json", "text/plain");
-}
-/* > save SVG object as svg file
-adjusted: https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an
-*/
-function downloadCAMsvg(svgEl, fileName) {
-    svgEl.setAttribute("xmlns", svgns);
-    var svgData = svgEl.outerHTML;
-    var preface = '<?xml version="1.0" standalone="no"?>\r\n';
-    var svgBlob = new Blob([preface, svgData], {
-        type: "image/svg+xml;charset=utf-8"
+            console.log("complete CAM has been deleted");
+            CAM.draw();
+        }
     });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(svgBlob);
-    a.download = fileName;
-    a.click();
-}
+})
 
-function onDownloadSVGfile() {
-    console.log("CAM picture (svg) has been saved");
-    downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.idCAM + ".svg");
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* old approach upload CAM as JSON file
+    $("#buttonupload").on("click", () => {
+        console.log("ok");
+
+        document.getElementById("buttonupload").onclick = async () => {
+            try {
+                //some code here which call some async function (not related so not writing here) 
+                alert('clicked.');
+            } catch (e) {
+                log(e);
+            }
+        };
+    });
+    */

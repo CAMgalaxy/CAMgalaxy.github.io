@@ -1,3 +1,4 @@
+/* handle interaction panel: hide */
 function hideallInteractions() {
     $('#interactionDefault').hide();
     $('#interactionNode').hide();
@@ -64,13 +65,12 @@ $(document).on("mouseup", ".node", function (event) {
     }
 });
 
+
+/* for what these two event handlers??? */
 $(document).on("click", ".connector", function (event) {
     resetConnectorSelection();
     resetNodeSelection();
     CAM.selectConnection($(this)[0].id)
-
-    hideallInteractions();
-    $('#interactionEdge').show();
 
     CAM.draw();
 });
@@ -80,11 +80,8 @@ $(document).on("click", ".outer-connector", function (event) {
     resetNodeSelection();
     CAM.selectConnection($(this)[0].id)
 
-    hideallInteractions();
-    $('#interactionEdge').show();
     CAM.draw();
 });
-
 
 
 $(document).on("mousedown", ".connector, .outer-connector", function (event) {
@@ -93,6 +90,8 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
     CAM.selectConnection($(this)[0].id);
 
     if (CAM.currentConnector != null) {
+        document.getElementById("inpValueEdge").value = CAM.currentConnector.getIntensity() / 3;
+
         // get current strength of connection
         var myRange = document.querySelector('#inpValueEdge');
         var myValue = document.querySelector('#myValueEdge');
@@ -105,10 +104,8 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
             myValue.innerHTML = "high";
         }
 
-
         hideallInteractions();
         $('#interactionEdge').show();
-        console.log("AAAA 123")
     }
 
 
@@ -136,7 +133,7 @@ $(document).on("click", "#background", function (event) {
 });
 
 
-
+/* for what these two event handlers??? */
 $(document).on("mousemove", "#CAMSVG", function (event) {
     const positionClick = {
         x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,

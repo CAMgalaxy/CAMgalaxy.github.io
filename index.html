@@ -85,8 +85,8 @@
                 <div>
                     <span class="header-panel">Properties of element:</span>
                 </div>
-                <br>
-                <div class="list-properties">
+        
+                <div style="margin-top: 5px;">
                     <!-- > adjust text -->
                     <div class="properties-name">
                         <span>Text:</span>
@@ -160,9 +160,9 @@
                 <div>
                     Direction of Influence:
                     <div style="text-align: center;">
-                        <button type="button" class="material-icons" title="Concepts influence each other" class="typeEdgeButton" style="font-size: 50px;">sync_alt</button>
-                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction" class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
-                        <button type="button" class="material-icons" title="Change direction of influence of a one-sided connection" class="typeEdgeButton" style="font-size: 50px;">wifi_protected_setup</button>
+                        <button type="button" class="material-icons" title="Concepts influence each other." class="typeEdgeButton" style="font-size: 50px;">sync_alt</button>
+                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction from left to right." class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
+                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction from right to left." class="typeEdgeButton" style="font-size: 50px; transform: scale(-1);">trending_flat</button>
                     </div>
                 </div>
                 <!-- > delete edge -->
@@ -178,7 +178,6 @@
                 <div>
                     <span id="header-panel"><u>Quick reference:</u></span>
                 </div>
-
                 <div class="tab">
                     <button class="tablinks" onclick="openTab(event, 'QRLegend')">Legend</button>
                     <button class="tablinks" onclick="openTab(event, 'QRusingSoftware')">Using software</button>
@@ -188,7 +187,7 @@
 
                 <!-- interactive component: DEFAULT -->
                 <div id="informationDefault"
-                    style="display: flex; align-items: center; height: 150px; text-align: center;">
+                    style="position: relative;align-items: center; margin-top: 50px; text-align: center;">
                     <i>Please click on the navigation bar if you need help how to draw a Cognitive Affective Map.</i>
                 </div>
 
@@ -239,8 +238,8 @@
 
                         <li><u>Direction of Influence:</u> </li>
                         <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">sync_alt</span> Concepts influence each other</li>
-                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction</li>
-                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">wifi_protected_setup</span> Change direction of influence of a one-sided connection</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction from left to right.</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle; transform: scale(-1);" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction from right to left.</li>
 
                         <li><u>to delete:</u> click on the drawn concept and press 'Remove' on the keyboard or use the
                             delete button</li>
@@ -298,6 +297,16 @@
         x: 200,
         y: 500
     }, false, true));
+
+
+    CAM.addElement(new NodeCAM(0, "Neutral concept", {
+        x: 500,
+        y: 100
+    }, true, true));
+    CAM.addElement(new NodeCAM(10, "Ambivalent concept", {
+        x: 500,
+        y: 500
+    }, true, true));
 
     var connector1 = new ConnectorCAM();
     connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], 3, true);

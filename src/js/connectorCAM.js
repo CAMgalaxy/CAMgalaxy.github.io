@@ -21,11 +21,55 @@ class ConnectorCAM {
 
     }
 
+    /* set functions */
     setValue(newValue) {
         this.value = newValue;
     }
 
+    setShape() {
+        if (this.value < 0) this.shape = "negative";
+        if (this.value > 0) this.shape = "positive";
+        if (this.value == 0) this.shape = "neutral";
+    }
 
+    setIsSelected(val) {
+        this.isSelected = val;
+    }
+
+    setIsActive(val) {
+        if (this.isDeletable) {
+            this.isActive = val;
+        }
+    }
+
+    setAgreement(val) {
+        this.agreement = val;
+    }
+
+
+      /* get functions */
+      getId() {
+        return this.id;
+    }
+
+    getIsActive() {
+        return this.isActive;
+    }
+
+    getKind() {
+        return this.kind;
+    }
+
+    getSelected() {
+        return this.isSelected;
+    }
+
+    getIntensity() {
+        return this.intensity;
+    }
+
+
+    /* functions */
     updateConnector(field, value) {
 
         this.enterLog({
@@ -40,11 +84,7 @@ class ConnectorCAM {
 
     }
 
-    setShape() {
-        if (this.value < 0) this.shape = "negative";
-        if (this.value > 0) this.shape = "positive";
-        if (this.value == 0) this.shape = "neutral";
-    }
+ 
 
     establishConnection(mother, daughter, intensity, agreement) {
 
@@ -89,35 +129,7 @@ class ConnectorCAM {
         return true;
     }
 
-    getKind() {
-        return this.kind;
-    }
-
-    setIsSelected(val) {
-        this.isSelected = val;
-    }
-
-    getSelected() {
-        return this.isSelected;
-    }
-
-    getIsActive() {
-        return this.isActive;
-    }
-
-    setIsActive(val) {
-        if (this.isDeletable) {
-            this.isActive = val;
-        }
-    }
-
-    setAgreement(val) {
-        this.agreement = val;
-    }
-
-    getId() {
-        return this.id;
-    }
+    
 
     enterLog(log) {
         this.eventLog.push({
@@ -150,7 +162,7 @@ class ConnectorCAM {
         newRect.setAttribute("marker-end", "url(#arrowLeft)");
 
         if (this.isSelected === true) {
-            newRect.setAttribute("stroke", "red");
+            newRect.setAttribute("stroke", highlightSelected);
         }
 
         if (this.agreement === true) {

@@ -86,7 +86,7 @@ class NodeCAM {
         this.isSelected = val;
     }
 
-    setIsConnectorSelected(val) { 
+    setIsConnectorSelected(val) {
         this.isConnectorSelected = val;
     }
 
@@ -102,12 +102,12 @@ class NodeCAM {
     getComment() {
         return this.comment;
     }
-    
+
     getPosition() {
         return this.position;
     }
 
-    
+
     getIsActive() {
         return this.isActive;
     }
@@ -116,7 +116,7 @@ class NodeCAM {
         return this.isSelected;
     }
 
-    getIsConnectorSelected() { 
+    getIsConnectorSelected() {
         return this.isConnectorSelected;
     }
 
@@ -278,72 +278,171 @@ class NodeCAM {
         return newText;
     }
 
+
     getShapeSVG() {
-
-        let newRect = document.createElementNS(svgns, "ellipse");
-        newRect.setAttribute("id", this.id);
-        newRect.setAttribute("class", "node");
-        newRect.setAttribute(null, "cx", 0);
-        newRect.setAttribute(null, "cy", 0);
-        newRect.setAttribute("rx", "100");
-        newRect.setAttribute("ry", "70");
-        newRect.setAttribute("transform", "translate(0,0)")
-
-        if (this.value < 0) {
-            newRect.setAttribute("fill", "#EB8989");
-            newRect.setAttribute("stroke", "#e04848");
-            newRect.setAttribute("stroke-width", this.value * -3);
-            if (this.isSelected === true) {
-                newRect.setAttribute("stroke", "black");
-            }
-            if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", "#B7F3FA");
-            }
-            return newRect;
-        }
-
-        if (this.value === 0) {
-            newRect.setAttribute("fill", "#F0EEC0");
-            newRect.setAttribute("stroke", "#F3F033");
-            newRect.setAttribute("stroke-width", "5");
-            if (this.isSelected === true) {
-                newRect.setAttribute("stroke", "black");
-            }
-            if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", "#B7F3FA");
-            }
-            return newRect;
-        }
-
+        // positive concept
         if (this.value >= 1 && this.value < 5) {
+            let newRect = document.createElementNS(svgns, "ellipse");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute(null, "cx", 0);
+            newRect.setAttribute(null, "cy", 0);
+            newRect.setAttribute("rx", "100");
+            newRect.setAttribute("ry", "70");
+            newRect.setAttribute("transform", "translate(0,0)")
+
             newRect.setAttribute("fill", "#B9F1B9");
             newRect.setAttribute("stroke", "#22AA22");
             newRect.setAttribute("stroke-width", this.value * 3);
 
             if (this.isSelected === true) {
                 newRect.setAttribute("fill", "#C0FAC8");
-                newRect.setAttribute("stroke", "black");
+                newRect.setAttribute("stroke", highlightSelected);
             }
             if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", "#B7F3FA");
+                newRect.setAttribute("fill", highlightAdjacent);
             }
             return newRect;
         }
 
+        // negative concept
+        if (this.value < 0) {
+            let newRect = document.createElementNS(svgns, "polygon");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
+            newRect.setAttribute("transform", "translate(0,0)")
+
+            newRect.setAttribute("fill", "#EB8989");
+            newRect.setAttribute("stroke", "#e04848");
+            newRect.setAttribute("stroke-width", this.value * -3);
+            if (this.isSelected === true) {
+                newRect.setAttribute("stroke", highlightSelected);
+            }
+            if (this.isConnectorSelected === true) {
+                newRect.setAttribute("fill", highlightAdjacent);
+            }
+            return newRect;
+        }
+
+        // ambivalent concept
+        /*
+approximation ellipse using polygon: https://stackoverflow.com/questions/22694850/approximating-an-ellipse-with-a-polygon
+append child: https://stackoverflow.com/questions/55286191/combine-two-svg-elements-into-one-using-javascript
+            */
+           /*
         if (this.value === 10) {
+            var mergedSvg = document.createElementNS(svgns, 'svg');
+            // ellipse
+            let newRect2 = document.createElementNS(svgns, "ellipse");
+            newRect2.setAttribute(null, "cx", 0);
+            newRect2.setAttribute(null, "cy", 0);
+            newRect2.setAttribute("rx", "100");
+            newRect2.setAttribute("ry", "70");
+            newRect2.setAttribute("transform", "translate(0,0)")
+
+            newRect2.setAttribute("fill", "rgb(247, 151, 226)");
+            newRect2.setAttribute("stroke", "rgb(142, 19, 146)");
+            newRect2.setAttribute("stroke-width", "3");
+
+            // polygon
+            let newRect = document.createElementNS(svgns, "polygon");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
+            newRect.setAttribute("transform", "translate(0,0)")
+
             newRect.setAttribute("fill", "rgb(247, 151, 226)");
             newRect.setAttribute("stroke", "rgb(142, 19, 146)");
             newRect.setAttribute("stroke-width", "3");
 
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", "black");
+                newRect.setAttribute("stroke", highlightSelected);
+            }
+            if (this.isConnectorSelected === true) {
+                newRect.setAttribute("fill", highlightAdjacent);
+            }
+
+            mergedSvg.appendChild(newRect);
+            mergedSvg.appendChild(newRect2);
+
+            return mergedSvg;
+        }
+*/
+
+
+        if (this.value === 10) {
+            let newRect = document.createElementNS(svgns, "polygon");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
+            newRect.setAttribute("transform", "translate(0,0)")
+
+            newRect.setAttribute("fill", "rgb(247, 151, 226)");
+            newRect.setAttribute("stroke", "rgb(142, 19, 146)");
+            newRect.setAttribute("stroke-width", "3");
+
+            if (this.isSelected === true) {
+                newRect.setAttribute("stroke", highlightSelected);
+            }
+            if (this.isConnectorSelected === true) {
+                newRect.setAttribute("fill", highlightAdjacent);
             }
 
             return newRect;
         }
 
-    }
+        if (this.value === 10) {
+            let newRect = document.createElementNS(svgns, "ellipse");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute(null, "cx", 0);
+            newRect.setAttribute(null, "cy", 0);
+            newRect.setAttribute("rx", "100");
+            newRect.setAttribute("ry", "70");
+            newRect.setAttribute("transform", "translate(0,0)")
 
+            newRect.setAttribute("fill", "rgb(247, 151, 226)");
+            newRect.setAttribute("stroke", "rgb(142, 19, 146)");
+            newRect.setAttribute("stroke-width", "3");
+
+            if (this.isSelected === true) {
+                newRect.setAttribute("stroke", highlightSelected);
+            }
+            if (this.isConnectorSelected === true) {
+                newRect.setAttribute("fill", highlightAdjacent);
+            }
+
+            return newRect;
+        }
+
+
+        // neutral concept
+        if (this.value === 0) {
+            let newRect = document.createElementNS(svgns, "rect");
+            newRect.setAttribute("id", this.id);
+            newRect.setAttribute("class", "node");
+            newRect.setAttribute("x", -100);
+            newRect.setAttribute("y", -60);
+            newRect.setAttributeNS(null, 'width', '200');
+            newRect.setAttributeNS(null, 'height', '120');
+            newRect.setAttribute("transform", "translate(0,0)")
+
+            newRect.setAttribute("fill", "#F0EEC0");
+            newRect.setAttribute("stroke", "#F3F033");
+            newRect.setAttribute("stroke-width", "5");
+            if (this.isSelected === true) {
+                newRect.setAttribute("stroke", highlightSelected);
+            }
+            if (this.isConnectorSelected === true) {
+                newRect.setAttribute("fill", highlightAdjacent);
+            }
+            return newRect;
+        }
+    }
 }
+
+
+
 
 //module.exports = NodeCAM;
