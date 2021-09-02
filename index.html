@@ -7,17 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/toastrmin.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"
         integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./src/js/jquery.js" crossorigin="anonymous"></script>
+    <script src="./src/js/jqueryUI.js" crossorigin="anonymous"></script>
+    <script src="./src/js/toastrmin.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     <script src="./src/js/Elements.js" crossorigin="anonymous"></script>
     <script src="./src/js/variables.js" crossorigin="anonymous"></script>
     <script src="./src/js/nodeCAM.js" crossorigin="anonymous"></script>
     <script src="./src/js/connectorCAM.js" crossorigin="anonymous"></script>
     <script src="./src/js/eventListeners_backend.js"></script>
     <script src="./src/js/eventListeners_frontend.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="./src/js/cytoscapemin.js" crossorigin="anonymous"></script>
+    <script src="./src/js/preprocessingCAM.js"></script>
+    <script src="./src/js/postprocessingCAM.js"></script>
+
 
 
 
@@ -25,19 +36,16 @@
 
 </head>
 
-
-
 <body>
+
     <!-- HEADER -->
     <div class="headerdiv">
         <div style="float:left;width:80%">
-            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive Affective Maps</span>
+            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive-Affective Maps</span>
+
             <img src="./img/logoCAM.svg" alt="img Valence logo not found" style="height:3rem; width:auto;">
         </div>
-        <div style="float:right;width:20%; text-align:right;">
-            <span>CAM Project: X</span>
-            <i class="material-icons">cancel</i>
-        </div>
+
     </div>
 
     <!-- SVG, components  -->
@@ -53,15 +61,17 @@
             </div>
 
             <div class="canvas-header-right">
-                <div class="material-icons">save</div>
+                <button id="gen" class="material-icons" title="Save CAM" style="color:red"> save </button>
+                <button id="saveCAM" class="material-icons" title="Save CAM"> save </button>
+
                 <button class="material-icons" onclick="onDownloadSVGfile()"
                     title="Save CAM as picture">crop_original</button>
                 <button class="material-icons" onclick="onDownloadCAMdata()"
                     title="Save CAM as file">vertical_align_bottom</button>
-                <button class="material-icons"
-                    onclick="uploadCAMdataMain(document.getElementById('getFile').click())">vertical_align_top</button>
+                <button class="material-icons" onclick="uploadCAMdataMain(document.getElementById('getFile').click())"
+                    title="Upload CAM from file">vertical_align_top</button>
                 <input type='file' id="getFile" style="display:none">
-                <button id="deleteCAM" class="material-icons" style="color:red"> delete </button>
+                <button id="deleteCAM" class="material-icons" style="color:red" title="Delete CAM"> delete </button>
             </div>
 
             <div class="CAMContainer">
@@ -82,94 +92,150 @@
 
             <!-- interactive components: NODE -->
             <div class="properties" id="interactionNode">
-                <div>
+                <div style="padding-bottom: 20px;">
                     <span class="header-panel">Properties of element:</span>
+                    <span style=" float:right;">
+                        <!-- > delete node -->
+                        <button id="deleteNode" type="button" class="typeDeleteButton" title="Delete node"> Delete
+                        </button>
+
+                    </span>
                 </div>
-        
+
                 <div style="margin-top: 5px;">
+
                     <!-- > adjust text -->
                     <div class="properties-name">
-                        <span>Text:</span>
-                        <input id="inptextnode" type="text">
+                        <div style="border: 1px solid #000; width: 150px;">Text:</div>
+                        <div style="border: 1px solid #000; text-align:center; ">
+                            <input id="inptextnode" type="text"
+                                style="width: 95%; text-align: center;   margin: auto; display: block;">
+                        </div>
                     </div>
+
                     <!-- > adjust type -->
                     <div class="properties-type">
-                        Type:
-                        <div>
-                            <input id="setnode_positve" title="set node to positive" type="image"
+                        <div style="border: 1px solid #000; width: 150px;">Type:</div>
+                        <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
+                            <input id="setnode_positve" title="Set node to positive" type="image"
                                 src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))"
                                 style="width: 70px; height: 40px;" />
 
-                            <input id="setnode_negative" title="set node to negative" type="image"
+                            <input id="setnode_negative" title="Set node to negative" type="image"
                                 src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))"
                                 style="width: 70px; height: 40px;" />
 
-                            <input id="setnode_ambivalent" title="set node to ambivalent" type="image"
+                            <input id="setnode_ambivalent" title="Set node to ambivalent" type="image"
                                 src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
                                 style="width: 70px; height: 40px;" />
 
-                            <input id="setnode_neutral" title="set node to neutral" type="image"
-                                src="./img/neutral_node.svg#svgView(viewBox(0,5,180,120))"
+                            <input id="setnode_neutral" title="Set node to neutral" type="image"
+                                src="./img/neutral_node.svg#svgView(viewBox(0,-3,180,120))"
                                 style="width: 70px; height: 40px;" />
                         </div>
                     </div>
+
                     <!-- > adjust strength -->
                     <div class="properties-strength" id="interactionNodeStrength">
-                        <span>Strength:</span> <span id="myValueNode"></span>
-                        <div style="text-align:center;">
+                        <div style="border: 1px solid #000; width: 150px; display: inline-block;">Strength: </div>
+
+                        <span id="myValueNode" style="margin-left: 10%;"></span>
+                        <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
                             <input type="range" id="inpvaluenode" min="1" max="3" value="1" style="width: 80%;">
                         </div>
                     </div>
+
                     <!-- > adjust comment -->
                     <div class="properties-comment">
-                        <span>Comment:</span>
-                        <textarea id="inpcommentnode"></textarea>
+                        <div style="border: 1px solid #000; width: 150px;">Comment:</div>
+
+                        <div style="border: 1px solid #000; text-align:center; ">
+                            <textarea id="inpcommentnode"
+                                style="width: 95%; text-align: left; margin: auto; display: block;"></textarea>
+
+                        </div>
                     </div>
-                    <!-- > delete node -->
-                    <br>
-                    <div style="text-align: left;">
-                        <button id="deleteNode" type="button" class="typeDeleteButton"> Delete node </button>
+
+                    <!-- for researcher only -->
+                    <div>
+                        <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to
+                            researchers:</div>
+                        <button id="ResErasabilityNode" type="button" class="typeResearcherButton"
+                            style="font-size: small;">
+                            Erasability
+                        </button> <span style="font-size: small;"> selected node cannot be deleted </span>
                     </div>
+                    <div>
+                        <button id="ResManoeuvrability" type="button" class="typeResearcherButton"
+                            style="font-size: small;">
+                            Manoeuvrability
+                        </button> <span style="font-size: small;"> selected node cannot be moved  </span>
+                    </div>
+
                 </div>
             </div>
 
+
+
+
             <!-- interactive components: EDGE -->
             <div class="properties" id="interactionEdge">
-                <div>
+                <div style="padding-bottom: 20px;">
                     <span class="header-panel">Properties of edge:</span>
+                    <span style=" float:right;">
+                        <!-- > delete edge -->
+                        <button id="deleteEdge" type="button" class="typeDeleteButton" title="Delete node"> Delete
+                        </button>
+                    </span>
                 </div>
-                <br>
+
                 <!-- > adjust type of edge -->
-                <div>
+                <div style="border: 1px solid #000; width: 150px;">
                     Type of Link:
-                    <div style="text-align: center;">
-                        <button id="typeEdgeAgree" type="button" class="typeEdgeButton"> Positive support </button>
-                        <br>
-                        <button id="typeEdgeDisagree" type="button" class="typeEdgeButton"> Negative support </button>
-                    </div>
                 </div>
+                <div style="text-align: center; border: 1px solid #000; text-align:center; background-color: #ffffff; ">
+                    <button id="typeEdgeAgree" type="button" class="typeEdgeButton" title="supportive connection"
+                        style="width: 80%; text-align: center;   ">
+                        Positive support </button>
+                    <br>
+                    <button id="typeEdgeDisagree" type="button" class="typeEdgeButton" title="unsupportive connection"
+                        style="width: 80%; text-align: center;   "> Negative support </button>
+                </div>
+
                 <!-- > adjust strength -->
-                <br>
-                <div class="properties-strength">
-                    <span>Strength:</span> <span id="myValueEdge"></span>
-                    <div style="text-align:center;">
+                <div class="properties-strength" style="padding-top: 10px;">
+                    <div style="border: 1px solid #000; width: 150px; display: inline-block;">Strength: </div>
+                    <span id="myValueEdge" style="margin-left: 10%;"></span>
+
+                    <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
+
                         <input type="range" id="inpValueEdge" min="1" max="3" value="1" style="width: 80%;">
                     </div>
                 </div>
+
                 <!-- > adjust of connectivity of edge -->
-                <div>
+                <div style="border: 1px solid #000; width: 150px;">
                     Direction of Influence:
-                    <div style="text-align: center;">
-                        <button type="button" class="material-icons" title="Concepts influence each other." class="typeEdgeButton" style="font-size: 50px;">sync_alt</button>
-                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction from left to right." class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
-                        <button type="button" class="material-icons" title="Concepts influence each other in a one-sided direction from right to left." class="typeEdgeButton" style="font-size: 50px; transform: scale(-1);">trending_flat</button>
-                    </div>
                 </div>
-                <!-- > delete edge -->
-                <br>
-                <div style="text-align: left;">
-                    <button id="deleteEdge" type="button" class="typeDeleteButton"> Delete edge </button>
+                <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
+
+                    <button id="bidirectional" type="button" class="material-icons"
+                        title="Concepts influence each other" class="typeEdgeButton"
+                        style="font-size: 50px;">sync_alt</button>
+                    <button id="monodirectional" type="button" class="material-icons"
+                        title="Concepts influence each other in a one-sided direction. Press button multiple times to change direction"
+                        class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
                 </div>
+
+
+                        <!-- for researcher only -->
+                        <div>
+                            <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to researchers:</div>
+                            <button id="ResErasabilityConnector" type="button" class="typeResearcherButton" style="font-size: small;"> 
+                                Erasability
+                            </button> <span style="font-size: small;"> selected connection cannot be deleted </span>
+                        </div>
+
             </div>
 
 
@@ -233,13 +299,19 @@
                         <li><u>to create:</u> click on two drawn concepts</li>
                         <li><u>to change:</u> click on the drawn connection and you can change the following properties:
                         </li>
-                        <li style="padding-left: 10px;"><b>Type of Link:</b> positive support (solid line) or negative support (dashed line) between the two connected concepts</li>
+                        <li style="padding-left: 10px;"><b>Type of Link:</b> positive support (solid line) or negative
+                            support (dashed line) between the two connected concepts</li>
                         <li style="padding-left: 10px;"><b>Strength:</b> Strength of the connection</li>
 
                         <li><u>Direction of Influence:</u> </li>
-                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">sync_alt</span> Concepts influence each other</li>
-                        <li style="padding-left: 10px;"><span style="vertical-align:middle;" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction from left to right.</li>
-                        <li style="padding-left: 10px;"><span style="vertical-align:middle; transform: scale(-1);" class="material-icons">trending_flat</span> Concepts influence each other in a one-sided direction from right to left.</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;"
+                                class="material-icons">sync_alt</span> Concepts influence each other</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle;"
+                                class="material-icons">trending_flat</span> Concepts influence each other in a one-sided
+                            direction from left to right.</li>
+                        <li style="padding-left: 10px;"><span style="vertical-align:middle; transform: scale(-1);"
+                                class="material-icons">trending_flat</span> Concepts influence each other in a one-sided
+                            direction from right to left.</li>
 
                         <li><u>to delete:</u> click on the drawn concept and press 'Remove' on the keyboard or use the
                             delete button</li>
@@ -268,6 +340,8 @@
                     </ul>
 
                 </div>
+
+
             </div>
 
         </div>
@@ -275,11 +349,10 @@
     <!-- FOOTER (Copyright) -->
     <div class="footerdiv">
         © 2021 Copyright: Florian Gouret &amp; Julius Fenn &amp; ???
+
     </div>
 
 </body>
-
-
 
 
 <script>

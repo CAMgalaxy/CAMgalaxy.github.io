@@ -58,6 +58,7 @@ class NodeCAM {
         return;
     }
 
+
     setText(newText) {
         this.text = newText;
         return;
@@ -67,6 +68,7 @@ class NodeCAM {
         this.comment = newComment;
         return;
     }
+
 
     setPosition(newPosition) {
         if (this.isDraggable) {
@@ -86,11 +88,22 @@ class NodeCAM {
         this.isSelected = val;
     }
 
-    setIsConnectorSelected(val) {
+    setIsConnectorSelected(val) { 
         this.isConnectorSelected = val;
     }
 
+    setIsDeletable(val) { 
+        this.isDeletable = val;
+    }
+
+    setIsDraggable(val) { 
+        this.isDraggable = val;
+    }
+
+
+
     /* get functions */
+
     getValue() {
         return this.value;
     }
@@ -102,11 +115,12 @@ class NodeCAM {
     getComment() {
         return this.comment;
     }
-
+    
     getPosition() {
         return this.position;
     }
 
+    
 
     getIsActive() {
         return this.isActive;
@@ -116,7 +130,7 @@ class NodeCAM {
         return this.isSelected;
     }
 
-    getIsConnectorSelected() {
+    getIsConnectorSelected() { 
         return this.isConnectorSelected;
     }
 
@@ -129,6 +143,7 @@ class NodeCAM {
     }
 
     /* functions */
+
     isConnectToNode(nodeID) {
         const connectedElement = this.wasConnectedTo.filter(elt => elt === nodeID);
         return connectedElement.length === 0 ? false : true;
@@ -137,6 +152,7 @@ class NodeCAM {
     addConnection(nodeID, kind) {
 
         if (this.isConnectToNode(nodeID)) { // why this lines of code?
+
             console.log("A connection is already existing...");
             return false;
         }
@@ -159,16 +175,34 @@ class NodeCAM {
         this.isConnected = true;
         this.connectedTo.push(nodeID);
     }
+
+
+    isConnectToDaughter(nodeID) {
+        const connectedElement = this.motherOf.filter(elt => elt === nodeID);
+        return connectedElement.length === 0 ? false : true;
+    }
     addDaughter(nodeID) {
+        if (this.isConnectToDaughter(nodeID)) return false;
         this.isMother = true;
+        this.isConnected = true;
         this.motherOf.push(nodeID);
     }
+
+
+    isConnectToMother(nodeID) {
+        const connectedElement = this.daughterOf.filter(elt => elt === nodeID);
+        return connectedElement.length === 0 ? false : true;
+    }
     addMother(nodeID) {
+        if (this.isConnectToMother(nodeID)) return false;
         this.isDaughter = true;
+        this.isConnected = true;
         this.daughterOf.push(nodeID);
     }
+
     updateWasConnected(nodeID) {
-        const ids = this.connectedTo.map(elt => elt.id);
+        const ids = this.connectedTo.map(elt => elt);
+
         if (!ids.includes(nodeID)) {
             this.wasConnectedTo.push(nodeID);
         }
@@ -177,16 +211,17 @@ class NodeCAM {
 
 
     deleteConnection(nodeID) {
-        const id = nodeID;
 
         this.enterLog({
             type: "delete connection",
             value: null
         });
 
-        this.deleteConnectedTo(id);
-        this.deleteMother(id);
-        this.deleteDaughter(id);
+        this.deleteConnectedTo(nodeID);
+        this.deleteMother(nodeID);
+        this.deleteDaughter(nodeID);
+        console.log(this.id, "<--X-->", nodeID);
+        
 
         this.updateWasConnected(nodeID);
 
@@ -195,16 +230,16 @@ class NodeCAM {
     }
 
 
-    deleteConnectedTo(id) {
-        this.connectedTo = this.connectedTo.filter(elt => elt.id != id);
+    deleteConnectedTo(nodeID) {
+        this.connectedTo = this.connectedTo.filter(elt => elt != nodeID);
         if (this.connectedTo.length === 0) this.isConnected = false;
     }
-    deleteDaughter(id) {
-        this.motherOf = this.motherOf.filter(elt => elt.id != id);
+    deleteDaughter(nodeID) {
+        this.motherOf = this.motherOf.filter(elt => elt != nodeID);
         if (this.motherOf.length === 0) this.isMother = false;
     }
-    deleteMother(id) {
-        this.daughterOf = this.daughterOf.filter(elt => elt.id != id);
+    deleteMother(nodeID) {
+        this.daughterOf = this.daughterOf.filter(elt => elt != nodeID);
         if (this.daughterOf.length === 0) this.isDaughter = false;
     }
 
@@ -222,6 +257,7 @@ class NodeCAM {
         if (field === "active") this.setIsActive(value);
         if (field === "selected") this.setIsSelected(value);
         if (field === "connector") this.setIsConnectorSelected(value);
+
 
     }
 
@@ -249,6 +285,7 @@ class NodeCAM {
         console.table(this);
     }
 
+  
     draw() {
 
         let group = document.createElementNS(svgns, "g");
@@ -270,11 +307,44 @@ class NodeCAM {
         newText.setAttribute("id", this.id);
         newText.setAttribute("class", "noselect node");
         newText.setAttribute("x", 0);
-        newText.setAttribute("y", 0);
         newText.setAttribute("fill", "black");
-        newText.setAttribute("alignment-baseline", "middle")
+        newText.setAttribute("alignment-baseline", "center")
         newText.setAttribute("text-anchor", "middle")
-        newText.innerHTML = this.text;
+
+        // insert break lines:
+      
+
+        if(this.text.length >= LengthSentence){
+            const cumulativeSum = (sum => value => sum += value)(0);
+            var LengthCumWords = LengthWords;
+            var LengthText = [];
+            var ArrayText = this.text.split(' ');
+        
+            ArrayText.forEach(element => LengthText.push(element.length));
+
+
+            LengthText = LengthText.map(cumulativeSum);
+
+            for(var i=0; i <= LengthText.length; i++){
+                if(LengthText[i] > LengthCumWords){
+                    ArrayText[i] = " <tspan dy='1em' x='0'>" + ArrayText[i] + "</tspan>";
+                    LengthCumWords += LengthWords;
+                }
+            }
+
+            //console.log("TEST getTextSVG():", ArrayText.join(" "));  
+            newText.setAttribute("y", -20);
+
+            newText.innerHTML = ArrayText.join(" ");
+        }else{
+            newText.innerHTML = this.text;
+            newText.setAttribute("y", 0);
+
+        }
+
+
+
+
         return newText;
     }
 
@@ -297,10 +367,11 @@ class NodeCAM {
 
             if (this.isSelected === true) {
                 newRect.setAttribute("fill", "#C0FAC8");
-                newRect.setAttribute("stroke", highlightSelected);
+                newRect.setAttribute("stroke", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
+                newRect.setAttribute("fill", HighlightAdjacent);
+
             }
             return newRect;
         }
@@ -317,106 +388,55 @@ class NodeCAM {
             newRect.setAttribute("stroke", "#e04848");
             newRect.setAttribute("stroke-width", this.value * -3);
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", highlightSelected);
+                newRect.setAttribute("stroke", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
+                newRect.setAttribute("fill", HighlightAdjacent);
+
             }
             return newRect;
         }
 
         // ambivalent concept
-        /*
-approximation ellipse using polygon: https://stackoverflow.com/questions/22694850/approximating-an-ellipse-with-a-polygon
-append child: https://stackoverflow.com/questions/55286191/combine-two-svg-elements-into-one-using-javascript
-            */
-           /*
         if (this.value === 10) {
-            var mergedSvg = document.createElementNS(svgns, 'svg');
-            // ellipse
-            let newRect2 = document.createElementNS(svgns, "ellipse");
-            newRect2.setAttribute(null, "cx", 0);
-            newRect2.setAttribute(null, "cy", 0);
-            newRect2.setAttribute("rx", "100");
-            newRect2.setAttribute("ry", "70");
-            newRect2.setAttribute("transform", "translate(0,0)")
+            let group = document.createElementNS(svgns, "g");
 
-            newRect2.setAttribute("fill", "rgb(247, 151, 226)");
-            newRect2.setAttribute("stroke", "rgb(142, 19, 146)");
-            newRect2.setAttribute("stroke-width", "3");
+            // draw ellipse:
+            let newEllipse = document.createElementNS(svgns, "ellipse");
+            newEllipse.setAttribute("id", this.id);
+            newEllipse.setAttribute("class", "node");
+            newEllipse.setAttribute(null, "cx", 0);
+            newEllipse.setAttribute(null, "cy", 0);
+            newEllipse.setAttribute("rx", "90");
+            newEllipse.setAttribute("ry", "55");
+            newEllipse.setAttribute("transform", "translate(0,0)")
+            newEllipse.setAttribute("fill", "rgb(247, 151, 226)");
+            newEllipse.setAttribute("stroke", "rgb(142, 19, 146)");
+            newEllipse.setAttribute("stroke-width", 3);
 
-            // polygon
-            let newRect = document.createElementNS(svgns, "polygon");
-            newRect.setAttribute("id", this.id);
-            newRect.setAttribute("class", "node");
-            newRect.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
-            newRect.setAttribute("transform", "translate(0,0)")
 
-            newRect.setAttribute("fill", "rgb(247, 151, 226)");
-            newRect.setAttribute("stroke", "rgb(142, 19, 146)");
-            newRect.setAttribute("stroke-width", "3");
+            // draw polygon:
+            let newPoly = document.createElementNS(svgns, "polygon");
+            newPoly.setAttribute("id", this.id);
+            newPoly.setAttribute("class", "node");
+            newPoly.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
+            newPoly.setAttribute("transform", "translate(0,0)")
+            newPoly.setAttribute("fill", "rgb(247, 151, 226)");
+            newPoly.setAttribute("stroke", "rgb(142, 19, 146)");
+            newPoly.setAttribute("stroke-width", 5);
+
 
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", highlightSelected);
+                newPoly.setAttribute("stroke", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
+                newPoly.setAttribute("fill", HighlightAdjacent);
             }
 
-            mergedSvg.appendChild(newRect);
-            mergedSvg.appendChild(newRect2);
-
-            return mergedSvg;
+            group.appendChild(newPoly);
+            group.appendChild(newEllipse);
+            return group;
         }
-*/
-
-
-        if (this.value === 10) {
-            let newRect = document.createElementNS(svgns, "polygon");
-            newRect.setAttribute("id", this.id);
-            newRect.setAttribute("class", "node");
-            newRect.setAttribute("points", "-100,0 -60,-60 60,-60 100,0 60,60 -60,60");
-            newRect.setAttribute("transform", "translate(0,0)")
-
-            newRect.setAttribute("fill", "rgb(247, 151, 226)");
-            newRect.setAttribute("stroke", "rgb(142, 19, 146)");
-            newRect.setAttribute("stroke-width", "3");
-
-            if (this.isSelected === true) {
-                newRect.setAttribute("stroke", highlightSelected);
-            }
-            if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
-            }
-
-            return newRect;
-        }
-
-        if (this.value === 10) {
-            let newRect = document.createElementNS(svgns, "ellipse");
-            newRect.setAttribute("id", this.id);
-            newRect.setAttribute("class", "node");
-            newRect.setAttribute(null, "cx", 0);
-            newRect.setAttribute(null, "cy", 0);
-            newRect.setAttribute("rx", "100");
-            newRect.setAttribute("ry", "70");
-            newRect.setAttribute("transform", "translate(0,0)")
-
-            newRect.setAttribute("fill", "rgb(247, 151, 226)");
-            newRect.setAttribute("stroke", "rgb(142, 19, 146)");
-            newRect.setAttribute("stroke-width", "3");
-
-            if (this.isSelected === true) {
-                newRect.setAttribute("stroke", highlightSelected);
-            }
-            if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
-            }
-
-            return newRect;
-        }
-
-
         // neutral concept
         if (this.value === 0) {
             let newRect = document.createElementNS(svgns, "rect");
@@ -432,10 +452,10 @@ append child: https://stackoverflow.com/questions/55286191/combine-two-svg-eleme
             newRect.setAttribute("stroke", "#F3F033");
             newRect.setAttribute("stroke-width", "5");
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", highlightSelected);
+                newRect.setAttribute("stroke", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
-                newRect.setAttribute("fill", highlightAdjacent);
+                newRect.setAttribute("fill", HighlightAdjacent);
             }
             return newRect;
         }
@@ -446,3 +466,4 @@ append child: https://stackoverflow.com/questions/55286191/combine-two-svg-eleme
 
 
 //module.exports = NodeCAM;
+

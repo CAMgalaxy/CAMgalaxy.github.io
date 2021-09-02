@@ -1,5 +1,3 @@
-//const uuidv4 = require("uuid") // to run "npm run test"
-//import { v4 as uuidv4 } from 'uuid'; 
 
 class ConnectorCAM {
 
@@ -17,23 +15,33 @@ class ConnectorCAM {
         this.intensity = 3;
         this.isDeletable = isDeletable;
         this.isOver = false;
+        this.isBidirectional = true;
+
         this.eventLog = [];
 
     }
 
-    /* set functions */
     setValue(newValue) {
         this.value = newValue;
     }
+    getIntensity() {
+        return this.intensity;
+    }
 
-    setShape() {
-        if (this.value < 0) this.shape = "negative";
-        if (this.value > 0) this.shape = "positive";
-        if (this.value == 0) this.shape = "neutral";
+    getKind() {
+        return this.kind;
     }
 
     setIsSelected(val) {
         this.isSelected = val;
+    }
+
+    getSelected() {
+        return this.isSelected;
+    }
+
+    getIsActive() {
+        return this.isActive;
     }
 
     setIsActive(val) {
@@ -46,30 +54,14 @@ class ConnectorCAM {
         this.agreement = val;
     }
 
+    setIsDeletable(val) { 
+        this.isDeletable = val;
+    }
 
-      /* get functions */
-      getId() {
+    getId() {
         return this.id;
     }
 
-    getIsActive() {
-        return this.isActive;
-    }
-
-    getKind() {
-        return this.kind;
-    }
-
-    getSelected() {
-        return this.isSelected;
-    }
-
-    getIntensity() {
-        return this.intensity;
-    }
-
-
-    /* functions */
     updateConnector(field, value) {
 
         this.enterLog({
@@ -84,36 +76,74 @@ class ConnectorCAM {
 
     }
 
- 
+    setShape() {
+        if (this.value < 0) this.shape = "negative";
+        if (this.value > 0) this.shape = "positive";
+        if (this.value == 0) this.shape = "neutral";
+    }
 
-    establishConnection(mother, daughter, intensity, agreement) {
+    establishConnection(node1, node2, intensity, agreement) {
 
 
-        if (daughter.isConnectToNode(mother.id)) {
+        if (node2.isConnectToNode(node1.id)) {
             return false;
         }
 
         this.agreement = agreement;
         this.date = (new Date()).getSeconds();
-        this.daughterID = daughter.id;
-        this.motherID = mother.id;
+        this.daughterID = node2.id;
+        this.motherID = node1.id;
         this.isActive = true;
         this.agreement = agreement;
         this.intensity = intensity;
+        this.isBidirectional = true;
 
+      
         this.enterLog({
             type: "create connection",
             value: null
         });
 
-        daughter.addConnection(mother.id, "mother");
-        mother.addConnection(daughter.id, "daughter");
+        node1.addDaughter(node2.id);
+        node1.addMother(node2.id);
+        
+        node2.addMother(node1.id);
+        node2.addDaughter(node1.id);
 
         console.log(this.daughterID, "<---->", this.motherID);
-        console.log("The connection has been established.");
+
 
         return true;
 
+    }
+
+    makeBidirectionalConnection(mother, daughter){
+
+        console.log(mother.id, daughter.id);
+        this.isBidirectional = true;
+        mother.addDaughter(daughter.id);
+        mother.addMother(daughter.id);
+        
+        daughter.addMother(mother.id);
+        daughter.addDaughter(mother.id);
+
+    }
+
+    makeUnidirectionalConnection(daughter, mother){
+
+        this.isBidirectional = false;
+
+        daughter.deleteConnection(this.motherID);
+        mother.deleteConnection(this.daughterID);
+
+        mother.deleteConnection(this.motherID);
+        daughter.deleteConnection(this.daughterID);
+
+        this.motherID = mother.id;
+        this.daughterID = daughter.id;
+
+        mother.addDaughter(daughter.id);
+        daughter.addMother(mother.id);
     }
 
 
@@ -129,7 +159,6 @@ class ConnectorCAM {
         return true;
     }
 
-    
 
     enterLog(log) {
         this.eventLog.push({
@@ -146,11 +175,12 @@ class ConnectorCAM {
         if (value > 0) return 90;
     }
 
+
     drawLine(motherD, position, angle, dist, compensation) {
         let newRect = document.createElementNS(svgns, "line");
         newRect.setAttribute("class", "connector");
         newRect.setAttribute("id", this.id);
-        newRect.setAttribute("transform", `translate(${position.x},${position.y}) `)
+        newRect.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1) `)
         newRect.setAttribute("x1", (motherD + 50) * Math.cos(angle) * compensation);
         newRect.setAttribute("y1", (motherD + 50) * Math.sin(angle) * compensation);
         newRect.setAttribute("x2", (dist - 50) * Math.cos(angle) * compensation);
@@ -159,10 +189,11 @@ class ConnectorCAM {
         newRect.setAttribute("stroke-width", this.intensity);
 
         newRect.setAttribute("marker-start", "url(#arrowRight)");
-        newRect.setAttribute("marker-end", "url(#arrowLeft)");
+        if (this.isBidirectional) newRect.setAttribute("marker-end", "url(#arrowLeft)");
 
         if (this.isSelected === true) {
-            newRect.setAttribute("stroke", highlightSelected);
+            newRect.setAttribute("stroke", HighlightSelected);
+
         }
 
         if (this.agreement === true) {
@@ -204,7 +235,6 @@ class ConnectorCAM {
     }
 
     draw(mother, daughter) {
-
         const vec = {
             x: (mother.position.x - daughter.position.x),
             y: (mother.position.y - daughter.position.y),
@@ -234,6 +264,7 @@ class ConnectorCAM {
             group.appendChild(selectedDraw);
         }
     
+
         return group;
     }
 }

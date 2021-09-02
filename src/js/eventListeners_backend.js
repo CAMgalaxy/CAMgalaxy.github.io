@@ -7,20 +7,12 @@ function hideallInteractions() {
 
 
 
-document.addEventListener('keydown', (e) => {
-    console.log(e.code);
-    if (e.code === "Delete" || e.code === "Backspace") { // change!
-        if (CAM.hasSelectedNode || CAM.hasSelectedConnector) {
-            CAM.deleteElement();
-        }
-    }
-});
-
 
 $(document).on("mousedown", ".node", function (event) {
     CAM.readyToMove = true;
     resetConnectorSelection();
     CAM.selecteNode($(this)[0].id);
+
 
     if (CAM.currentNode != null) {
         // get text of current node
@@ -53,11 +45,13 @@ $(document).on("mousedown", ".node", function (event) {
     }
 
     CAM.draw();
+
 });
 
 $(document).on("mouseup", ".node", function (event) {
     CAM.readyToMove = false;
     if (CAM.hasElementMoved) {
+
         resetConnectorSelection();
         resetNodeSelection();
         CAM.hasElementMoved = false;
@@ -67,6 +61,7 @@ $(document).on("mouseup", ".node", function (event) {
 
 
 /* for what these two event handlers??? */
+
 $(document).on("click", ".connector", function (event) {
     resetConnectorSelection();
     resetNodeSelection();
@@ -109,6 +104,7 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
     }
 
 
+
     CAM.draw();
 });
 
@@ -123,17 +119,17 @@ $(document).on("click", "#background", function (event) {
 
         const isNearby = CAM.getElementNearby(positionClick);
         if (!isNearby) {
-            CAM.addElement(new NodeCAM(1, 1, positionClick, 1, 1, 1));
+            CAM.addElement(new NodeCAM(1, " ", positionClick, 1, 1, 1));
         }
     }
 
     hideallInteractions();
     $('#interactionDefault').show();
+
     CAM.draw();
 });
 
 
-/* for what these two event handlers??? */
 $(document).on("mousemove", "#CAMSVG", function (event) {
     const positionClick = {
         x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
@@ -174,3 +170,17 @@ function resetNodeSelection() {
     }
     return false;
 }
+
+
+
+/* keep it for debug purpose
+document.addEventListener('keydown', (e) => {
+    console.log(e.code);
+    if (e.code === "Delete" || e.code === "Backspace") { // change!
+        if (CAM.hasSelectedNode || CAM.hasSelectedConnector) {
+            CAM.deleteElement();
+        }
+    }
+});
+*/
+

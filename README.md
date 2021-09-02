@@ -53,3 +53,6 @@ This software has been developed by
 
 * J. F
 * F. G
+
+To quote this software: 
+

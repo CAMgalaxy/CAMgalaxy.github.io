@@ -2,7 +2,6 @@ class Elements {
     constructor() {
         this.idCAM = uuid.v4();
         this.date = (new Date).getUTCSeconds();
-        this.elements = []; // delete -> empty array
         this.nodes = [];
         this.connectors = [];
         this.currentNode = null;
@@ -61,11 +60,36 @@ class Elements {
             var connector = this.findConnector(this.currentNode, node);
             if (!connector.getIsActive()) {
                 console.log("Its state is active again.");
+                this.makeBidirectionalConnection(connector.motherID, connector.daughterID);
                 connector.updateConnector("active", true);
             }
         }
 
     }
+
+    makeBidirectionalConnection(motherID, daughterID){
+
+        const mother = this.getNodeById(motherID);
+        const daughter = this.getNodeById(daughterID);
+
+        this.currentConnector = this.findConnector(mother, daughter)
+        this.currentConnector.makeBidirectionalConnection(mother, daughter);
+
+    }
+
+
+    makeUnidirectionalConnection(motherID, daughterID){
+        const mother = this.getNodeById(motherID);
+        const daughter = this.getNodeById(daughterID);
+        this.currentConnector.deleteConnection();
+
+        daughter.deleteConnection(this.currentConnector.motherID);
+        mother.deleteConnection(this.currentConnector.daughterID);
+        
+        this.currentConnector.changeConnectionDirection(mother, daughter);
+
+    }
+
 
     findConnector(node1, node2) {
         const connector = this.connectors.filter(elt =>
@@ -76,12 +100,13 @@ class Elements {
     }
 
     deleteConnector() {
-        this.currentConnector.deleteConnection();
         const mother = this.getNodeById(this.currentConnector.motherID);
         const daughter = this.getNodeById(this.currentConnector.daughterID);
-
+        this.currentConnector.deleteConnection();
+        
         daughter.deleteConnection(this.currentConnector.motherID);
         mother.deleteConnection(this.currentConnector.daughterID);
+
         this.unselectConnection();
 
         this.currentConnector = null;
@@ -90,6 +115,8 @@ class Elements {
 
     deleteNode() {
         const nodeID = this.currentNode.id;
+        console.log(nodeID);
+
 
         if (!this.currentNode.getIsDeletable()) {
             console.log("This element cannot be deleted.");
@@ -295,3 +322,4 @@ class Elements {
         });
     }
 }
+
