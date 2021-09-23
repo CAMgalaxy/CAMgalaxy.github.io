@@ -1,9 +1,100 @@
+$(function () {
+    $("#dialogReference").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: true,
+        minWidth: 300,
+        buttons: {  
+            Close: function() {$(this).dialog("close");}  
+         }, 
+        open: function( event, ui ) {
+            console.log('dialog got open');
+        },
+        close: function( event, ui ) {
+            console.log('dialog got closed');
+        },
+        position: {
+            my: "right-1% top+5%", // add percentage offsets
+            at: "right-1% top+5%",
+            of: $(".boxCAMSVG")
+        }
+    });
+
+    // next add the onclick handler
+    $("#quickref").on("click", () => {
+        $("#dialogReference").dialog("open");
+        return false;
+    });
+
+
+
+    $("#dialogInteractionEdge").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: true,
+        minWidth: 400,
+        buttons: {  
+            Close: function() {$(this).dialog("close");}  
+         }, 
+        open: function( event, ui ) {
+            console.log('dialog got open');
+            $('.ui-widget-overlay').bind('click', function()
+            { 
+                $("#dialogInteractionEdge").dialog('close'); 
+            }); 
+        },
+        close: function( event, ui ) {
+            console.log('dialog got closed');
+        },
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
+
+
+
+
+    $("#dialogInteractionNode").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: true,
+        minWidth: 400,
+        buttons: {  
+            Close: function() {$(this).dialog("close");}  
+         }, 
+        open: function( event, ui ) {
+            console.log('dialog got open');
+            $('.ui-widget-overlay').bind('click', function()
+            { 
+                $("#dialogInteractionNode").dialog('close'); 
+            }); 
+
+        },
+        close: function( event, ui ) {
+            console.log('dialog got closed');
+        },
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
+});
+
+
+
 /* *** INTERACTION PANEL RIGHT *** */
 $(function () {
     /* default setting of interaction panel: */
-    $('#interactionNode').hide();
-    $('#interactionEdge').hide();
-    $('#interactionDefault').show();
+
 
     /* interactive components: NODE */
     // > text
@@ -417,13 +508,13 @@ function updateQueryStringParameter(uri, key, value) {
 
 $(function () {
     $("#gen").on("click", (evt) => {
-        
+
         var dataCAM = CAM;
 
-      /* reduce size of the CAM object (or use only post-processed data)
-      see: https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-      */
-     /*
+        /* reduce size of the CAM object (or use only post-processed data)
+        see: https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+        */
+        /*
         dataCAM.nodes.forEach(elt => {
            elt.eventLog = [];
         });

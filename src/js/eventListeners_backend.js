@@ -1,52 +1,45 @@
-/* handle interaction panel: hide */
-function hideallInteractions() {
-    $('#interactionDefault').hide();
-    $('#interactionNode').hide();
-    $('#interactionEdge').hide();
-}
-
-
-
-
 $(document).on("mousedown", ".node", function (event) {
+    
+    /* if double click */
+    if(event.detail == 2){
+        CAM.selecteNode($(this)[0].id);
+        if (CAM.currentNode != null) {
+            // get text of current node
+            document.getElementById("inptextnode").value = CAM.currentNode.getText();
+            // get comment of current node
+            document.getElementById("inpcommentnode").value = CAM.currentNode.getComment();
+            // hide / show slider for strength
+            if (CAM.currentNode.getValue() >= 4 || CAM.currentNode.getValue() == 0) {
+                document.getElementById("inpvaluenode").value = 0;
+                $('#interactionNodeStrength').hide();
+                // $("#inpvaluenode").prop('disabled', true);
+    
+            } else {
+                document.getElementById("inpvaluenode").value = Math.abs(CAM.currentNode.getValue());
+                $('#interactionNodeStrength').show();
+            }
+            // get current strength of valence
+            var myRange = document.querySelector('#inpvaluenode');
+            var myValue = document.querySelector('#myValueNode');
+            if (myRange.value === "1") {
+                myValue.innerHTML = "low";
+            } else if (myRange.value === "2") {
+                myValue.innerHTML = "middle";
+            } else if (myRange.value === "3") {
+                myValue.innerHTML = "high";
+            }
+    
+            $("#dialogInteractionNode").dialog("open");
+        }
+    }else{
     CAM.readyToMove = true;
     resetConnectorSelection();
     CAM.selecteNode($(this)[0].id);
-
-
-    if (CAM.currentNode != null) {
-        // get text of current node
-        document.getElementById("inptextnode").value = CAM.currentNode.getText();
-        // get comment of current node
-        document.getElementById("inpcommentnode").value = CAM.currentNode.getComment();
-        // hide / show slider for strength
-        if (CAM.currentNode.getValue() >= 4 || CAM.currentNode.getValue() == 0) {
-            document.getElementById("inpvaluenode").value = 0;
-            $('#interactionNodeStrength').hide();
-            // $("#inpvaluenode").prop('disabled', true);
-
-        } else {
-            document.getElementById("inpvaluenode").value = Math.abs(CAM.currentNode.getValue());
-            $('#interactionNodeStrength').show();
-        }
-        // get current strength of valence
-        var myRange = document.querySelector('#inpvaluenode');
-        var myValue = document.querySelector('#myValueNode');
-        if (myRange.value === "1") {
-            myValue.innerHTML = "low";
-        } else if (myRange.value === "2") {
-            myValue.innerHTML = "middle";
-        } else if (myRange.value === "3") {
-            myValue.innerHTML = "high";
-        }
-
-        hideallInteractions();
-        $('#interactionNode').show();
     }
-
+    
     CAM.draw();
-
 });
+
 
 $(document).on("mouseup", ".node", function (event) {
     CAM.readyToMove = false;
@@ -99,8 +92,7 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
             myValue.innerHTML = "high";
         }
 
-        hideallInteractions();
-        $('#interactionEdge').show();
+        $("#dialogInteractionEdge").dialog("open");
     }
 
 
@@ -122,9 +114,6 @@ $(document).on("click", "#background", function (event) {
             CAM.addElement(new NodeCAM(1, " ", positionClick, 1, 1, 1));
         }
     }
-
-    hideallInteractions();
-    $('#interactionDefault').show();
 
     CAM.draw();
 });

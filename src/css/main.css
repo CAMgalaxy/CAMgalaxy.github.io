@@ -41,19 +41,16 @@ body {
   min-height: 700px;
   /* to change? */
   display: grid;
-  grid-template-columns: 75% 20%;
-  grid-column-gap: 10px;
+  grid-template-columns: 99%;
   grid-row-gap: 10px;
 }
 
 .boxCAMSVG {
   /* CAMmagic element */
   border: 2px solid black;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 15px;
 
   /*border-radius:10px;*/
-  grid-row: 1;
   background-color: rgba(139, 129, 129, 0.25);
   height: 700px;
   width: 100%;
@@ -63,11 +60,9 @@ body {
   justify-content: center;
   display: grid;
   grid-template-rows: 35px auto;
-  grid-template-columns: 50% 50%;
 }
 
-.canvas-header-left {
-  float: left;
+.cam-header-left {
   height: 30px;
   width: 100%;
   border-bottom: 1px solid black;
@@ -77,8 +72,7 @@ body {
   padding-bottom: 2px;
 }
 
-.canvas-header-right {
-  float: right;
+.cam-header-right {
   height: 30px;
   width: 100%;
   text-align: right;
@@ -87,6 +81,10 @@ body {
   grid-row: 1;
   grid-column: 2;
   padding-bottom: 2px;
+}
+
+.cam-header-right button:last-child{ /* ancestor child combination */
+  margin-right: 10px;
 }
 
 #selectFiles {
@@ -118,12 +116,6 @@ body {
 
 }
 
-.right-panel {
-  grid-column: 2;
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-row-gap: 1%;
-}
 
 .properties{
   padding-left: 10px;
@@ -134,12 +126,7 @@ body {
   background-color: rgba(139, 129, 129, 0.25);
 }
 
-.header-panel {
-  font-weight: bold;
-  font-size: 20px;
-  text-decoration: underline;
-  text-underline-position: under;
-}
+
 
 .properties-name{
   padding-bottom: 10px;  
