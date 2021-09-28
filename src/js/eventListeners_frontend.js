@@ -1,19 +1,185 @@
 $(function () {
+    /* edge slider */
+    $('#edgeSlider').on("input", function () {
+        var myValueSlider = document.querySelector('#edgeSlider');
+
+        var myGreenColorSlider = document.querySelector('.greenConnectorColorSlider');
+        var myRedColorSlider = document.querySelector('.redColorConnectorSlider');
+
+        var myRedColorTick = document.querySelector('.redColorTick');
+        var myGreenColorTick = document.querySelector('.greenColorTick');
+
+        // background-color to white
+        if (myValueSlider.value <= 3) {
+            myGreenColorSlider.style.backgroundColor = "white";
+            myGreenColorTick.style.backgroundColor = "white";
+            CAM.currentConnector.setAgreement(false);
+            CAM.draw();
+        } else {
+            myRedColorSlider.style.backgroundColor = "white";
+            myRedColorTick.style.backgroundColor = "white";
+            CAM.currentConnector.setAgreement(true);
+            CAM.draw();
+        }
+
+        // background-color to redish
+        if (myValueSlider.value <= 3) {
+            if (myValueSlider.value == 3) {
+                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 60%)";
+                CAM.currentConnector.intensity = 1 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+            if (myValueSlider.value == 2) {
+                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 50%)";
+                CAM.currentConnector.intensity = 2 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+            if (myValueSlider.value == 1) {
+                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 40%)";
+                CAM.currentConnector.intensity = 3 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+        }
+
+        // background-color to greenish
+        if (myValueSlider.value >= 4) {
+            if (myValueSlider.value == 4) {
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 60%)";
+                CAM.currentConnector.intensity = 1 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+            if (myValueSlider.value == 5) {
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 50%)";
+                CAM.currentConnector.intensity = 2 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+            if (myValueSlider.value == 6) {
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 40%)";
+                CAM.currentConnector.intensity = 3 * IncreaseSliderIntensity;
+                CAM.draw();
+            }
+        }
+    });
+
+
+
+    /* node slider */
+    $('#nodeSlider').on("input", function () {
+        var myValueSlider = document.querySelector('#nodeSlider');
+
+        var myGreenColorNodeSlider = document.querySelector('.greenColorNodeSlider');
+        var myRedColorNodeSlider = document.querySelector('.redColorNodeSlider');
+
+        // background-color default
+        if (myValueSlider.value == 4 || myValueSlider.value == 5) {
+            myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+            myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+        }
+
+        // background-color to redish
+        if (myValueSlider.value <= 3) {
+            $('#negNodeShow').show();
+            $('#ambivalentNodeShow').hide();
+            $('#neutralNodeShow').hide();
+            $('#posNodeShow').hide();
+
+            if (myValueSlider.value == 3) {
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+
+                CAM.updateElement("value", -1);
+                CAM.draw();
+            }
+            if (myValueSlider.value == 2) {
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
+                
+                CAM.updateElement("value", -2);
+                CAM.draw();
+            }
+            if (myValueSlider.value == 1) {
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
+
+                CAM.updateElement("value", -3);
+                CAM.draw();
+            }
+        }
+
+        // background-color to greensih
+        if (myValueSlider.value >= 6) {
+            $('#negNodeShow').hide();
+            $('#ambivalentNodeShow').hide();
+            $('#neutralNodeShow').hide();
+            $('#posNodeShow').show();
+
+            if (myValueSlider.value == 6) {
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+
+                CAM.updateElement("value", 1);
+                CAM.draw();
+            }
+            if (myValueSlider.value == 7) {
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
+
+                CAM.updateElement("value", 2);
+                CAM.draw();
+            }
+            if (myValueSlider.value == 8) {
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
+
+                CAM.updateElement("value", 3);
+                CAM.draw();
+            }
+        }
+
+        // set to neutral:
+        if (myValueSlider.value == 5) {
+            $('#negNodeShow').hide();
+            $('#ambivalentNodeShow').hide();
+            $('#neutralNodeShow').show();
+            $('#posNodeShow').hide();
+
+            CAM.updateElement("value", 0);
+            CAM.draw();
+        }
+
+        // set to ambivalent:
+        if (myValueSlider.value == 4) {
+            $('#negNodeShow').hide();
+            $('#ambivalentNodeShow').show();
+            $('#neutralNodeShow').hide();
+            $('#posNodeShow').hide();
+
+            CAM.updateElement("value", 10);
+            CAM.draw();
+        }
+    });
+
+
+    /* */
     $("#dialogReference").dialog({
         autoOpen: false,
         modal: true,
         show: "fade",
         hide: false,
         resizable: true,
-        minWidth: 300,
-        buttons: {  
-            Close: function() {$(this).dialog("close");}  
-         }, 
-        open: function( event, ui ) {
+        width: 350,
+        maxWidth: 350,
+        buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
+        },
+        open: function (event, ui) {
             console.log('dialog got open');
         },
-        close: function( event, ui ) {
+        close: function (event, ui) {
             console.log('dialog got closed');
+            closeTab();
         },
         position: {
             my: "right-1% top+5%", // add percentage offsets
@@ -36,18 +202,21 @@ $(function () {
         show: "fade",
         hide: false,
         resizable: true,
-        minWidth: 400,
-        buttons: {  
-            Close: function() {$(this).dialog("close");}  
-         }, 
-        open: function( event, ui ) {
-            console.log('dialog got open');
-            $('.ui-widget-overlay').bind('click', function()
-            { 
-                $("#dialogInteractionEdge").dialog('close'); 
-            }); 
+        width: 310,
+        maxWidth: 310,
+        height: 'auto',
+        buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
         },
-        close: function( event, ui ) {
+        open: function (event, ui) {
+            console.log('dialog got open');
+            $('.ui-widget-overlay').on('click', function () { // .bind
+                $("#dialogInteractionEdge").dialog('close');
+            });
+        },
+        close: function (event, ui) {
             console.log('dialog got closed');
         },
         position: {
@@ -66,19 +235,20 @@ $(function () {
         show: "fade",
         hide: false,
         resizable: true,
-        minWidth: 400,
-        buttons: {  
-            Close: function() {$(this).dialog("close");}  
-         }, 
-        open: function( event, ui ) {
-            console.log('dialog got open');
-            $('.ui-widget-overlay').bind('click', function()
-            { 
-                $("#dialogInteractionNode").dialog('close'); 
-            }); 
-
+        width: 310,
+        maxWidth: 310,
+        buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
         },
-        close: function( event, ui ) {
+        open: function (event, ui) {
+            console.log('dialog got open');
+            $('.ui-widget-overlay').on('click', function () {
+                $("#dialogInteractionNode").dialog('close');
+            });
+        },
+        close: function (event, ui) {
             console.log('dialog got closed');
         },
         position: {
@@ -104,56 +274,11 @@ $(function () {
             CAM.updateElement("text", this.value);
             CAM.draw();
         } else {
-            alert("Please do not use more than 50 characters for a single node!\nInstead, please draw several connected nodes.");
-        }
-    });
-
-    // > type
-
-    $("#setnode_positve").on("click", () => {
-        CAM.updateElement("value", 1);
-        CAM.draw();
-    });
-    $("#setnode_negative").on("click", () => {
-        CAM.updateElement("value", -1);
-        CAM.draw();
-    });
-    $("#setnode_ambivalent").on("click", () => {
-        CAM.updateElement("value", 10);
-        CAM.draw();
-    });
-    $("#setnode_neutral").on("click", () => {
-        CAM.updateElement("value", 0);
-        CAM.draw();
-    });
-
-    // > strength
-    $('#inpvaluenode').on("input", function () {
-        var myRange = document.querySelector('#inpvaluenode');
-        var myValue = document.querySelector('#myValueNode');
-
-        if (myRange.value === "1") {
-            myValue.innerHTML = "low";
-        } else if (myRange.value === "2") {
-            myValue.innerHTML = "middle";
-        } else if (myRange.value === "3") {
-            myValue.innerHTML = "high";
+            alert("Please do not use more than" + MaxLengthWords + " characters for a single node!\nInstead, please draw several connected nodes.");
         }
     });
 
 
-    $('#inpvaluenode').on("input", function () {
-        console.log(this.value);
-        if (CAM.currentNode != null) {
-            if (CAM.currentNode.getValue() > 0 && CAM.currentNode.getValue() < 10) {
-                CAM.updateElement("value", this.value);
-            }
-            if (CAM.currentNode.getValue() < 0) {
-                CAM.updateElement("value", this.value * -1);
-            }
-            CAM.draw();
-        }
-    });
 
     // > comment
     $('#inpcommentnode').on("input", function () {
@@ -170,39 +295,6 @@ $(function () {
 
 
     /* interactive components: EDGE */
-    // > type of edge
-    $("#typeEdgeAgree").on("click", () => {
-        CAM.currentConnector.setAgreement(true);
-        CAM.draw();
-    });
-
-    $("#typeEdgeDisagree").on("click", () => {
-        CAM.currentConnector.setAgreement(false);
-        CAM.draw();
-    });
-
-    // > strength
-    $('#inpValueEdge').on("input", function () {
-        var myRange = document.querySelector('#inpValueEdge');
-        var myValue = document.querySelector('#myValueEdge');
-
-        if (myRange.value === "1") {
-            myValue.innerHTML = "low";
-        } else if (myRange.value === "2") {
-            myValue.innerHTML = "middle";
-        } else if (myRange.value === "3") {
-            myValue.innerHTML = "high";
-        }
-    });
-
-    $('#inpValueEdge').on("input", function () {
-        console.log(this.value);
-        if (CAM.currentConnector != null) {
-            CAM.currentConnector.intensity = this.value * 4
-            CAM.draw();
-        }
-    });
-
     // > PLACEHOLDER: direction of influence
     $("#bidirectional").on("click", () => {
         if (CAM.currentConnector != null) {
@@ -269,19 +361,21 @@ function closeTab() {
 ... */
 $(function () {
     $("#saveCAM").on("click", () => {
-        const CAMnodes = CAM.nodes.filter(element => element.isActive === true);
-        const CAMconnectors = CAM.connectors.filter(element => element.isActive === true);
+        var CAMnodes = CAM.nodes.filter(element => element.isActive === true);
+        var CAMconnectors = CAM.connectors.filter(element => element.isActive === true);
 
         // necessary # of concepts
         if (CAMnodes.length < ConNumNodes) {
             alert("Please draw at least " + ConNumNodes + " concepts. \nPlease return to your Cognitive-Affective Map and add additional concepts to it.");
-        } else if (CAMconnectors.length < (CAM.nodes.length - 1)) { // CAMnodes.every(element => element.isConnected !== true)
+        } else if ((CAM.nodes.length - 1) > CAMconnectors.length) { // CAMnodes.every(element => element.isConnected !== true)
             /* 
             test:
             necessary condition -> everything is connected using simple checks (still possible that there are X non-connected components) 
             */
-            //console.log(CAMconnectors.length < (CAM.nodes.length - 1), CAMconnectors.length, (CAM.nodes.length - 1));
-            //console.log(CAMnodes.every(element => element.isConnected !== true));
+            console.log("CAMconnectors.length: ", CAMconnectors.length);
+            console.log("CAM.nodes.length: ", CAM.nodes.length);
+
+           // console.log(CAMnodes.every(element => element.isConnected !== true));
 
             alert("Please connect all your concepts within your Cognitive-Affective Map. \nPlease return to your Cognitive-Affective Map and add additional connections to it.");
         } else {
@@ -428,17 +522,9 @@ async function drawCAMdata(jsonObj) {
     return;
 }
 
-
-// > delete complete CAM
-$(function () {
-    $("#deleteCAM").on("mouseover", () => {
-        toastr.warning('You can delete your complete CAM if you confirm the message.');
-    });
-})
-
 $(function () {
     $("#deleteCAM").on("click", () => {
-        let confirmdel = confirm("Do you really want to delete your CAM?");
+        let confirmdel = confirm("Do you really want to delete your CAM? No data will be saved on the server.");
         if (confirmdel == true) {
             CAM.connectors = [];
             CAM.nodes = [];

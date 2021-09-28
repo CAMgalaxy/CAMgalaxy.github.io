@@ -1,3 +1,67 @@
+/* default values */
+// project name !!! add to CAM
+var projectnam = "proj_" + uuid.v4();
+
+// necessary conditions to save CAM
+var ConNumNodes = 5;  // # of nodes
+var ConConnected = true;
+
+
+// stop / breaklines in text:
+// > maximum number of characters:
+var MaxLengthWords = 50; // allow not more than X characters
+
+var LengthSentence = 20; // if >= X characters
+var LengthWords = 15; // after each word with cumsum >= X characters
+
+// hide connector: direction of influence
+var HideConDirInf;
+
+
+
+
+/* start url parameters */
+// provide precheck IF partcipants changing URL
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+
+
+
+
+console.log("url params: ", params);
+
+if(Object.keys(params).length != 0){
+// necessary conditions to save CAM
+if(urlSearchParams.has('ConNumNodes')){
+    ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
+}
+if(urlSearchParams.has('ConConnected')){
+    ConConnected = parseInt(urlSearchParams.get('ConConnected'), 10);
+}
+
+// stop / breaklines in text:
+if(urlSearchParams.has('MaxLengthWords')){
+    MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
+}
+
+// hide connector: direction of influence
+if(urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true"){
+    $(function () {
+        $('#hideConnectorDirInfluence').hide();
+    });
+}
+
+
+}
+/* end url parameters */
+
+
+
+
+
+
+
+
 var CAM = new Elements();
 const svgns = "http://www.w3.org/2000/svg";
 
@@ -36,23 +100,17 @@ arrowLeft.appendChild(polyL);
 arrow.appendChild(arrowLeft);
 
 /* variables front end */
+const IncreaseSliderIntensity = 4;
 // colors for highlighting selected elements
 const HighlightSelected = "#33FFFF";
 const HighlightAdjacent = "rgb(163, 163, 163)";
 
-// necessary conditions to save CAM
-const ConNumNodes = 5; // # of nodes
-const ConConnected = true; // everything is connected
 
-const ADAPTIVESTUDYlog = true; // if the CAM data should be appended to an URL
+
+// adaptive study
+const ADAPTIVESTUDYlog = false; // if the CAM data should be appended to an URL
 const ADAPTIVESTUDYurl = "    https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple"; // if the CAM data should be appended to an URL
 
-/* variables front end + backend (nodeCAM.js) */
-// breaklines in text:
-const LengthSentence = 20; // if >= X characters
-const LengthWords = 15; // after each word with cumsum >= X characters
-// maximum number of characters:
-const MaxLengthWords = 50; // allow not more than X characters
 
 
 

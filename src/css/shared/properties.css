@@ -1,1 +1,33 @@
-/* later */
+:root {
+    /*background colour body: */
+    --color-background-body: hsl(var(--color-base), 0%, 80%);
+}
+
+
+
+/* properties */
+.properties {
+    padding: 10px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: var(--color-background-body);
+}
+
+/* > tab content 
+.tabcontent {
+    display: none;
+    padding: 6px 6px;
+    font-size: 12px;
+}
+*/
+
+/* Style the content inside the navbar */
+/* > default text 
+.tab-defaulttext {
+    position: relative;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+*/
+

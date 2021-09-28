@@ -1,1 +1,47 @@
-/* later */
+:root {
+    /*cancel buttons: */
+    --color-btn-delete-text: hsl(var(--color-base), 0%, 0%); /*black*/
+    --color-btn-delete-background: hsl(var(--color-base-close), 50%, 50%);
+       /*connector buttons: */
+       --color-btn-connector-text: hsl(var(--color-base), 0%, 0%); /*black*/
+       --color-btn-connector-background: hsl(var(--color-base), 0%, 60%);
+    /*hover over buttons: create darker variant*/
+    --color-btn-delete-background-hover-dark: hsl(var(--color-base-close), 50%, 30%);
+    --color-btn-connector-background-hover-dark: hsl(var(--color-base-close), 0%, 40%);
+  
+}
+
+/* delete  button */
+.deleteButton {
+    color: var(--color-btn-delete-text);
+    background-color: var(--color-btn-delete-background);
+    border: 1px solid var(--color-btn-delete-background);
+    border-radius: .5rem;
+    padding: .3rem 1rem;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*not equal to root font-family*/
+    cursor: pointer;
+    /*get hand instead of normal cursor*/
+    text-decoration: none;
+    text-align: center;
+}
+
+.deleteButton:hover {
+    background-color: var(--color-btn-delete-background-hover-dark);
+}
+
+/* connector  buttons (pos., neg. support) */
+.connectorButton {
+    width: 100%;
+    cursor: pointer; /* interactive element */
+    color: var(--color-btn-connector-text);
+    background-color: var(--color-btn-connector-background);
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .connectorButton:hover {
+    background-color: var(--color-btn-connector-background-hover-dark);
+}

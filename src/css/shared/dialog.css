@@ -47,7 +47,7 @@
 .ui-dialog-buttonset > button{
     color: var(--color-btn-close-text);
     background-color: var(--color-btn-close-background);
-    border: 1px solid var(--color-btn-close-background);
+    border: 2px solid var(--color-btn-close-background);
     border-radius: .5rem;
     padding: .5rem 1rem;
     font-size: 16px;

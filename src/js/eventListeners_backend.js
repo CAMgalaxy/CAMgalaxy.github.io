@@ -1,42 +1,73 @@
 $(document).on("mousedown", ".node", function (event) {
-    
+
     /* if double click */
-    if(event.detail == 2){
+    if (event.detail == 2) {
         CAM.selecteNode($(this)[0].id);
         if (CAM.currentNode != null) {
             // get text of current node
             document.getElementById("inptextnode").value = CAM.currentNode.getText();
             // get comment of current node
             document.getElementById("inpcommentnode").value = CAM.currentNode.getComment();
-            // hide / show slider for strength
-            if (CAM.currentNode.getValue() >= 4 || CAM.currentNode.getValue() == 0) {
-                document.getElementById("inpvaluenode").value = 0;
-                $('#interactionNodeStrength').hide();
-                // $("#inpvaluenode").prop('disabled', true);
-    
-            } else {
-                document.getElementById("inpvaluenode").value = Math.abs(CAM.currentNode.getValue());
-                $('#interactionNodeStrength').show();
+            // get value slider, hide / show graphics / change colors
+            var backendGreenColorNodeSlider = document.querySelector('.greenColorNodeSlider');
+            var backendRedColorNodeSlider = document.querySelector('.redColorNodeSlider');
+
+            if (CAM.currentNode.value == 0) {
+                document.getElementById("nodeSlider").value = 5;
+                $('#negNodeShow').hide();
+                $('#ambivalentNodeShow').hide();
+                $('#neutralNodeShow').show();
+                $('#posNodeShow').hide();
+                backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+            } else if (CAM.currentNode.value == 10) {
+                document.getElementById("nodeSlider").value = 4;
+                $('#negNodeShow').hide();
+                $('#ambivalentNodeShow').show();
+                $('#neutralNodeShow').hide();
+                $('#posNodeShow').hide();
+                backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+            } else if (CAM.currentNode.value < 0) {
+                $('#negNodeShow').show();
+                $('#ambivalentNodeShow').hide();
+                $('#neutralNodeShow').hide();
+                $('#posNodeShow').hide();
+                if (CAM.currentNode.value == -1) {
+                    document.getElementById("nodeSlider").value = 3;
+                    backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                } else if (CAM.currentNode.value == -2) {
+                    document.getElementById("nodeSlider").value = 2;
+                    backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
+                } else if (CAM.currentNode.value == -3) {
+                    document.getElementById("nodeSlider").value = 1;
+                    backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
+                }
+            } else if (CAM.currentNode.value > 0 && CAM.currentNode.value <= 4) {
+                $('#negNodeShow').hide();
+                $('#ambivalentNodeShow').hide();
+                $('#neutralNodeShow').hide();
+                $('#posNodeShow').show();
+                if (CAM.currentNode.value == 1) {
+                    document.getElementById("nodeSlider").value = 6;
+                    backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+                } else if (CAM.currentNode.value == 2) {
+                    document.getElementById("nodeSlider").value = 7;
+                    backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
+                } else if (CAM.currentNode.value == 3) {
+                    document.getElementById("nodeSlider").value = 8;
+                    backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
+                }
             }
-            // get current strength of valence
-            var myRange = document.querySelector('#inpvaluenode');
-            var myValue = document.querySelector('#myValueNode');
-            if (myRange.value === "1") {
-                myValue.innerHTML = "low";
-            } else if (myRange.value === "2") {
-                myValue.innerHTML = "middle";
-            } else if (myRange.value === "3") {
-                myValue.innerHTML = "high";
-            }
-    
+
             $("#dialogInteractionNode").dialog("open");
         }
-    }else{
-    CAM.readyToMove = true;
-    resetConnectorSelection();
-    CAM.selecteNode($(this)[0].id);
+    } else {
+        CAM.readyToMove = true;
+        resetConnectorSelection();
+        CAM.selecteNode($(this)[0].id);
     }
-    
+
     CAM.draw();
 });
 
@@ -78,24 +109,49 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
     CAM.selectConnection($(this)[0].id);
 
     if (CAM.currentConnector != null) {
-        document.getElementById("inpValueEdge").value = CAM.currentConnector.getIntensity() / 3;
+        var backendGreenColorSlider = document.querySelector('.greenConnectorColorSlider');
+        var backendGreenColorTick = document.querySelector('.greenColorTick');
 
-        // get current strength of connection
-        var myRange = document.querySelector('#inpValueEdge');
-        var myValue = document.querySelector('#myValueEdge');
+        var backendRedColorSlider = document.querySelector('.redColorConnectorSlider');
+        var backendRedColorTick = document.querySelector('.redColorTick');
 
-        if (myRange.value === "1") {
-            myValue.innerHTML = "low";
-        } else if (myRange.value === "2") {
-            myValue.innerHTML = "middle";
-        } else if (myRange.value === "3") {
-            myValue.innerHTML = "high";
+
+        if (CAM.currentConnector.agreement) {
+            backendRedColorSlider.style.backgroundColor = "white";
+            backendRedColorTick.style.backgroundColor = "white";
+
+            document.getElementById("edgeSlider").value = CAM.currentConnector.getIntensity() / IncreaseSliderIntensity + 3;
+            if (document.getElementById("edgeSlider").value == 4) {
+                backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+                backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 60%)";
+            } else if (document.getElementById("edgeSlider").value == 5) {
+                backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
+                backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 50%)";
+            }
+            if (document.getElementById("edgeSlider").value == 6) {
+                backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
+                backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 40%)";
+            }
+        } else if (!CAM.currentConnector.agreement) {
+            backendGreenColorSlider.style.backgroundColor = "white";
+            backendGreenColorTick.style.backgroundColor = "white";
+
+            if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity) {
+                document.getElementById("edgeSlider").value = 3;
+                backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 60%)";
+            } else if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity * 2) {
+                document.getElementById("edgeSlider").value = 2;
+                backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
+                backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 50%)";
+            } else if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity * 3) {
+                document.getElementById("edgeSlider").value = 1;
+                backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
+                backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 40%)";
+            }
         }
-
         $("#dialogInteractionEdge").dialog("open");
     }
-
-
 
     CAM.draw();
 });
@@ -172,4 +228,3 @@ document.addEventListener('keydown', (e) => {
     }
 });
 */
-

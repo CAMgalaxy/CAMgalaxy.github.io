@@ -67,14 +67,3 @@
     padding: 6px 6px;
     font-size: 12px;
 }
-
-/* > close button */
-.topright {
-    float: right;
-    cursor: pointer;
-    font-size: 28px;
-}
-
-.topright:hover {
-    color: red;
-}

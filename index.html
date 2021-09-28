@@ -18,6 +18,7 @@
     <script src="./src/js/jqueryUI.js" crossorigin="anonymous"></script>
     <script src="./src/js/toastrmin.js" crossorigin="anonymous"></script>
 
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -51,7 +52,6 @@
             </div>
 
             <div id="QRLegend" class="tabcontent">
-                <span onclick="closeTab()" class="topright" title="Close tab">&times</span>
 
                 <h3>Every concept is given a basic emotional value:</h3>
                 <ul style="list-style-type:none; margin: 0px; padding: 0px;">
@@ -74,7 +74,6 @@
             </div>
 
             <div id="QRusingSoftware" class="tabcontent">
-                <span onclick="closeTab()" class="topright" title="Close tab">&times</span>
 
                 <h3>properties of concepts: </h3>
                 <ul style="list-style-type:none; margin: 0px; padding: 0px;">
@@ -97,7 +96,6 @@
             </div>
 
             <div id="QRButtons" class="tabcontent">
-                <span onclick="closeTab()" class="topright" title="Close tab">&times</span>
 
                 <h3>Clicking on the buttons in the upper bar leads to the following results: </h3>
                 <ul style="list-style-type:none; margin: 0px; padding: 0px;">
@@ -122,56 +120,45 @@
     </div>
 
     <!-- > change connector -->
-    <div id="dialogInteractionEdge" title="Properties of edge:">
+    <div id="dialogInteractionEdge" title="Properties of connector:">
         <!-- interactive components: EDGE -->
         <div class="properties" id="interactionEdge">
-            <div style="padding-top: 10px; padding-bottom: 20px;">
+            <div style="padding-top: 10px; padding-bottom: 40px;">
                 <span style=" float:right;">
                     <!-- > delete edge -->
-                    <button id="deleteEdge" type="button" class="typeDeleteButton" title="Delete node"> Delete
+                    <button id="deleteEdge" type="button" class="deleteButton" title="Delete node"> Delete
                     </button>
                 </span>
             </div>
-
-            <!-- > adjust type of edge -->
-            <div style="border: 1px solid #000; width: 150px;">
-                Type of Link:
-            </div>
-            <div style="text-align: center; border: 1px solid #000; text-align:center; background-color: #ffffff; ">
-                <button id="typeEdgeAgree" type="button" class="typeEdgeButton" title="supportive connection"
-                    style="width: 80%; text-align: center;   ">
-                    Positive support </button>
-                <br>
-                <button id="typeEdgeDisagree" type="button" class="typeEdgeButton" title="unsupportive connection"
-                    style="width: 80%; text-align: center;   "> Negative support </button>
+            <!-- > adjust type and strength of connector -->
+            <div style="font-weight: bold; font-size: 18px;">
+                Type and Strength of Influence:
             </div>
 
-            <!-- > adjust strength -->
-            <div class="properties-strength" style="padding-top: 10px;">
-                <div style="border: 1px solid #000; width: 150px; display: inline-block;">Strength: </div>
-                <span id="myValueEdge" style="margin-left: 10%;"></span>
-
-                <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
-
-                    <input type="range" id="inpValueEdge" min="1" max="3" value="1" style="width: 80%;">
+            <div class="greenConnectorColorSlider" style="margin-left: -5px;">
+                <div class="redColorConnectorSlider">
+                    <input type="range" min="1" max="6" step="1" value="4" id="edgeSlider">
                 </div>
             </div>
 
+            <div class="spacing-connector" style="margin-left: -5px;">
+                <span class="redColorTick">negative</span>
+                <span class="greenColorTick">positive</span>
+            </div>
+
             <!-- > adjust of connectivity of edge -->
-            <div style="border: 1px solid #000; width: 150px;">
+            <div style="font-weight: bold; font-size: 18px; margin-top: 10px;" id="hideConnectorDirInfluence">
                 Direction of Influence:
+                <div>
+                    <button id="bidirectional" type="button" class="material-icons"
+                        title="Concepts influence each other" class="connectorButton"
+                        style="font-size: 50px;">sync_alt</button>
+                    <button id="monodirectional" type="button" class="material-icons"
+                        title="Concepts influence each other in a one-sided direction. Press button multiple times to change direction"
+                        class="connectorButton" style="font-size: 50px;">trending_flat</button>
+                </div>
             </div>
-            <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
-
-                <button id="bidirectional" type="button" class="material-icons" title="Concepts influence each other"
-                    class="typeEdgeButton" style="font-size: 50px;">sync_alt</button>
-                <button id="monodirectional" type="button" class="material-icons"
-                    title="Concepts influence each other in a one-sided direction. Press button multiple times to change direction"
-                    class="typeEdgeButton" style="font-size: 50px;">trending_flat</button>
-            </div>
-
-
-            <!-- for researcher only -->
+            <!-- for researcher only 
             <div>
                 <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to
                     researchers:</div>
@@ -180,17 +167,19 @@
                     Erasability
                 </button> <span style="font-size: small;"> selected connection cannot be deleted </span>
             </div>
+            -->
         </div>
     </div>
+
 
 
     <!-- > change node -->
     <div id="dialogInteractionNode" title="Properties of concept:">
         <div class="properties" id="interactionNode">
-            <div style="padding-top: 10px; padding-bottom: 20px;">
+            <div style="padding-bottom: 20px;">
                 <span style=" float:right;">
                     <!-- > delete node -->
-                    <button id="deleteNode" type="button" class="typeDeleteButton" title="Delete node"> Delete
+                    <button id="deleteNode" type="button" class="deleteButton" title="Delete node"> Delete
                     </button>
 
                 </span>
@@ -200,55 +189,60 @@
 
                 <!-- > adjust text -->
                 <div class="properties-name">
-                    <div style="border: 1px solid #000; width: 150px;">Text:</div>
-                    <div style="border: 1px solid #000; text-align:center; ">
-                        <input id="inptextnode" type="text"
-                            style="width: 97%; text-align: center;   margin: auto; display: block;">
+                    <div style="font-weight: bold; font-size: 18px;">
+                        Text of Concept:
+                    </div>
+                    <input id="inptextnode" type="text"
+                        style="width: 99%; text-align: left;   margin: auto; display: block;">
+                </div>
+
+
+                <!-- > adjust type and strength of connector -->
+                <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">
+                    Type and Strength of Concept:
+                </div>
+
+                <div class="greenColorNodeSlider">
+                    <div class="yellowColorNodeSlider">
+                        <div class="ambivalentColorNodeSlider">
+                            <div class="redColorNodeSlider">
+                                <input type="range" min="1" max="8" step="1" value="4" id="nodeSlider">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- > adjust type -->
-                <div class="properties-type">
-                    <div style="border: 1px solid #000; width: 150px;">Type:</div>
-                    <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
-                        <input id="setnode_positve" title="Set node to positive" type="image"
-                            src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" style="width: 70px; height: 40px;" />
-
-                        <input id="setnode_negative" title="Set node to negative" type="image"
-                            src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" style="width: 70px; height: 40px;" />
-
-                        <input id="setnode_ambivalent" title="Set node to ambivalent" type="image"
+                <div class="spacing-node" style="margin-top: 5px;">
+                    <span style="width: 120px; font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
+                        your drawn node is:
+                    </span>
+                    <span>
+                        <image id="negNodeShow" title="Node is set to negative" type="image"
+                            src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" style="width: 90px; height: 50px;">
+                        </image>
+                        <image id="ambivalentNodeShow" title="Node is set to ambivalent" type="image"
                             src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                            style="width: 70px; height: 40px;" />
-
-                        <input id="setnode_neutral" title="Set node to neutral" type="image"
+                            style="width: 90px; height: 50px;"></image>
+                        <image id="neutralNodeShow" title="Node is set to neutral" type="image"
                             src="./img/neutral_node.svg#svgView(viewBox(0,-3,180,120))"
-                            style="width: 70px; height: 40px;" />
-                    </div>
+                            style="width: 90px; height: 50px;"></image>
+                        <image id="posNodeShow" title="Node is set to positive" type="image"
+                            src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" style="width: 90px; height: 50px;">
+                        </image>
+                    </span>
                 </div>
 
-                <!-- > adjust strength -->
-                <div class="properties-strength" id="interactionNodeStrength">
-                    <div style="border: 1px solid #000; width: 150px; display: inline-block;">Strength: </div>
-
-                    <span id="myValueNode" style="margin-left: 10%;"></span>
-                    <div style="border: 1px solid #000; text-align:center; background-color: #ffffff;">
-                        <input type="range" id="inpvaluenode" min="1" max="3" value="1" style="width: 80%;">
-                    </div>
-                </div>
 
                 <!-- > adjust comment -->
                 <div class="properties-comment">
-                    <div style="border: 1px solid #000; width: 150px;">Comment:</div>
-
-                    <div style="border: 1px solid #000; text-align:center; ">
-                        <textarea id="inpcommentnode"
-                            style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
-
+                    <div style="font-weight: bold; font-size: 18px;">
+                        Comment:
                     </div>
+                    <textarea id="inpcommentnode"
+                        style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
                 </div>
 
-                <!-- for researcher only -->
+                <!-- for researcher only 
                 <div>
                     <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to
                         researchers:</div>
@@ -263,6 +257,7 @@
                         Manoeuvrability
                     </button> <span style="font-size: small;"> selected node cannot be moved </span>
                 </div>
+                -->
 
             </div>
         </div>
@@ -289,15 +284,19 @@
             <div class="cam-header-right">
                 <button id="quickref" class="material-icons" title="Open a quick reference" style="color:green"> help
                 </button>
+                <!-- 
                 <button id="gen" class="material-icons" title="Save CAM" style="color:red"> save </button>
+                           -->
                 <button id="saveCAM" class="material-icons" title="Save CAM"> save </button>
                 <button class="material-icons" onclick="onDownloadSVGfile()"
                     title="Save CAM as picture">crop_original</button>
+                <!-- 
                 <button class="material-icons" onclick="onDownloadCAMdata()"
                     title="Save CAM as file">vertical_align_bottom</button>
                 <button class="material-icons" onclick="uploadCAMdataMain(document.getElementById('getFile').click())"
                     title="Upload CAM from file">vertical_align_top</button>
                 <input type='file' id="getFile" style="display:none">
+                       -->
                 <button id="deleteCAM" class="material-icons" style="color:red;" title="Delete CAM"> delete </button>
             </div>
 
