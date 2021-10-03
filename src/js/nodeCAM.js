@@ -101,7 +101,6 @@ class NodeCAM {
     }
 
 
-
     /* get functions */
 
     getValue() {

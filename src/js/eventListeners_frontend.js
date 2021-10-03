@@ -1,4 +1,37 @@
 $(function () {
+    
+    $('#mySearch').on('click', () => {
+        var i = 0;
+        CAM.nodes.forEach(el => {
+            CAM.nodes[i].isSelected = false;
+
+            i++;
+        });
+
+
+        var textEntry = $('#mySearchEntry').val(); // document.getElementById("mySearchEntry").value
+
+        var re = new RegExp(`${textEntry}`);
+        //re = '//' + textEntry + '//i';
+        console.log("reg expression:", re)
+        i = 0;
+        CAM.nodes.forEach(el => {
+            var found = el.comment.match(re);
+    
+            if(found !== null){
+                console.log("i:", i)
+                console.log("nodes:",  CAM.nodes[i])
+                CAM.nodes[i].isSelected = true;
+            }
+            i++;
+        });
+    })
+    
+
+});
+
+
+$(function () {
     /* edge slider */
     $('#edgeSlider').on("input", function () {
         var myValueSlider = document.querySelector('#edgeSlider');
@@ -243,6 +276,7 @@ $(function () {
             }
         },
         open: function (event, ui) {
+            $('#hideSliderNode').hide();
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () {
                 $("#dialogInteractionNode").dialog('close');

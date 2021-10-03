@@ -22,6 +22,7 @@ var HideConDirInf;
 
 /* start url parameters */
 // provide precheck IF partcipants changing URL
+// !!! on server possible to send object via pst request
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
@@ -102,7 +103,7 @@ arrow.appendChild(arrowLeft);
 /* variables front end */
 const IncreaseSliderIntensity = 4;
 // colors for highlighting selected elements
-const HighlightSelected = "#33FFFF";
+const HighlightSelected = "#00008B";
 const HighlightAdjacent = "rgb(163, 163, 163)";
 
 

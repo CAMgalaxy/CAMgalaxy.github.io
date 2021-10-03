@@ -32,7 +32,7 @@
     <script src="./src/js/preprocessingCAM.js"></script>
     <script src="./src/js/postprocessingCAM.js"></script>
 
-    <title>C.A.M.E.L 🐪</title>
+    <title>JFM 👋</title>
 </head>
 
 <body>
@@ -190,7 +190,7 @@
                 <!-- > adjust text -->
                 <div class="properties-name">
                     <div style="font-weight: bold; font-size: 18px;">
-                        Text of Concept:
+                        Name:
                     </div>
                     <input id="inptextnode" type="text"
                         style="width: 99%; text-align: left;   margin: auto; display: block;">
@@ -198,6 +198,7 @@
 
 
                 <!-- > adjust type and strength of connector -->
+                <div id="hideSliderNode">
                 <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">
                     Type and Strength of Concept:
                 </div>
@@ -231,12 +232,12 @@
                         </image>
                     </span>
                 </div>
-
+            </div>
 
                 <!-- > adjust comment -->
                 <div class="properties-comment">
                     <div style="font-weight: bold; font-size: 18px;">
-                        Comment:
+                        Description:
                     </div>
                     <textarea id="inpcommentnode"
                         style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
@@ -266,9 +267,23 @@
     <!-- HEADER -->
     <div class="headerdiv">
         <div style="width:100%">
-            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive-Affective Maps</span>
+            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Joing Forces Map</span>
             <img src="./img/logoCAM2.svg" alt="img Valence logo not found" style="height:3rem; width:auto;">
         </div>
+    </div>
+
+    <div class="properties-name">
+        <div style="font-weight: bold; font-size: 18px;">
+            Search for:
+        </div>
+        <form action="">
+            <label for="fname">Skills:</label><br>
+            <div style="font-size: 12px;">
+                enter 'whale research', 'mixed models' or 'software programming' for example
+            </div>
+            <input type="text" id="mySearchEntry" name="fname" style="width: 30%;"><br>
+            <button type='button' id="mySearch">Search</button> 
+          </form>     
     </div>
 
     <!-- SVG, components  -->
@@ -304,7 +319,6 @@
                 <svg id="CAMSVG">
                 </svg>
             </div>
-
         </div>
     </div>
     <!-- FOOTER (Copyright) 
@@ -315,7 +329,7 @@
 -->
 </body>
 
-
+    
 <script>
     // const line = "[{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"42b3f504-dffb-4020-b7f3-8693d533b48a\",\"value\":null,\"daughter\":{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":49,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"create connection\",\"value\":null}]}]";
     // CAM.importElement(line);
@@ -323,32 +337,36 @@
     //const line2 = "{\"id\":\"a8c057cb-7cac-4da0-8621-3489f2a0b56e\",\"value\":null,\"daughter\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:49.716Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":50,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:42:50.484Z\",\"type\":\"create connection\",\"value\":null}]}";
     //CAM.importElement(line2);
     //CAM.addElements()
-    CAM.addElement(new NodeCAM(1, "Positive concept (can't be moved or deleted)", {
-        x: 700,
-        y: 100
-    }, false, false));
-    CAM.addElement(new NodeCAM(-1, "Negative concept (can't be moved, but deleted)", {
-        x: 700,
-        y: 500
-    }, false, true));
-
-
-    CAM.addElement(new NodeCAM(0, "Neutral concept", {
-        x: 1200,
+    CAM.addElement(new NodeCAM(1, "Dionysios Tatjana  (PhD)", {
+        x: 500,
         y: 100
     }, true, true));
-    CAM.addElement(new NodeCAM(10, "Ambivalent concept", {
-        x: 1200,
-        y: 500
+    CAM.nodes[0].comment = "focus on whale research, studied XYZ"
+
+    CAM.addElement(new NodeCAM(1, "Max Müller (PhD)", {
+        x: 700,
+        y: 100
     }, true, true));
+    CAM.nodes[1].comment = "focus on linear mixed models, studied XYZ"
+
+
+    CAM.addElement(new NodeCAM(1, "Ina Floriana  (PhD)", {
+        x: 900,
+        y: 100
+    }, true, true));
+    CAM.nodes[2].comment = "focus on linear mixed models and software programming, studied XYZ"
+
+
+ 
+    CAM.addElement(new NodeCAM(0, "Dinesha Fränze (Prof)", {
+        x: 700,
+        y: 300
+    }, true, true));
+
 
     var connector1 = new ConnectorCAM();
-    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], 3, true);
+    connector1.establishConnection(CAM.nodes[0], CAM.nodes[3], 3, true);
     CAM.addElement(connector1);
-
-
-
-
     CAM.draw();
 </script>
 
