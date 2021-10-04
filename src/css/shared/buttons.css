@@ -1,14 +1,16 @@
 :root {
     /*cancel buttons: */
-    --color-btn-delete-text: hsl(var(--color-base), 0%, 0%); /*black*/
+    --color-btn-delete-text: hsl(var(--color-base), 0%, 0%);
+    /*black*/
     --color-btn-delete-background: hsl(var(--color-base-close), 50%, 50%);
-       /*connector buttons: */
-       --color-btn-connector-text: hsl(var(--color-base), 0%, 0%); /*black*/
-       --color-btn-connector-background: hsl(var(--color-base), 0%, 60%);
+    /*connector buttons: */
+    --color-btn-connector-text: hsl(var(--color-base), 0%, 0%);
+    /*black*/
+    --color-btn-connector-background: hsl(var(--color-base), 0%, 60%);
     /*hover over buttons: create darker variant*/
     --color-btn-delete-background-hover-dark: hsl(var(--color-base-close), 50%, 30%);
     --color-btn-connector-background-hover-dark: hsl(var(--color-base-close), 0%, 40%);
-  
+
 }
 
 /* delete  button */
@@ -32,16 +34,32 @@
     background-color: var(--color-btn-delete-background-hover-dark);
 }
 
+
+
+/* > delete cross */
+.deleteButtonCross {
+    float: right;
+    cursor: pointer;
+    font-size: 38px;
+}
+
+.deleteButtonCross:hover {
+    color: red;
+}
+
+
+
 /* connector  buttons (pos., neg. support) */
 .connectorButton {
     width: 100%;
-    cursor: pointer; /* interactive element */
+    cursor: pointer;
+    /* interactive element */
     color: var(--color-btn-connector-text);
     background-color: var(--color-btn-connector-background);
     font-weight: bold;
     font-size: 14px;
-  }
+}
 
-  .connectorButton:hover {
+.connectorButton:hover {
     background-color: var(--color-btn-connector-background-hover-dark);
 }

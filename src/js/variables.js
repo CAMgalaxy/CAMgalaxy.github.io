@@ -3,7 +3,7 @@
 var projectnam = "proj_" + uuid.v4();
 
 // necessary conditions to save CAM
-var ConNumNodes = 5;  // # of nodes
+var ConNumNodes = 5; // # of nodes
 var ConConnected = true;
 
 
@@ -17,6 +17,14 @@ var LengthWords = 15; // after each word with cumsum >= X characters
 // hide connector: direction of influence
 var HideConDirInf;
 
+// show researcher buttons
+var ShowResearcherButtons;
+
+$(function () {
+    $('#hideResearcherButtonsNode').show(); // hide
+    $('#hideResearcherButtonsConnector').show();
+    $('#hideResearcherButtonsTop').show();
+});
 
 
 
@@ -29,28 +37,38 @@ const params = Object.fromEntries(urlSearchParams.entries());
 
 
 
+
 console.log("url params: ", params);
 
-if(Object.keys(params).length != 0){
-// necessary conditions to save CAM
-if(urlSearchParams.has('ConNumNodes')){
-    ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
-}
-if(urlSearchParams.has('ConConnected')){
-    ConConnected = parseInt(urlSearchParams.get('ConConnected'), 10);
-}
+if (Object.keys(params).length != 0) {
+    // necessary conditions to save CAM
+    if (urlSearchParams.has('ConNumNodes')) {
+        ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
+    }
+    if (urlSearchParams.has('ConConnected')) {
+        ConConnected = parseInt(urlSearchParams.get('ConConnected'), 10);
+    }
 
-// stop / breaklines in text:
-if(urlSearchParams.has('MaxLengthWords')){
-    MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
-}
+    // stop / breaklines in text:
+    if (urlSearchParams.has('MaxLengthWords')) {
+        MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
+    }
 
-// hide connector: direction of influence
-if(urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true"){
-    $(function () {
-        $('#hideConnectorDirInfluence').hide();
-    });
-}
+    // hide connector: direction of influence
+    if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+        $(function () {
+            $('#hideConnectorDirInfluence').hide();
+        });
+    }
+
+        // show researcher buttons
+        if (urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "true") {
+            $(function () {
+                $('#hideResearcherButtonsNode').show();
+                $('#hideResearcherButtonsConnector').show();
+                $('#hideResearcherButtonsTop').show();
+            });
+        }
 
 
 }
@@ -103,7 +121,7 @@ arrow.appendChild(arrowLeft);
 /* variables front end */
 const IncreaseSliderIntensity = 4;
 // colors for highlighting selected elements
-const HighlightSelected = "#00008B";
+const HighlightSelected = "#33FFFF";
 const HighlightAdjacent = "rgb(163, 163, 163)";
 
 

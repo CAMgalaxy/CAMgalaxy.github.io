@@ -32,7 +32,7 @@
     <script src="./src/js/preprocessingCAM.js"></script>
     <script src="./src/js/postprocessingCAM.js"></script>
 
-    <title>JFM 👋</title>
+    <title>C.A.M.E.L 🐪</title>
 </head>
 
 <body>
@@ -120,16 +120,14 @@
     </div>
 
     <!-- > change connector -->
-    <div id="dialogInteractionEdge" title="Properties of connector:">
+    <div id="dialogInteractionEdge" title="Change connector:">
         <!-- interactive components: EDGE -->
         <div class="properties" id="interactionEdge">
-            <div style="padding-top: 10px; padding-bottom: 40px;">
-                <span style=" float:right;">
-                    <!-- > delete edge -->
-                    <button id="deleteEdge" type="button" class="deleteButton" title="Delete node"> Delete
-                    </button>
-                </span>
+
+            <div style="padding-bottom: 30px;">
+                <span id="deleteEdge" class="deleteButtonCross">&times</span>
             </div>
+
             <!-- > adjust type and strength of connector -->
             <div style="font-weight: bold; font-size: 18px;">
                 Type and Strength of Influence:
@@ -158,132 +156,111 @@
                         class="connectorButton" style="font-size: 50px;">trending_flat</button>
                 </div>
             </div>
-            <!-- for researcher only 
-            <div>
-                <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to
-                    researchers:</div>
-                <button id="ResErasabilityConnector" type="button" class="typeResearcherButton"
-                    style="font-size: small;">
-                    Erasability
-                </button> <span style="font-size: small;"> selected connection cannot be deleted </span>
+            <!-- for researcher only -->
+            <div id="hideResearcherButtonsConnector">
+                <div style="margin-top: 20px; font-size:16px; font-style: italic;">
+                    The following functions are only available to researchers:
+                </div>
+                <div>
+                    <button id="ResErasabilityConnector" type="button" class="typeResearcherButton">
+                        deletable
+                    </button>
+                </div>
             </div>
-            -->
+
         </div>
     </div>
 
 
 
     <!-- > change node -->
-    <div id="dialogInteractionNode" title="Properties of concept:">
+    <div id="dialogInteractionNode" title="Change concept:">
         <div class="properties" id="interactionNode">
-            <div style="padding-bottom: 20px;">
-                <span style=" float:right;">
-                    <!-- > delete node -->
-                    <button id="deleteNode" type="button" class="deleteButton" title="Delete node"> Delete
-                    </button>
-
-                </span>
+            <!-- delete node: -->
+            <div style="padding-bottom: 30px;">
+                <span id="deleteNode" class="deleteButtonCross">&times</span>
             </div>
 
-            <div style="margin-top: 5px;">
-
-                <!-- > adjust text -->
-                <div class="properties-name">
-                    <div style="font-weight: bold; font-size: 18px;">
-                        Name:
-                    </div>
-                    <input id="inptextnode" type="text"
-                        style="width: 99%; text-align: left;   margin: auto; display: block;">
+            <!-- > adjust text -->
+            <div class="properties-name" style="margin-top: 5px;">
+                <div style="font-weight: bold; font-size: 18px;">
+                    Text of Concept:
                 </div>
+                <input id="inptextnode" type="text"
+                    style="width: 99%; text-align: left;   margin: auto; display: block;">
+            </div>
 
 
-                <!-- > adjust type and strength of connector -->
-                <div id="hideSliderNode">
-                <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">
-                    Type and Strength of Concept:
-                </div>
+            <!-- > adjust type and strength of connector -->
+            <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">
+                Type and Strength of Concept:
+            </div>
 
-                <div class="greenColorNodeSlider">
-                    <div class="yellowColorNodeSlider">
-                        <div class="ambivalentColorNodeSlider">
-                            <div class="redColorNodeSlider">
-                                <input type="range" min="1" max="8" step="1" value="4" id="nodeSlider">
-                            </div>
+            <div class="greenColorNodeSlider">
+                <div class="yellowColorNodeSlider">
+                    <div class="ambivalentColorNodeSlider">
+                        <div class="redColorNodeSlider">
+                            <input type="range" min="1" max="8" step="1" value="4" id="nodeSlider">
                         </div>
                     </div>
                 </div>
-
-                <div class="spacing-node" style="margin-top: 5px;">
-                    <span style="width: 120px; font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
-                        your drawn node is:
-                    </span>
-                    <span>
-                        <image id="negNodeShow" title="Node is set to negative" type="image"
-                            src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" style="width: 90px; height: 50px;">
-                        </image>
-                        <image id="ambivalentNodeShow" title="Node is set to ambivalent" type="image"
-                            src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                            style="width: 90px; height: 50px;"></image>
-                        <image id="neutralNodeShow" title="Node is set to neutral" type="image"
-                            src="./img/neutral_node.svg#svgView(viewBox(0,-3,180,120))"
-                            style="width: 90px; height: 50px;"></image>
-                        <image id="posNodeShow" title="Node is set to positive" type="image"
-                            src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" style="width: 90px; height: 50px;">
-                        </image>
-                    </span>
-                </div>
             </div>
 
-                <!-- > adjust comment -->
-                <div class="properties-comment">
-                    <div style="font-weight: bold; font-size: 18px;">
-                        Description:
-                    </div>
-                    <textarea id="inpcommentnode"
-                        style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
-                </div>
+            <div class="spacing-node" style="margin-top: 5px;">
+                <span style="width: 120px; font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
+                    your drawn node is:
+                </span>
+                <span>
+                    <image id="negNodeShow" title="Node is set to negative" type="image"
+                        src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" style="width: 90px; height: 50px;">
+                    </image>
+                    <image id="ambivalentNodeShow" title="Node is set to ambivalent" type="image"
+                        src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
+                        style="width: 90px; height: 50px;"></image>
+                    <image id="neutralNodeShow" title="Node is set to neutral" type="image"
+                        src="./img/neutral_node.svg#svgView(viewBox(0,-3,180,120))" style="width: 90px; height: 50px;">
+                    </image>
+                    <image id="posNodeShow" title="Node is set to positive" type="image"
+                        src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" style="width: 90px; height: 50px;">
+                    </image>
+                </span>
+            </div>
 
-                <!-- for researcher only 
-                <div>
-                    <div style="margin-top: 20px; font-size:smaller;">The following functions are only available to
-                        researchers:</div>
-                    <button id="ResErasabilityNode" type="button" class="typeResearcherButton"
-                        style="font-size: small;">
-                        Erasability
-                    </button> <span style="font-size: small;"> selected node cannot be deleted </span>
-                </div>
-                <div>
-                    <button id="ResManoeuvrability" type="button" class="typeResearcherButton"
-                        style="font-size: small;">
-                        Manoeuvrability
-                    </button> <span style="font-size: small;"> selected node cannot be moved </span>
-                </div>
-                -->
 
+            <!-- > adjust comment -->
+            <div class="properties-comment">
+                <div style="font-weight: bold; font-size: 18px;">
+                    Comment:
+                </div>
+                <textarea id="inpcommentnode"
+                    style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
+            </div>
+
+            <!-- for researcher only -->
+            <div id="hideResearcherButtonsNode">
+                <div style="margin-top: 20px; font-size:16px; font-style: italic;">
+                    The following functions are only available to researchers:
+                </div>
+                <div>
+                    <button id="ResErasabilityNode" type="button" class="typeResearcherButton">
+                        deletable
+                    </button>
+
+                    <button id="ResManoeuvrability" type="button" class="typeResearcherButton">
+                        movable
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- HEADER -->
     <div class="headerdiv">
         <div style="width:100%">
-            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Joing Forces Map</span>
+            <span style="vertical-align:20px; font-weight: bold; font-size: 24px;">Cognitive-Affective Maps</span>
             <img src="./img/logoCAM2.svg" alt="img Valence logo not found" style="height:3rem; width:auto;">
         </div>
-    </div>
-
-    <div class="properties-name">
-        <div style="font-weight: bold; font-size: 18px;">
-            Search for:
-        </div>
-        <form action="">
-            <label for="fname">Skills:</label><br>
-            <div style="font-size: 12px;">
-                enter 'whale research', 'mixed models' or 'software programming' for example
-            </div>
-            <input type="text" id="mySearchEntry" name="fname" style="width: 30%;"><br>
-            <button type='button' id="mySearch">Search</button> 
-          </form>     
     </div>
 
     <!-- SVG, components  -->
@@ -295,23 +272,23 @@
                 <i class="material-icons">zoom_out</i>
                 <i class="material-icons">fit_screen</i>
                 -->
+                <div id="hideResearcherButtonsTop">
+                    <button id="gen" class="material-icons" title="Test stuff" style="color:blue; margin-left: 10px;"> unpublished </button>
+                    <button class="material-icons" onclick="onDownloadCAMdata()"
+                        title="Save CAM as file">vertical_align_bottom</button>
+                    <button class="material-icons"
+                        onclick="uploadCAMdataMain(document.getElementById('getFile').click())"
+                        title="Upload CAM from file">vertical_align_top</button>
+                    <input type='file' id="getFile" style="display:none">
+                </div>
             </div>
             <div class="cam-header-right">
                 <button id="quickref" class="material-icons" title="Open a quick reference" style="color:green"> help
                 </button>
-                <!-- 
-                <button id="gen" class="material-icons" title="Save CAM" style="color:red"> save </button>
-                           -->
                 <button id="saveCAM" class="material-icons" title="Save CAM"> save </button>
                 <button class="material-icons" onclick="onDownloadSVGfile()"
                     title="Save CAM as picture">crop_original</button>
-                <!-- 
-                <button class="material-icons" onclick="onDownloadCAMdata()"
-                    title="Save CAM as file">vertical_align_bottom</button>
-                <button class="material-icons" onclick="uploadCAMdataMain(document.getElementById('getFile').click())"
-                    title="Upload CAM from file">vertical_align_top</button>
-                <input type='file' id="getFile" style="display:none">
-                       -->
+
                 <button id="deleteCAM" class="material-icons" style="color:red;" title="Delete CAM"> delete </button>
             </div>
 
@@ -329,7 +306,7 @@
 -->
 </body>
 
-    
+
 <script>
     // const line = "[{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},{\"id\":\"42b3f504-dffb-4020-b7f3-8693d533b48a\",\"value\":null,\"daughter\":{\"id\":\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:48.676Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:48:49.685Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":49,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:48:49.684Z\",\"type\":\"create connection\",\"value\":null}]}]";
     // CAM.importElement(line);
@@ -337,36 +314,32 @@
     //const line2 = "{\"id\":\"a8c057cb-7cac-4da0-8621-3489f2a0b56e\",\"value\":null,\"daughter\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":100},\"isActive\":true,\"isDaughter\":true,\"isMother\":true,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":false,\"isDeletable\":false,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"mother\":{\"id\":\"9e885waa-c1b4-48a4-b08d-a72ef94b28e1\",\"value\":1,\"text\":\"Positive concept\",\"comment\":\"\",\"position\":{\"x\":200,\"y\":300},\"isActive\":true,\"isDaughter\":true,\"isMother\":false,\"isConnected\":true,\"wasConnectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"motherOf\":[],\"daughterOf\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"connectedTo\":[\"05b5d684-ee23-443d-a313-424801dd94a7\",\"5cd17fba-1015-4555-93ec-66495c1b6b47\",\"9e885baa-c1b4-48a4-b08d-a72ef94b28e1\"],\"date\":4,\"kind\":\"Node\",\"isSelected\":false,\"isConnectorSelected\":false,\"isDraggable\":true,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T18:02:04.365Z\",\"type\":\"create node\",\"value\":1},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T18:02:04.367Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:49.716Z\",\"type\":\"selected\",\"value\":true},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"add connection\",\"value\":null},{\"time\":\"2021-07-01T21:42:50.485Z\",\"type\":\"selected\",\"value\":false}]},\"agreement\":true,\"isActive\":true,\"date\":50,\"kind\":\"Connector\",\"isSelected\":false,\"intensity\":3,\"isDeletable\":true,\"eventLog\":[{\"time\":\"2021-07-01T21:42:50.484Z\",\"type\":\"create connection\",\"value\":null}]}";
     //CAM.importElement(line2);
     //CAM.addElements()
-    CAM.addElement(new NodeCAM(1, "Dionysios Tatjana  (PhD)", {
-        x: 500,
-        y: 100
-    }, true, true));
-    CAM.nodes[0].comment = "focus on whale research, studied XYZ"
-
-    CAM.addElement(new NodeCAM(1, "Max Müller (PhD)", {
+    CAM.addElement(new NodeCAM(1, "Positive concept (can't be moved or deleted)", {
         x: 700,
         y: 100
-    }, true, true));
-    CAM.nodes[1].comment = "focus on linear mixed models, studied XYZ"
+    }, false, false));
+    CAM.addElement(new NodeCAM(-1, "Negative concept (can't be moved, but deleted)", {
+        x: 700,
+        y: 500
+    }, false, true));
 
 
-    CAM.addElement(new NodeCAM(1, "Ina Floriana  (PhD)", {
-        x: 900,
+    CAM.addElement(new NodeCAM(0, "Neutral concept", {
+        x: 1200,
         y: 100
     }, true, true));
-    CAM.nodes[2].comment = "focus on linear mixed models and software programming, studied XYZ"
-
-
- 
-    CAM.addElement(new NodeCAM(0, "Dinesha Fränze (Prof)", {
-        x: 700,
-        y: 300
+    CAM.addElement(new NodeCAM(10, "Ambivalent concept", {
+        x: 1200,
+        y: 500
     }, true, true));
-
 
     var connector1 = new ConnectorCAM();
-    connector1.establishConnection(CAM.nodes[0], CAM.nodes[3], 3, true);
+    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], 3, true);
     CAM.addElement(connector1);
+
+
+
+
     CAM.draw();
 </script>
 

@@ -1,37 +1,4 @@
 $(function () {
-    
-    $('#mySearch').on('click', () => {
-        var i = 0;
-        CAM.nodes.forEach(el => {
-            CAM.nodes[i].isSelected = false;
-
-            i++;
-        });
-
-
-        var textEntry = $('#mySearchEntry').val(); // document.getElementById("mySearchEntry").value
-
-        var re = new RegExp(`${textEntry}`);
-        //re = '//' + textEntry + '//i';
-        console.log("reg expression:", re)
-        i = 0;
-        CAM.nodes.forEach(el => {
-            var found = el.comment.match(re);
-    
-            if(found !== null){
-                console.log("i:", i)
-                console.log("nodes:",  CAM.nodes[i])
-                CAM.nodes[i].isSelected = true;
-            }
-            i++;
-        });
-    })
-    
-
-});
-
-
-$(function () {
     /* edge slider */
     $('#edgeSlider').on("input", function () {
         var myValueSlider = document.querySelector('#edgeSlider');
@@ -130,7 +97,7 @@ $(function () {
             }
             if (myValueSlider.value == 2) {
                 myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
-                
+
                 CAM.updateElement("value", -2);
                 CAM.draw();
             }
@@ -199,7 +166,8 @@ $(function () {
         modal: true,
         show: "fade",
         hide: false,
-        resizable: true,
+        resizable: false,
+        draggable: true,
         width: 350,
         maxWidth: 350,
         buttons: {
@@ -208,6 +176,8 @@ $(function () {
             }
         },
         open: function (event, ui) {
+            $(".ui-dialog-titlebar").show(); // hide titlebar
+
             console.log('dialog got open');
         },
         close: function (event, ui) {
@@ -228,22 +198,31 @@ $(function () {
     });
 
 
+    /* 
+    buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
+        },
+    */
 
     $("#dialogInteractionEdge").dialog({
         autoOpen: false,
         modal: true,
         show: "fade",
         hide: false,
-        resizable: true,
+        resizable: false,
+        draggable: true,
         width: 310,
         maxWidth: 310,
         height: 'auto',
-        buttons: {
-            Close: function () {
-                $(this).dialog("close");
-            }
-        },
         open: function (event, ui) {
+            $(".ui-dialog-titlebar").hide(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
+
+
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () { // .bind
                 $("#dialogInteractionEdge").dialog('close');
@@ -260,23 +239,21 @@ $(function () {
     });
 
 
-
-
     $("#dialogInteractionNode").dialog({
         autoOpen: false,
         modal: true,
         show: "fade",
         hide: false,
-        resizable: true,
+        resizable: false,
+        draggable: true,
         width: 310,
         maxWidth: 310,
-        buttons: {
-            Close: function () {
-                $(this).dialog("close");
-            }
-        },
         open: function (event, ui) {
-            $('#hideSliderNode').hide();
+            $(".ui-dialog-titlebar").hide(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable();
+
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () {
                 $("#dialogInteractionNode").dialog('close');
@@ -401,15 +378,15 @@ $(function () {
         // necessary # of concepts
         if (CAMnodes.length < ConNumNodes) {
             alert("Please draw at least " + ConNumNodes + " concepts. \nPlease return to your Cognitive-Affective Map and add additional concepts to it.");
-        } else if ((CAM.nodes.length - 1) > CAMconnectors.length) { // CAMnodes.every(element => element.isConnected !== true)
+        } else if ((CAMnodes.length - 1) > CAMconnectors.length) { // CAMnodes.every(element => element.isConnected !== true)
             /* 
             test:
             necessary condition -> everything is connected using simple checks (still possible that there are X non-connected components) 
             */
             console.log("CAMconnectors.length: ", CAMconnectors.length);
-            console.log("CAM.nodes.length: ", CAM.nodes.length);
+            console.log("CAM.nodes.length: ", CAMnodes.length);
 
-           // console.log(CAMnodes.every(element => element.isConnected !== true));
+            // console.log(CAMnodes.every(element => element.isConnected !== true));
 
             alert("Please connect all your concepts within your Cognitive-Affective Map. \nPlease return to your Cognitive-Affective Map and add additional connections to it.");
         } else {

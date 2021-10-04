@@ -20,12 +20,12 @@
 .ui-dialog .ui-dialog-title { /* ancestor child combination */
     display: flex;
     justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-top-left-radius: 15px;  /* smooth border radius title same as border-radius .ui-dialog */
     border-top-right-radius: 15px;
 
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     background-color: var(--color-background-title);
 }
@@ -38,6 +38,12 @@
 .ui-dialog .ui-dialog-titlebar-close{
     display: none;
 }
+
+/*
+.ui-button .ui-corner-all .ui-widget .ui-button-icon-only .ui-dialog-titlebar-close{
+    display: none;
+}
+*/
 
 .ui-dialog-buttonset{
     padding: 10px;

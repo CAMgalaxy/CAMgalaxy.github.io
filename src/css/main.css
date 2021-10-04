@@ -39,7 +39,7 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   width: 99%;
-  min-height: 700px;
+  min-height: 800px; /*change to X pixel*/
 }
 
 
@@ -53,7 +53,7 @@ body {
 
   /*border-radius:10px;*/
   background-color: rgba(139, 129, 129, 0.25);
-  height: 700px;
+  height: 800px;
   width: 100%;
   overflow: hidden;
   /* overflow-y: scroll;  */
@@ -169,17 +169,19 @@ background-color: rgb(139, 139, 139);
 
 .typeResearcherButton {
   height: 40px;
-  width: 110px;
+  width: 80px;
+  font-size: 12px;
 
   cursor: pointer;
   /* interactive element */
   color: white;
   background: black;
   font-weight: bold;
-
 }
 
-
+.typeResearcherButton:hover {
+  color: gray;
+}
 
 .noselect {
   -webkit-touch-callout: none;

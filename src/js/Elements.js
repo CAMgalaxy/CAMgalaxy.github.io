@@ -100,6 +100,11 @@ class Elements {
     }
 
     deleteConnector() {
+        if (!this.currentConnector.getIsDeletable()) {
+            console.log("This element cannot be deleted.");
+            return;
+        }
+        CAM.currentConnector.isDeletable
         const mother = this.getNodeById(this.currentConnector.motherID);
         const daughter = this.getNodeById(this.currentConnector.daughterID);
         this.currentConnector.deleteConnection();

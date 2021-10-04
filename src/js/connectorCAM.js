@@ -62,6 +62,10 @@ class ConnectorCAM {
         return this.id;
     }
 
+    getIsDeletable() {
+        return this.isDeletable;
+    }
+
     updateConnector(field, value) {
 
         this.enterLog({
