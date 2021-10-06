@@ -218,7 +218,7 @@ $(document).on("click", "#background", function (event) {
 
         const isNearby = CAM.getElementNearby(positionClick);
         if (!isNearby) {
-            CAM.addElement(new NodeCAM(1, " ", positionClick, 1, 1, 1));
+            CAM.addElement(new NodeCAM(0, " ", positionClick, 1, 1, 1));
         }
     }
 

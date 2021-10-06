@@ -21,9 +21,9 @@ var HideConDirInf;
 var ShowResearcherButtons;
 
 $(function () {
-    $('#hideResearcherButtonsNode').show(); // hide
-    $('#hideResearcherButtonsConnector').show();
-    $('#hideResearcherButtonsTop').show();
+    $('#hideResearcherButtonsNode').hide(); // hide
+    $('#hideResearcherButtonsConnector').hide();
+    $('#hideResearcherButtonsTop').hide();
 });
 
 
