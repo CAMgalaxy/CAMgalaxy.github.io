@@ -37,14 +37,13 @@
 
 
 /* > delete cross */
-.deleteButtonCross {
+.deleteButtonElement {
     float: right;
     cursor: pointer;
-    font-size: 38px;
 }
 
-.deleteButtonCross:hover {
-    color: red;
+.deleteButtonElement:hover {
+    background-color: var(--color-btn-delete-background-hover-dark);
 }
 
 

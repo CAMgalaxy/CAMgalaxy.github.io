@@ -366,8 +366,8 @@ class NodeCAM {
             newRect.setAttribute("stroke-width", this.value * 3);
 
             if (this.isSelected === true) {
-                newRect.setAttribute("fill", "#C0FAC8");
-                newRect.setAttribute("stroke", HighlightSelected);
+               //newRect.setAttribute("fill", "#C0FAC8");
+                newRect.setAttribute("fill", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
                 newRect.setAttribute("fill", HighlightAdjacent);
@@ -388,7 +388,7 @@ class NodeCAM {
             newRect.setAttribute("stroke", "#e04848");
             newRect.setAttribute("stroke-width", this.value * -3);
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", HighlightSelected);
+                newRect.setAttribute("fill", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
                 newRect.setAttribute("fill", HighlightAdjacent);
@@ -427,9 +427,11 @@ class NodeCAM {
 
 
             if (this.isSelected === true) {
-                newPoly.setAttribute("stroke", HighlightSelected);
+                newEllipse.setAttribute("fill", HighlightSelected);
+                newPoly.setAttribute("fill", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
+                newEllipse.setAttribute("fill", HighlightAdjacent);
                 newPoly.setAttribute("fill", HighlightAdjacent);
             }
 
@@ -450,9 +452,9 @@ class NodeCAM {
 
             newRect.setAttribute("fill", "#F0EEC0");
             newRect.setAttribute("stroke", "#F3F033");
-            newRect.setAttribute("stroke-width", "5");
+            newRect.setAttribute("stroke-width", 5);
             if (this.isSelected === true) {
-                newRect.setAttribute("stroke", HighlightSelected);
+                newRect.setAttribute("fill", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
                 newRect.setAttribute("fill", HighlightAdjacent);

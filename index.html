@@ -125,7 +125,8 @@
         <div class="properties" id="interactionEdge">
 
             <div style="padding-bottom: 30px;">
-                <span id="deleteEdge" class="deleteButtonCross">&times</span>
+                <button id="deleteEdge" class="material-icons deleteButtonElement" style="color:red;"
+                    title="Delete Connector"> delete </button>
             </div>
 
             <!-- > adjust type and strength of connector -->
@@ -178,7 +179,8 @@
         <div class="properties" id="interactionNode">
             <!-- delete node: -->
             <div style="padding-bottom: 30px;">
-                <span id="deleteNode" class="deleteButtonCross">&times</span>
+                <button id="deleteNode" class="material-icons deleteButtonElement" style="color:red;"
+                    title="Delete Connector"> delete </button>
             </div>
 
             <!-- > adjust text -->
@@ -200,29 +202,20 @@
                 <div class="yellowColorNodeSlider">
                     <div class="ambivalentColorNodeSlider">
                         <div class="redColorNodeSlider">
-                            <input type="range" min="1" max="8" step="1" value="4" id="nodeSlider">
+                            <input type="range" min="1" max="8" step="1" id="nodeSlider">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="spacing-node" style="margin-top: 5px;">
-                <span style="width: 120px; font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
-                    your drawn node is:
+            <div class="spacing-node" style="margin-top: 5px;" id="ambivalentNodeShow">
+                <span style="font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
+                    ! concept is set to ambivalent (neither negative nor positive)
                 </span>
-                <span>
-                    <image id="negNodeShow" title="Node is set to negative" type="image"
-                        src="./img/neg_node.svg#svgView(viewBox(5,5,250,120))" style="width: 90px; height: 50px;">
-                    </image>
-                    <image id="ambivalentNodeShow" title="Node is set to ambivalent" type="image"
+                <span style="margin-right: 30px;">
+                    <image title="Concept is set to ambivalent" type="image"
                         src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                        style="width: 90px; height: 50px;"></image>
-                    <image id="neutralNodeShow" title="Node is set to neutral" type="image"
-                        src="./img/neutral_node.svg#svgView(viewBox(0,-3,180,120))" style="width: 90px; height: 50px;">
-                    </image>
-                    <image id="posNodeShow" title="Node is set to positive" type="image"
-                        src="./img/pos_node.svg#svgView(viewBox(0,5,210,110))" style="width: 90px; height: 50px;">
-                    </image>
+                        style="width: 65px; height: 45px;"></image>
                 </span>
             </div>
 
@@ -273,7 +266,8 @@
                 <i class="material-icons">fit_screen</i>
                 -->
                 <div id="hideResearcherButtonsTop">
-                    <button id="gen" class="material-icons" title="Test stuff" style="color:blue; margin-left: 10px;"> unpublished </button>
+                    <button id="gen" class="material-icons" title="Test stuff" style="color:blue; margin-left: 10px;">
+                        unpublished </button>
                     <button class="material-icons" onclick="onDownloadCAMdata()"
                         title="Save CAM as file">vertical_align_bottom</button>
                     <button class="material-icons"
@@ -338,7 +332,9 @@
     CAM.addElement(connector1);
 
 
-
+    var connector2 = new ConnectorCAM();
+    connector2.establishConnection(CAM.nodes[2], CAM.nodes[3], 3, true);
+    CAM.addElement(connector2);
 
     CAM.draw();
 </script>

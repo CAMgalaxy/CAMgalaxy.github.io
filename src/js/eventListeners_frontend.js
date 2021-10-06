@@ -84,10 +84,13 @@ $(function () {
 
         // background-color to redish
         if (myValueSlider.value <= 3) {
+            $('#ambivalentNodeShow').hide();
+            /*
             $('#negNodeShow').show();
             $('#ambivalentNodeShow').hide();
             $('#neutralNodeShow').hide();
             $('#posNodeShow').hide();
+            */
 
             if (myValueSlider.value == 3) {
                 myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
@@ -111,11 +114,7 @@ $(function () {
 
         // background-color to greensih
         if (myValueSlider.value >= 6) {
-            $('#negNodeShow').hide();
             $('#ambivalentNodeShow').hide();
-            $('#neutralNodeShow').hide();
-            $('#posNodeShow').show();
-
             if (myValueSlider.value == 6) {
                 myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
 
@@ -138,22 +137,14 @@ $(function () {
 
         // set to neutral:
         if (myValueSlider.value == 5) {
-            $('#negNodeShow').hide();
             $('#ambivalentNodeShow').hide();
-            $('#neutralNodeShow').show();
-            $('#posNodeShow').hide();
-
             CAM.updateElement("value", 0);
             CAM.draw();
         }
 
         // set to ambivalent:
         if (myValueSlider.value == 4) {
-            $('#negNodeShow').hide();
             $('#ambivalentNodeShow').show();
-            $('#neutralNodeShow').hide();
-            $('#posNodeShow').hide();
-
             CAM.updateElement("value", 10);
             CAM.draw();
         }
@@ -176,8 +167,7 @@ $(function () {
             }
         },
         open: function (event, ui) {
-            $(".ui-dialog-titlebar").show(); // hide titlebar
-
+            $(".ui-dialog-titlebar").show(); // hide titlebar            
             console.log('dialog got open');
         },
         close: function (event, ui) {
@@ -222,6 +212,7 @@ $(function () {
                 draggable: false
             }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
 
+            CAM.currentConnector.isSelected = true;
 
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () { // .bind
@@ -254,10 +245,14 @@ $(function () {
                 draggable: false
             }).parent().draggable();
 
+            CAM.currentNode.isSelected = true;
+
+
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () {
                 $("#dialogInteractionNode").dialog('close');
             });
+
         },
         close: function (event, ui) {
             console.log('dialog got closed');

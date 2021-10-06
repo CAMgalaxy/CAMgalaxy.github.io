@@ -258,6 +258,27 @@ class Elements {
         return background;
     }
 
+
+    setOverlay() {
+        let background = document.createElementNS(svgns, "rect");
+        background.setAttribute("id", "overlay");
+        background.setAttribute("x", 0);
+        background.setAttribute("y", 0);
+        background.setAttribute("width", "100%");
+        background.setAttribute("height", "100%");
+        background.setAttribute("fill", "#aaaaaa");
+        background.setAttribute("opacity", .1);
+        return background;
+    }
+
+    drawOverlay(){
+        const svg = document.querySelector("#CAMSVG");
+        svg.innerHTML = "";
+
+        svg.appendChild(this.setOverlay());
+    }
+
+
     draw() {
         const svg = document.querySelector("#CAMSVG");
         svg.innerHTML = "";

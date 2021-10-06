@@ -121,7 +121,7 @@ arrow.appendChild(arrowLeft);
 /* variables front end */
 const IncreaseSliderIntensity = 4;
 // colors for highlighting selected elements
-const HighlightSelected = "#33FFFF";
+const HighlightSelected = "#00bdff";
 const HighlightAdjacent = "rgb(163, 163, 163)";
 
 

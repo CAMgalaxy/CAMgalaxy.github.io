@@ -15,25 +15,23 @@ $(document).on("mousedown", ".node", function (event) {
 
             if (CAM.currentNode.value == 0) {
                 document.getElementById("nodeSlider").value = 5;
+                $('#ambivalentNodeShow').hide();
+
+                /*
                 $('#negNodeShow').hide();
                 $('#ambivalentNodeShow').hide();
                 $('#neutralNodeShow').show();
                 $('#posNodeShow').hide();
+                */
                 backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
                 backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
             } else if (CAM.currentNode.value == 10) {
-                document.getElementById("nodeSlider").value = 4;
-                $('#negNodeShow').hide();
                 $('#ambivalentNodeShow').show();
-                $('#neutralNodeShow').hide();
-                $('#posNodeShow').hide();
+                document.getElementById("nodeSlider").value = 4;
                 backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
                 backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
             } else if (CAM.currentNode.value < 0) {
-                $('#negNodeShow').show();
                 $('#ambivalentNodeShow').hide();
-                $('#neutralNodeShow').hide();
-                $('#posNodeShow').hide();
                 if (CAM.currentNode.value == -1) {
                     document.getElementById("nodeSlider").value = 3;
                     backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
@@ -45,10 +43,7 @@ $(document).on("mousedown", ".node", function (event) {
                     backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
                 }
             } else if (CAM.currentNode.value > 0 && CAM.currentNode.value <= 4) {
-                $('#negNodeShow').hide();
                 $('#ambivalentNodeShow').hide();
-                $('#neutralNodeShow').hide();
-                $('#posNodeShow').show();
                 if (CAM.currentNode.value == 1) {
                     document.getElementById("nodeSlider").value = 6;
                     backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
@@ -60,6 +55,27 @@ $(document).on("mousedown", ".node", function (event) {
                     backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
                 }
             }
+
+
+
+            /* change position of pop up */
+            if ((CAM.currentNode.position.x - 380) < 0) {
+                var changeAtLeft = "left+" + (CAM.currentNode.position.x + 70); // to far left position to right
+            } else {
+                var changeAtLeft = "left+" + (CAM.currentNode.position.x - 380); // position to left
+            }
+            var changeAtTop = "top+" + (CAM.currentNode.position.y - 10);
+
+
+            $("#dialogInteractionNode").dialog({
+                position: {
+                    my: "left top", // add percentage offsets
+                    at: changeAtLeft + " " + changeAtTop,
+                    of: $(".boxCAMSVG")
+                }
+            });
+
+            // console.log($('#dialogInteractionNode').dialog('option', 'position'));
 
             $("#dialogInteractionNode").dialog("open");
         }
@@ -153,6 +169,37 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
                     backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 40%)";
                 }
             }
+
+            /* change position of pop up */
+            // > get current mother / daugther
+            var currentMotherNode = CAM.nodes.filter(el => el.id === CAM.currentConnector.motherID)[0];
+            var currentDaughterNode = CAM.nodes.filter(el => el.id === CAM.currentConnector.daughterID)[0];
+            // > get midpoint of connector
+            var MeanPositionX = (currentMotherNode.position.x + currentDaughterNode.position.x) / 2;
+            var MeanPositionY = (currentMotherNode.position.y + currentDaughterNode.position.y) / 2;
+
+            if ((MeanPositionX - 380) < 0) {
+                var changeAtLeft = "left+" + (MeanPositionX + 40); // to far left position to right
+            } else {
+                var changeAtLeft = "left+" + (MeanPositionX - 340); // position to left
+            }
+
+            if(Math.abs(currentMotherNode.position.x - currentDaughterNode.position.x) < 300){
+                var changeAtTop = "top+" + (MeanPositionY - 130); // x = horizontal spacing less than 300
+            }else{
+                var changeAtTop = "top+" + (MeanPositionY);
+            }
+
+            $("#dialogInteractionEdge").dialog({
+                position: {
+                    my: "left top", // add percentage offsets
+                    at: changeAtLeft + " " + changeAtTop,
+                    of: $(".boxCAMSVG")
+                }
+            });
+
+            console.log($('#dialogInteractionEdge').dialog('option', 'position'));
+
             $("#dialogInteractionEdge").dialog("open");
         }
 
