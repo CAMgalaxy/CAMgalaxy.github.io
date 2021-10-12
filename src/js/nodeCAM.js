@@ -88,15 +88,15 @@ class NodeCAM {
         this.isSelected = val;
     }
 
-    setIsConnectorSelected(val) { 
+    setIsConnectorSelected(val) {
         this.isConnectorSelected = val;
     }
 
-    setIsDeletable(val) { 
+    setIsDeletable(val) {
         this.isDeletable = val;
     }
 
-    setIsDraggable(val) { 
+    setIsDraggable(val) {
         this.isDraggable = val;
     }
 
@@ -115,12 +115,12 @@ class NodeCAM {
     getComment() {
         return this.comment;
     }
-    
+
     getPosition() {
         return this.position;
     }
 
-    
+
 
     getIsActive() {
         return this.isActive;
@@ -130,7 +130,7 @@ class NodeCAM {
         return this.isSelected;
     }
 
-    getIsConnectorSelected() { 
+    getIsConnectorSelected() {
         return this.isConnectorSelected;
     }
 
@@ -145,9 +145,19 @@ class NodeCAM {
     /* functions */
 
     isConnectToNode(nodeID) {
-        const connectedElement = this.wasConnectedTo.filter(elt => elt === nodeID);
-        return connectedElement.length === 0 ? false : true;
+        console.log("to daughterOf: ", this.daughterOf.filter(elt => elt === nodeID));
+        console.log("to motherOf: ", this.motherOf.filter(elt => elt === nodeID));
+
+        const connectedElementDaughter = this.daughterOf.filter(elt => elt === nodeID);
+        const connectedElementMother = this.motherOf.filter(elt => elt === nodeID);
+
+        //const connectedElement = this.wasConnectedTo.filter(elt => elt === nodeID);
+        // return connectedElement.length === 0 ? false : true;
+
+        return (connectedElementDaughter.length === 0 & connectedElementMother.length === 0) ? false : true;
     }
+
+
 
     addConnection(nodeID, kind) {
 
@@ -221,7 +231,7 @@ class NodeCAM {
         this.deleteMother(nodeID);
         this.deleteDaughter(nodeID);
         console.log(this.id, "<--X-->", nodeID);
-        
+
 
         this.updateWasConnected(nodeID);
 
@@ -285,7 +295,7 @@ class NodeCAM {
         console.table(this);
     }
 
-  
+
     draw() {
 
         let group = document.createElementNS(svgns, "g");
@@ -312,21 +322,21 @@ class NodeCAM {
         newText.setAttribute("text-anchor", "middle")
 
         // insert break lines:
-      
 
-        if(this.text.length >= LengthSentence){
+
+        if (this.text.length >= LengthSentence) {
             const cumulativeSum = (sum => value => sum += value)(0);
             var LengthCumWords = LengthWords;
             var LengthText = [];
             var ArrayText = this.text.split(' ');
-        
+
             ArrayText.forEach(element => LengthText.push(element.length));
 
 
             LengthText = LengthText.map(cumulativeSum);
 
-            for(var i=0; i <= LengthText.length; i++){
-                if(LengthText[i] > LengthCumWords){
+            for (var i = 0; i <= LengthText.length; i++) {
+                if (LengthText[i] > LengthCumWords) {
                     ArrayText[i] = " <tspan dy='1em' x='0'>" + ArrayText[i] + "</tspan>";
                     LengthCumWords += LengthWords;
                 }
@@ -336,7 +346,7 @@ class NodeCAM {
             newText.setAttribute("y", -20);
 
             newText.innerHTML = ArrayText.join(" ");
-        }else{
+        } else {
             newText.innerHTML = this.text;
             newText.setAttribute("y", 0);
 
@@ -366,7 +376,7 @@ class NodeCAM {
             newRect.setAttribute("stroke-width", this.value * 3);
 
             if (this.isSelected === true) {
-               //newRect.setAttribute("fill", "#C0FAC8");
+                //newRect.setAttribute("fill", "#C0FAC8");
                 newRect.setAttribute("fill", HighlightSelected);
             }
             if (this.isConnectorSelected === true) {
@@ -468,4 +478,3 @@ class NodeCAM {
 
 
 //module.exports = NodeCAM;
-

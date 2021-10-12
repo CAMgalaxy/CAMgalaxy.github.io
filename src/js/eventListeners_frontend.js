@@ -63,7 +63,7 @@ $(function () {
                 myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 40%)";
                 CAM.currentConnector.intensity = 3 * IncreaseSliderIntensity;
                 CAM.draw();
-            }
+            } 
         }
     });
 
@@ -77,14 +77,13 @@ $(function () {
         var myRedColorNodeSlider = document.querySelector('.redColorNodeSlider');
 
         // background-color default
-        if (myValueSlider.value == 4 || myValueSlider.value == 5) {
+        if (myValueSlider.value == 4) {
             myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
             myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
         }
 
         // background-color to redish
         if (myValueSlider.value <= 3) {
-            $('#ambivalentNodeShow').hide();
             /*
             $('#negNodeShow').show();
             $('#ambivalentNodeShow').hide();
@@ -113,21 +112,20 @@ $(function () {
         }
 
         // background-color to greensih
-        if (myValueSlider.value >= 6) {
-            $('#ambivalentNodeShow').hide();
-            if (myValueSlider.value == 6) {
+        if (myValueSlider.value >= 5) {
+            if (myValueSlider.value == 5) {
                 myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
 
                 CAM.updateElement("value", 1);
                 CAM.draw();
             }
-            if (myValueSlider.value == 7) {
+            if (myValueSlider.value == 6) {
                 myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
 
                 CAM.updateElement("value", 2);
                 CAM.draw();
             }
-            if (myValueSlider.value == 8) {
+            if (myValueSlider.value == 7) {
                 myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
 
                 CAM.updateElement("value", 3);
@@ -136,19 +134,45 @@ $(function () {
         }
 
         // set to neutral:
-        if (myValueSlider.value == 5) {
-            $('#ambivalentNodeShow').hide();
+        if (myValueSlider.value == 4) {
             CAM.updateElement("value", 0);
             CAM.draw();
         }
+    });
 
-        // set to ambivalent:
-        if (myValueSlider.value == 4) {
-            $('#ambivalentNodeShow').show();
+
+    $('#checkboxAmbivalent').on("click", function (event) {
+        var myValueCheckbox = document.querySelector('#checkboxAmbivalent').checked;
+
+        if (myValueCheckbox === true) {
+            toastr.info('To change the ambivalent concept again, please uncheck the box.');
+            CounterChangeAmbiConcept++;
+            if (CounterChangeAmbiConcept == 2) {
+                $(this).off(event);
+            }
+        }
+
+    });
+
+
+    $('#checkboxAmbivalent').on("input", function () {
+
+        var myValueCheckbox = document.querySelector('#checkboxAmbivalent').checked;
+
+        if (myValueCheckbox === true) {
+            document.getElementById("nodeSlider").disabled = true;
+            document.getElementById("nodeSlider").value = 4;
             CAM.updateElement("value", 10);
+            CAM.draw();
+        } else {
+            document.getElementById("nodeSlider").disabled = false;
+            document.getElementById("nodeSlider").value = 4;
+            CAM.updateElement("value", 0);
             CAM.draw();
         }
     });
+
+
 
 
     /* */
@@ -218,9 +242,32 @@ $(function () {
             $('.ui-widget-overlay').on('click', function () { // .bind
                 $("#dialogInteractionEdge").dialog('close');
             });
+
+            CAM.currentConnector.enterLog({
+                type: "selected",
+                value: true
+            });
         },
         close: function (event, ui) {
             console.log('dialog got closed');
+
+            if(CAM.currentConnector.agreement){
+                CAM.currentConnector.enterLog({
+                    type: "change intensity of connector",
+                    value: CAM.currentConnector.intensity
+                });
+            }else{
+                CAM.currentConnector.enterLog({
+                    type: "change intensity of connector",
+                    value: CAM.currentConnector.intensity * -1
+                });
+            }
+
+            CAM.currentConnector.enterLog({
+                type: "selected",
+                value: false
+            });
+        
         },
         position: {
             my: "center", // add percentage offsets
@@ -441,7 +488,7 @@ function downloadCAMdata(content, fileName, contentType) {
 
 function onDownloadCAMdata() {
     console.log("CAM data has been saved");
-    downloadCAMdata(JSON.stringify(CAM), "CAMdata-" + CAM.idCAM + ".json", "text/plain");
+    downloadCAMdata(JSON.stringify(CAM), "CAMdataJSON-" + CAM.idCAM + ".txt", "text/plain");
 
     toastr.info('You can save your CAM as a data file (JSON file).');
 }
@@ -449,44 +496,58 @@ function onDownloadCAMdata() {
 
 /* > upload CAM as JSON file
 adjusted: https://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
-https://stackoverflow.com/questions/23344776/how-to-access-data-of-uploaded-json-file */
-async function uploadCAMdataMain() {
-    toastr.info('You can upload your CAM from a data file (JSON file).');
+https://stackoverflow.com/questions/23344776/how-to-access-data-of-uploaded-json-file
+https://stackoverflow.com/questions/31746837/reading-uploaded-text-file-contents-in-html */
+$(function () {
+    $('#fileToLoad').on('change', async (event) => {
+        // delete former CAM
+        CAM.connectors = [];
+        CAM.nodes = [];
+        CAM.draw();
+        console.log("complete CAM has been deleted");
 
-    // ! delete complete CAM if you import complete CAM
-    // > if CAM is updated
-    CAM.connectors = [];
-    CAM.nodes = [];
-    console.log("complete CAM has been deleted");
+        /* get file list */
+        var fileToLoad = document.getElementById("fileToLoad").files; // [0]
+        //console.log("file to load: ", fileToLoad)
 
+        /* parse to JSON file */
+        var jsonObj = await fileToJSON(fileToLoad);
+        console.log("file to load parsed: ", jsonObj);
+        //console.log("file to load parsed length nodes: ", jsonObj.nodes.length);
 
-    // upload file
-    var files = document.getElementById('getFile').files;
+        /* draw CAM */
+        arrayIDs = [];
+        for (var i = 0; i < jsonObj.nodes.length; i++) {
+            const elementNode = jsonObj.nodes[i];
+            console.log(elementNode);
 
-    // check file
-    if (files.length <= 0) {
-        return false;
-    }
-    if (files[0].type.search(/json/i) === -1) {
-        alert("You have not uploaded a JSON file.");
-        return false;
-    }
+            CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
+                x: elementNode.position.x,
+                y: elementNode.position.y
+            }, false, true));
 
-    // load json Object
-    console.log("await 1");
-    const jsonObj = await fileToJSON(files);
-    //console.log(jsonObj);
+            CAM.nodes[i].id = elementNode.id; // add ID of former node
+            CAM.nodes[i].isDraggable = true; // moveable
+            arrayIDs.push(elementNode.id);
+        }
 
-    // draw CAM
-    console.log("await 2");
-    await drawCAMdata(jsonObj);
+        // draw connectors
+        for (var i = 0; i < jsonObj.connectors.length; i++) {
+            //CAM.nodes.match(elt => elt.id ===     jsonObj.connectors[0].motherID)
+            const elementConnector = jsonObj.connectors[i];
+            console.log(elementConnector);
+            var connector1 = new ConnectorCAM();
 
-    document.getElementById("getFile").value = "";
+            connector1.establishConnection(CAM.nodes[arrayIDs.indexOf(elementConnector.motherID)], CAM.nodes[arrayIDs.indexOf(elementConnector.daughterID)],
+                elementConnector.intensity, elementConnector.agreement);
+            CAM.addElement(connector1);
+        }
+        // draw CAM
+        CAM.draw();
+    });
+});
 
-    return;
-}
-
-async function fileToJSON(file) {
+function fileToJSON(file) {
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader()
         fileReader.onload = event => resolve(JSON.parse(event.target.result))
@@ -495,38 +556,6 @@ async function fileToJSON(file) {
     })
 }
 
-async function drawCAMdata(jsonObj) {
-    // draw nodes
-    arrayIDs = [];
-    for (var i = 0; i < jsonObj.nodes.length; i++) {
-        const elementNode = jsonObj.nodes[i];
-        console.log(elementNode);
-
-        CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
-            x: elementNode.position.x,
-            y: elementNode.position.y
-        }, false, true));
-
-        CAM.nodes[i].id = elementNode.id; // add ID of former node
-        CAM.nodes[i].isDraggable = true; // moveable
-        arrayIDs.push(elementNode.id);
-    }
-
-    // draw connectors
-    for (var i = 0; i < jsonObj.connectors.length; i++) {
-        //CAM.nodes.match(elt => elt.id ===     jsonObj.connectors[0].motherID)
-        const elementConnector = jsonObj.connectors[i];
-        console.log(elementConnector);
-        var connector1 = new ConnectorCAM();
-
-        connector1.establishConnection(CAM.nodes[arrayIDs.indexOf(elementConnector.motherID)], CAM.nodes[arrayIDs.indexOf(elementConnector.daughterID)],
-            elementConnector.intensity, elementConnector.agreement);
-        CAM.addElement(connector1);
-    }
-    // draw CAM
-    CAM.draw();
-    return;
-}
 
 $(function () {
     $("#deleteCAM").on("click", () => {

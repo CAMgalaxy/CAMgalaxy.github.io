@@ -123,6 +123,11 @@ class ConnectorCAM {
 
     makeBidirectionalConnection(mother, daughter){
 
+        this.enterLog({
+            type: "create bidirectional connection",
+            value: null
+        });
+
         console.log(mother.id, daughter.id);
         this.isBidirectional = true;
         mother.addDaughter(daughter.id);
@@ -134,6 +139,11 @@ class ConnectorCAM {
     }
 
     makeUnidirectionalConnection(daughter, mother){
+
+        this.enterLog({
+            type: "create unidirectional connection",
+            value: null
+        });
 
         this.isBidirectional = false;
 

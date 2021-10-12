@@ -193,32 +193,31 @@
             </div>
 
 
-            <!-- > adjust type and strength of connector -->
+            <!-- > adjust type and strength of concept -->
             <div style="font-weight: bold; font-size: 18px; margin-top: 10px;">
                 Type and Strength of Concept:
             </div>
 
             <div class="greenColorNodeSlider">
                 <div class="yellowColorNodeSlider">
-                    <div class="ambivalentColorNodeSlider">
-                        <div class="redColorNodeSlider">
-                            <input type="range" min="1" max="8" step="1" id="nodeSlider">
-                        </div>
+                    <div class="redColorNodeSlider">
+                        <input type="range" min="1" max="7" step="1" id="nodeSlider">
                     </div>
                 </div>
             </div>
 
-            <div class="spacing-node" style="margin-top: 5px;" id="ambivalentNodeShow">
-                <span style="font-size: 12px; margin-right: -5px; padding-bottom: 13px;">
-                    ! concept is set to ambivalent (neither negative nor positive)
-                </span>
-                <span style="margin-right: 30px;">
-                    <image title="Concept is set to ambivalent" type="image"
-                        src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                        style="width: 65px; height: 45px;"></image>
-                </span>
-            </div>
+        
 
+            <div class="spacing-node" style="margin-top: 5px;" id="ambivalentNodeShow">
+
+                <input type="checkbox" id="checkboxAmbivalent" style="font-size: 20px;">
+                <label for="checkboxAmbivalent" style="font-size: 16px; margin-left: 5px;">set concept to </label>
+
+                <image title="Concept is set to ambivalent" type="image"
+                    src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
+                    style="width: 65px; height: 45px; margin-left: 5px;"></image>
+
+            </div>
 
             <!-- > adjust comment -->
             <div class="properties-comment">
@@ -271,9 +270,9 @@
                     <button class="material-icons" onclick="onDownloadCAMdata()"
                         title="Save CAM as file">vertical_align_bottom</button>
                     <button class="material-icons"
-                        onclick="uploadCAMdataMain(document.getElementById('getFile').click())"
+                        onclick="document.getElementById('fileToLoad').click();"
                         title="Upload CAM from file">vertical_align_top</button>
-                    <input type='file' id="getFile" style="display:none">
+                    <input type='file' id="fileToLoad" style="display:none">
                 </div>
             </div>
             <div class="cam-header-right">

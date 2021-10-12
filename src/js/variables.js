@@ -87,6 +87,10 @@ const svgns = "http://www.w3.org/2000/svg";
 var zoomScale = 0.55;
 
 
+var CounterChangeAmbiConcept = 0;
+
+
+
 let arrow = document.createElementNS(svgns, "defs");
 
 let arrowRight = document.createElementNS(svgns, "marker");

@@ -77,23 +77,15 @@ input[type=range]:hover {
 }
 
 .yellowColorNodeSlider {
-    width: 187.5px;
+    width: 171px;
     z-index: -998;
     background-color:  #F3F033;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
 
-.ambivalentColorNodeSlider {
-    width: 150px;
-    z-index: -997;
-    background-color: rgb(142, 19, 146);
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
 .redColorNodeSlider {
-    width: 112.5px;
+    width: 128px;
     z-index: -996;
     background-color: hsl(0, 50%, 60%);
     border-top-left-radius: 8px;
@@ -125,3 +117,14 @@ div.spacing-node {
 }
 
 
+/* disable slider - set grey background */
+#nodeSlider[disabled] {
+    z-index: 1;
+    background-color: rgb(142, 19, 146);
+}
+
+/* increase size checkbox */
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}

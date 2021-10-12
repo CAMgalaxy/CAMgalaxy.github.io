@@ -58,11 +58,13 @@ class Elements {
         if (!success) {
             console.log("A connector already exists.");
             var connector = this.findConnector(this.currentNode, node);
+            /*
             if (!connector.getIsActive()) {
                 console.log("Its state is active again.");
                 this.makeBidirectionalConnection(connector.motherID, connector.daughterID);
                 connector.updateConnector("active", true);
             }
+            */
         }
 
     }

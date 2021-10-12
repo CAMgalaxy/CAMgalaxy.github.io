@@ -14,8 +14,10 @@ $(document).on("mousedown", ".node", function (event) {
             var backendRedColorNodeSlider = document.querySelector('.redColorNodeSlider');
 
             if (CAM.currentNode.value == 0) {
-                document.getElementById("nodeSlider").value = 5;
-                $('#ambivalentNodeShow').hide();
+                document.getElementById("nodeSlider").value = 4;
+
+                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("nodeSlider").disabled = false;
 
                 /*
                 $('#negNodeShow').hide();
@@ -26,12 +28,15 @@ $(document).on("mousedown", ".node", function (event) {
                 backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
                 backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
             } else if (CAM.currentNode.value == 10) {
-                $('#ambivalentNodeShow').show();
                 document.getElementById("nodeSlider").value = 4;
                 backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
                 backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+
+                document.getElementById("checkboxAmbivalent").checked  = true;
+                document.getElementById("nodeSlider").disabled = true;
             } else if (CAM.currentNode.value < 0) {
-                $('#ambivalentNodeShow').hide();
+                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("nodeSlider").disabled = false;
                 if (CAM.currentNode.value == -1) {
                     document.getElementById("nodeSlider").value = 3;
                     backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
@@ -43,15 +48,16 @@ $(document).on("mousedown", ".node", function (event) {
                     backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
                 }
             } else if (CAM.currentNode.value > 0 && CAM.currentNode.value <= 4) {
-                $('#ambivalentNodeShow').hide();
+                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("nodeSlider").disabled = false;
                 if (CAM.currentNode.value == 1) {
-                    document.getElementById("nodeSlider").value = 6;
+                    document.getElementById("nodeSlider").value = 5;
                     backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
                 } else if (CAM.currentNode.value == 2) {
-                    document.getElementById("nodeSlider").value = 7;
+                    document.getElementById("nodeSlider").value = 6;
                     backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
                 } else if (CAM.currentNode.value == 3) {
-                    document.getElementById("nodeSlider").value = 8;
+                    document.getElementById("nodeSlider").value = 7;
                     backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
                 }
             }
