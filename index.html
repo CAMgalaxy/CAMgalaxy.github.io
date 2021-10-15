@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- for Microsoft Browser? -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
     <link rel="stylesheet" href="./src/css/main.css">
     <link rel="stylesheet" href="./src/css/toastrmin.css">
 
@@ -32,7 +33,9 @@
     <script src="./src/js/preprocessingCAM.js"></script>
     <script src="./src/js/postprocessingCAM.js"></script>
 
-    <title>C.A.M.E.L 🐪</title>
+    <title>C.A.M.E.L</title>
+    <link rel='shortcut icon' type='image/png' href='./img/favicon_logoCAM2.PNG' />
+
 </head>
 
 <body>
@@ -42,7 +45,8 @@
         <div class="reference">
             <div class="tab">
                 <button class="tablinks" onclick="openTab(event, 'QRLegend')">Legend</button>
-                <button class="tablinks" onclick="openTab(event, 'QRusingSoftware')">Using software</button>
+                <button class="tablinks" onclick="openTab(event, 'QRusingConcepts')">Concept</button>
+                <button class="tablinks" onclick="openTab(event, 'QRusingConnections')">Connection</button>
                 <button class="tablinks" onclick="openTab(event, 'QRButtons')">Buttons</button>
             </div>
             <!-- interactive component: DEFAULT -->
@@ -73,20 +77,34 @@
                 </ul>
             </div>
 
-            <div id="QRusingSoftware" class="tabcontent">
-
-                <h3>properties of concepts: </h3>
+            <div id="QRusingConcepts" class="tabcontent">
+                <h3>Create, update, delete concepts: </h3>
                 <ul style="list-style-type:none; margin: 0px; padding: 0px;">
-                    <li><b>Text:</b> Content of the concept (single words)</li>
-                    <li><b>Type:</b> Emotional attribution of the concept</li>
-                    <li><b>Strength:</b> Strength of the emotional attribution</li>
-                    <li><b>Comment:</b> Further explanation</li>
-                    <h3>properties of connections: </h3>
-                    <li><b>Type of Link:</b> positive support (solid line) or negative
-                        support (dashed line) between the two connected concepts</li>
-                    <li><b>Strength:</b> Strength of the connection</li>
+                    <li><b>Create:</b> Single click on blank drawing space</li>
+                    <li><b>Update:</b> Double click on existing concept</li>
+                    <li><b>Delete:</b> Double click on existing concept and press on the “trash bin” symbol top right.</li>
+                </ul>
 
-                    <li style="margin-top: 10px;"><u>Direction of Influence:</u> </li>
+                <h3>Change content of concepts: </h3>
+                <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                    <li><b>Add text:</b> Change the content of the concept (use only single words)</li>
+                    <li><b>Change type and strength:</b> Use the slider to change the emotional attribution and strength of the concept</li>
+                    <li><b>Add comment:</b> type comment in the “Comment” section</li>
+                </ul>
+            </div>
+
+            <div id="QRusingConnections" class="tabcontent">
+                <h3>Create, update, delete connections: </h3>
+                <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                    <li><b>Create:</b> Click on two concepts to draw a connection</li>
+                    <li><b>Update:</b> Double click on existing connection</li>
+                    <li><b>Delete:</b> Double click on existing concept and press on the “trash bin” symbol top right.</li>
+                </ul>
+
+                <h3>Change content of connections: </h3>
+                <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+                    <li><b>Change type and strength:</b> Use the slider to change the type (agreement or disagreement) and strength of the connection</li>
+                    <li style="margin-top: 10px;"><b>Direction of Influence:</b> </li>
                     <li style="padding-left: 10px;"><span style="vertical-align:middle;"
                             class="material-icons">sync_alt</span> Concepts influence each other</li>
                     <li style="padding-left: 10px;"><span style="vertical-align:middle;"
@@ -131,23 +149,36 @@
 
             <!-- > adjust type and strength of connector -->
             <div style="font-weight: bold; font-size: 18px;">
-                Type and Strength of Influence:
-            </div>
-
-            <div class="greenConnectorColorSlider" style="margin-left: -5px;">
-                <div class="redColorConnectorSlider">
-                    <input type="range" min="1" max="6" step="1" value="4" id="edgeSlider">
-                </div>
+                Type and Strength of Connection:
             </div>
 
             <div class="spacing-connector" style="margin-left: -5px;">
-                <span class="redColorTick">negative</span>
-                <span class="greenColorTick">positive</span>
+                <span class="redColorTick">Disagreement</span>
+                <span class="greenColorTick">Agreement</span>
+            </div>
+            <div class="outerConnectorSlider">
+                <div class="greenConnectorColorSlider" style="margin-left: -5px;">
+                    <div class="redColorConnectorSlider">
+                        <input type="range" min="1" max="6" step="1" value="4" id="edgeSlider">
+                    </div>
+                </div>
+                <div class="labelsConnectorSlider">
+                    <span>-3</span>
+                    <span>-2</span>
+                    <span>-1</span>
+                    <span>1</span>
+                    <span>2</span>
+                    <span >3</span>
+                </div>
+            </div>
+            <div style="padding: 15px;">
+                
             </div>
 
+
             <!-- > adjust of connectivity of edge -->
-            <div style="font-weight: bold; font-size: 18px; margin-top: 10px;" id="hideConnectorDirInfluence">
-                Direction of Influence:
+            <div style="font-weight: bold; font-size: 18px;" id="hideConnectorDirInfluence">
+                Direction of Connection:
                 <div>
                     <button id="bidirectional" type="button" class="material-icons"
                         title="Concepts influence each other" class="connectorButton"
@@ -186,7 +217,7 @@
             <!-- > adjust text -->
             <div class="properties-name" style="margin-top: 5px;">
                 <div style="font-weight: bold; font-size: 18px;">
-                    Text of Concept:
+                    Content:
                 </div>
                 <input id="inptextnode" type="text"
                     style="width: 99%; text-align: left;   margin: auto; display: block;">
@@ -198,24 +229,35 @@
                 Type and Strength of Concept:
             </div>
 
-            <div class="greenColorNodeSlider">
-                <div class="yellowColorNodeSlider">
-                    <div class="redColorNodeSlider">
-                        <input type="range" min="1" max="7" step="1" id="nodeSlider">
+            <div class="outerNodeSlider">
+                <div class="greenColorNodeSlider">
+                    <div class="yellowColorNodeSlider">
+                        <div class="redColorNodeSlider">
+                            <input type="range" min="1" max="7" step="1" id="nodeSlider" list="steplist">
+                        </div>
                     </div>
+                </div>
+                <div class="labelsNodeSlider">
+                    <span>-3</span>
+                    <span>-2</span>
+                    <span>-1</span>
+                    <span>0</span>
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
                 </div>
             </div>
 
-        
 
-            <div class="spacing-node" style="margin-top: 5px;" id="ambivalentNodeShow">
+
+            <div class="spacing-node" style="margin-top: 15px;" id="ambivalentNodeShow">
 
                 <input type="checkbox" id="checkboxAmbivalent" style="font-size: 20px;">
                 <label for="checkboxAmbivalent" style="font-size: 16px; margin-left: 5px;">set concept to </label>
 
                 <image title="Concept is set to ambivalent" type="image"
                     src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
-                    style="width: 65px; height: 45px; margin-left: 5px;"></image>
+                    style="width: 85px; height: 65px; margin-left: 5px; margin-top: 5px;"></image>
 
             </div>
 
@@ -269,8 +311,7 @@
                         unpublished </button>
                     <button class="material-icons" onclick="onDownloadCAMdata()"
                         title="Save CAM as file">vertical_align_bottom</button>
-                    <button class="material-icons"
-                        onclick="document.getElementById('fileToLoad').click();"
+                    <button class="material-icons" onclick="document.getElementById('fileToLoad').click();"
                         title="Upload CAM from file">vertical_align_top</button>
                     <input type='file' id="fileToLoad" style="display:none">
                 </div>

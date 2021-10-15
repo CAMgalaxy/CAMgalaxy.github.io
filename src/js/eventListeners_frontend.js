@@ -25,20 +25,20 @@ $(function () {
         // background-color to redish
         if (myValueSlider.value <= 3) {
             if (myValueSlider.value == 3) {
-                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
-                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 60%)";
+                myRedColorSlider.style.backgroundColor = "hsl(0, 100%, 70%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 100%, 70%)";
                 CAM.currentConnector.intensity = 1 * IncreaseSliderIntensity;
                 CAM.draw();
             }
             if (myValueSlider.value == 2) {
-                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
-                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 50%)";
+                myRedColorSlider.style.backgroundColor = "hsl(0, 100%, 50%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 100%, 50%)";
                 CAM.currentConnector.intensity = 2 * IncreaseSliderIntensity;
                 CAM.draw();
             }
             if (myValueSlider.value == 1) {
-                myRedColorSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
-                myRedColorTick.style.backgroundColor = "hsl(0, 50%, 40%)";
+                myRedColorSlider.style.backgroundColor = "hsl(0, 100%, 40%)";
+                myRedColorTick.style.backgroundColor = "hsl(0, 100%, 40%)";
                 CAM.currentConnector.intensity = 3 * IncreaseSliderIntensity;
                 CAM.draw();
             }
@@ -47,23 +47,23 @@ $(function () {
         // background-color to greenish
         if (myValueSlider.value >= 4) {
             if (myValueSlider.value == 4) {
-                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
-                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 60%)";
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 70%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 100%, 70%)";
                 CAM.currentConnector.intensity = 1 * IncreaseSliderIntensity;
                 CAM.draw();
             }
             if (myValueSlider.value == 5) {
-                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
-                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 50%)";
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 50%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 100%, 50%)";
                 CAM.currentConnector.intensity = 2 * IncreaseSliderIntensity;
                 CAM.draw();
             }
             if (myValueSlider.value == 6) {
-                myGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
-                myGreenColorTick.style.backgroundColor = "hsl(110, 50%, 40%)";
+                myGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 40%)";
+                myGreenColorTick.style.backgroundColor = "hsl(110, 100%, 40%)";
                 CAM.currentConnector.intensity = 3 * IncreaseSliderIntensity;
                 CAM.draw();
-            } 
+            }
         }
     });
 
@@ -92,19 +92,19 @@ $(function () {
             */
 
             if (myValueSlider.value == 3) {
-                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 100%, 70%)";
 
                 CAM.updateElement("value", -1);
                 CAM.draw();
             }
             if (myValueSlider.value == 2) {
-                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 100%, 50%)";
 
                 CAM.updateElement("value", -2);
                 CAM.draw();
             }
             if (myValueSlider.value == 1) {
-                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
+                myRedColorNodeSlider.style.backgroundColor = "hsl(0, 100%, 40%)";
 
                 CAM.updateElement("value", -3);
                 CAM.draw();
@@ -114,19 +114,19 @@ $(function () {
         // background-color to greensih
         if (myValueSlider.value >= 5) {
             if (myValueSlider.value == 5) {
-                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 100%, 70%)";
 
                 CAM.updateElement("value", 1);
                 CAM.draw();
             }
             if (myValueSlider.value == 6) {
-                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 100%, 50%)";
 
                 CAM.updateElement("value", 2);
                 CAM.draw();
             }
             if (myValueSlider.value == 7) {
-                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
+                myGreenColorNodeSlider.style.backgroundColor = "hsl(110, 100%, 40%)";
 
                 CAM.updateElement("value", 3);
                 CAM.draw();
@@ -183,8 +183,8 @@ $(function () {
         hide: false,
         resizable: false,
         draggable: true,
-        width: 350,
-        maxWidth: 350,
+        width: 400,
+        maxWidth: 400,
         buttons: {
             Close: function () {
                 $(this).dialog("close");
@@ -251,12 +251,12 @@ $(function () {
         close: function (event, ui) {
             console.log('dialog got closed');
 
-            if(CAM.currentConnector.agreement){
+            if (CAM.currentConnector.agreement) {
                 CAM.currentConnector.enterLog({
                     type: "change intensity of connector",
                     value: CAM.currentConnector.intensity
                 });
-            }else{
+            } else {
                 CAM.currentConnector.enterLog({
                     type: "change intensity of connector",
                     value: CAM.currentConnector.intensity * -1
@@ -267,7 +267,7 @@ $(function () {
                 type: "selected",
                 value: false
             });
-        
+
         },
         position: {
             my: "center", // add percentage offsets

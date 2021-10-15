@@ -195,10 +195,10 @@ class ConnectorCAM {
         newRect.setAttribute("class", "connector");
         newRect.setAttribute("id", this.id);
         newRect.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1) `)
-        newRect.setAttribute("x1", (motherD + 50) * Math.cos(angle) * compensation);
-        newRect.setAttribute("y1", (motherD + 50) * Math.sin(angle) * compensation);
-        newRect.setAttribute("x2", (dist - 50) * Math.cos(angle) * compensation);
-        newRect.setAttribute("y2", (dist - 50) * Math.sin(angle) * compensation);
+        newRect.setAttribute("x1", (motherD + DistanceArrows) * Math.cos(angle) * compensation);
+        newRect.setAttribute("y1", (motherD + DistanceArrows) * Math.sin(angle) * compensation);
+        newRect.setAttribute("x2", (dist - DistanceArrows) * Math.cos(angle) * compensation);
+        newRect.setAttribute("y2", (dist - DistanceArrows) * Math.sin(angle) * compensation);
         newRect.setAttribute("stroke", "#808080");
         newRect.setAttribute("stroke-width", this.intensity);
 
@@ -244,7 +244,7 @@ class ConnectorCAM {
         highlight.setAttribute("x2", (dist) * Math.cos(angle) * compensation);
         highlight.setAttribute("y2", (dist) * Math.sin(angle) * compensation);
         highlight.setAttribute("stroke", "rgba(142, 218, 211, 0.5)");
-        highlight.setAttribute("stroke-width", 20);
+        highlight.setAttribute("stroke-width", 30);
         return highlight;
     }
 
@@ -267,16 +267,19 @@ class ConnectorCAM {
         };
         let group = document.createElementNS(svgns, "g");
 
+        /* change ordering to enable click on ability "node selected -> connector"*/
+        if (mother.isSelected || daughter.isSelected) {
+            const selectedDraw = this.drawSelected(daughter, dist, angle, compensation);
+            group.appendChild(selectedDraw);
+        }
+
         const line = this.drawLine(motherD, position, angle, dist, compensation);
         group.appendChild(line);
 
         const outer = this.drawOuter(daughter, dist, angle, compensation);
         group.appendChild(outer);
 
-        if (mother.isSelected || daughter.isSelected) {
-            const selectedDraw = this.drawSelected(daughter, dist, angle, compensation);
-            group.appendChild(selectedDraw);
-        }
+  
     
 
         return group;

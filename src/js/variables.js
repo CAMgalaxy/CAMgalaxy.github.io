@@ -16,6 +16,7 @@ var LengthWords = 15; // after each word with cumsum >= X characters
 
 // hide connector: direction of influence
 var HideConDirInf;
+var DistanceArrows = 50;
 
 // show researcher buttons
 var ShowResearcherButtons;
@@ -56,6 +57,7 @@ if (Object.keys(params).length != 0) {
 
     // hide connector: direction of influence
     if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+        DistanceArrows = 20;
         $(function () {
             $('#hideConnectorDirInfluence').hide();
         });
@@ -103,8 +105,13 @@ arrowRight.setAttribute("orient", "auto");
 arrowRight.setAttribute("markerUnits", "userSpaceOnUse");
 
 let polyR = document.createElementNS(svgns, "polygon");
-polyR.setAttribute("points", "30 0, 30 15, 0 7.5");
+if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+    polyR.setAttribute("points", "0 0, 0 0, 0 0");
+}else{
+    polyR.setAttribute("points", "30 0, 30 15, 0 7.5");
+}
 
+polyR.setAttribute("fill", "#8c8c8c");
 arrowRight.appendChild(polyR);
 arrow.appendChild(arrowRight);
 
@@ -118,21 +125,26 @@ arrowLeft.setAttribute("orient", "auto");
 arrowLeft.setAttribute("markerUnits", "userSpaceOnUse");
 
 let polyL = document.createElementNS(svgns, "polygon");
-polyL.setAttribute("points", "0 0, 30 7.5, 0 15");
+if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+    polyL.setAttribute("points", "0 0, 0 0, 0 0");
+}else{
+    polyL.setAttribute("points", "0 0, 30 7.5, 0 15");
+}
+polyL.setAttribute("fill", "#8c8c8c");
 arrowLeft.appendChild(polyL);
 arrow.appendChild(arrowLeft);
 
 /* variables front end */
-const IncreaseSliderIntensity = 4;
+const IncreaseSliderIntensity = 3;
 // colors for highlighting selected elements
-const HighlightSelected = "#00bdff";
+const HighlightSelected = "#b3b3b3";
 const HighlightAdjacent = "rgb(163, 163, 163)";
 
 
 
 // adaptive study
 const ADAPTIVESTUDYlog = false; // if the CAM data should be appended to an URL
-const ADAPTIVESTUDYurl = "    https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple"; // if the CAM data should be appended to an URL
+const ADAPTIVESTUDYurl = "https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple"; // if the CAM data should be appended to an URL
 
 
 

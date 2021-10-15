@@ -9,10 +9,16 @@ input[type=range] {
     /* Hides the slider so that custom slider can be made */
     width: 295px;
     /* Specific width is required for Firefox. */
-    height: 10px;
+    height: 20px;
     /* Otherwise white in Chrome */
 
     cursor: pointer;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-left: 2.5px;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -29,6 +35,31 @@ input[type="range"]::-ms-thumb {
     margin: 0; /* Reset margin in Edge since it supports -webkit-slider-thumb as well */
   }
 
+
+/* style labels node slider */
+.labelsNodeSlider{
+    display: inline-flex;
+    flex-wrap: wrap; 
+}
+
+.labelsNodeSlider > span:not(:last-child) {
+    /* margin-left: 32px; /* HERE WE ADD THE SPACE */
+    width: 48px;
+   }
+
+
+   /* style labels connector slider */
+.labelsConnectorSlider{
+    display: inline-flex;
+    flex-wrap: wrap; 
+}
+
+.labelsConnectorSlider > span:not(:last-child) {
+    /* margin-left: 32px; /* HERE WE ADD THE SPACE */
+    width: 56px;
+   }
+
+/* hover over */
 input[type=range]:hover {
     background-color: rgb(75, 75, 75);
     /* Removes the blue border. You should probably do some       kind of focus styling for accessibility reasons though. */
@@ -36,38 +67,52 @@ input[type=range]:hover {
 
 
 /* connector slider colors below */
+.outerConnectorSlider{
+    height: 40px;
+    position: relative;
+}
+
 .greenConnectorColorSlider {
     width: 300px;
+    height: 100%;
     z-index: -999;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
     background-color:  hsl(110, 50%, 60%);
 }
 
 .redColorConnectorSlider {
     width: 150px;
+    height: 100%;
     z-index: -998;
     background-color: hsl(0, 50%, 60%);
-    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 
 /* > colors below slider */
 .redColorTick{
     background-color: hsl(0, 50%, 60%);
-    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
 }
 
 .greenColorTick{
     background-color:  hsl(110, 50%, 60%);
-    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 
 
+
+
 /* node slider colors below */
+.outerNodeSlider{
+    height: 40px;
+    position: relative;
+}
 .greenColorNodeSlider {
     width: 300px;
+    height: 100%;
     z-index: -999;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -78,6 +123,7 @@ input[type=range]:hover {
 
 .yellowColorNodeSlider {
     width: 171px;
+    height: 100%;
     z-index: -998;
     background-color:  #F3F033;
     border-top-left-radius: 8px;
@@ -86,6 +132,7 @@ input[type=range]:hover {
 
 .redColorNodeSlider {
     width: 128px;
+    height: 100%;
     z-index: -996;
     background-color: hsl(0, 50%, 60%);
     border-top-left-radius: 8px;
@@ -93,7 +140,7 @@ input[type=range]:hover {
 }
 
 
-/* style datalist */
+
 div.spacing-connector {
     display:table;
     width:300px;

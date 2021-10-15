@@ -62,8 +62,6 @@ $(document).on("mousedown", ".node", function (event) {
                 }
             }
 
-
-
             /* change position of pop up */
             if ((CAM.currentNode.position.x - 380) < 0) {
                 var changeAtLeft = "left+" + (CAM.currentNode.position.x + 70); // to far left position to right
@@ -147,15 +145,15 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
 
                 document.getElementById("edgeSlider").value = CAM.currentConnector.getIntensity() / IncreaseSliderIntensity + 3;
                 if (document.getElementById("edgeSlider").value == 4) {
-                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
-                    backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 60%)";
+                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 70%)";
+                    backendGreenColorTick.style.backgroundColor = "hsl(110, 100%, 70%)";
                 } else if (document.getElementById("edgeSlider").value == 5) {
-                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 50%)";
-                    backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 50%)";
+                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 50%)";
+                    backendGreenColorTick.style.backgroundColor = "hsl(110, 100%, 50%)";
                 }
                 if (document.getElementById("edgeSlider").value == 6) {
-                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 50%, 40%)";
-                    backendGreenColorTick.style.backgroundColor = "hsl(110, 50%, 40%)";
+                    backendGreenColorSlider.style.backgroundColor = "hsl(110, 100%, 40%)";
+                    backendGreenColorTick.style.backgroundColor = "hsl(110, 100%, 40%)";
                 }
             } else if (!CAM.currentConnector.agreement) {
                 backendGreenColorSlider.style.backgroundColor = "white";
@@ -163,16 +161,16 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
 
                 if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity) {
                     document.getElementById("edgeSlider").value = 3;
-                    backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
-                    backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 60%)";
+                    backendRedColorSlider.style.backgroundColor = "hsl(0, 100%, 70%)";
+                    backendRedColorTick.style.backgroundColor = "hsl(0, 100%, 70%)";
                 } else if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity * 2) {
                     document.getElementById("edgeSlider").value = 2;
-                    backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 50%)";
-                    backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 50%)";
+                    backendRedColorSlider.style.backgroundColor = "hsl(0, 100%, 50%)";
+                    backendRedColorTick.style.backgroundColor = "hsl(0, 100%, 50%)";
                 } else if (CAM.currentConnector.getIntensity() == IncreaseSliderIntensity * 3) {
                     document.getElementById("edgeSlider").value = 1;
-                    backendRedColorSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
-                    backendRedColorTick.style.backgroundColor = "hsl(0, 50%, 40%)";
+                    backendRedColorSlider.style.backgroundColor = "hsl(0, 100%, 40%)";
+                    backendRedColorTick.style.backgroundColor = "hsl(0, 100%, 40%)";
                 }
             }
 
