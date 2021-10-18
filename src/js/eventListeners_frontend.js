@@ -344,8 +344,10 @@ $(function () {
     $("#deleteNode").on("click", (evt) => {
         console.log("Deleted using botton");
         CAM.deleteElement();
-    });
 
+        $("#dialogInteractionNode").dialog('close');
+    });
+ 
 
     /* interactive components: EDGE */
     // > PLACEHOLDER: direction of influence
@@ -372,6 +374,8 @@ $(function () {
     $("#deleteEdge").on("click", (evt) => {
         console.log("Deleted using botton");
         CAM.deleteElement();
+
+        $("#dialogInteractionEdge").dialog('close'); // close pop-up
     });
 
 })
@@ -417,9 +421,17 @@ $(function () {
         var CAMnodes = CAM.nodes.filter(element => element.isActive === true);
         var CAMconnectors = CAM.connectors.filter(element => element.isActive === true);
 
+        // every concept should include text
+        var CAMnodesText = CAMnodes.filter(element => element.text.length === 0);
+console.log(CAMnodesText)
+if(CAMnodesText.length > 0){
+    alert(CAMnodesText.length + " concepts are empty." + "\nPlease return to your Cognitive-Affective Map and add text to the empty concepts.");
+    return false;
+}
         // necessary # of concepts
         if (CAMnodes.length < ConNumNodes) {
             alert("Please draw at least " + ConNumNodes + " concepts. \nPlease return to your Cognitive-Affective Map and add additional concepts to it.");
+            return false;
         } else if ((CAMnodes.length - 1) > CAMconnectors.length) { // CAMnodes.every(element => element.isConnected !== true)
             /* 
             test:
@@ -429,8 +441,8 @@ $(function () {
             console.log("CAM.nodes.length: ", CAMnodes.length);
 
             // console.log(CAMnodes.every(element => element.isConnected !== true));
-
             alert("Please connect all your concepts within your Cognitive-Affective Map. \nPlease return to your Cognitive-Affective Map and add additional connections to it.");
+            return false;
         } else {
             addElementsCy();
             var ResbfsAl = bfsAlgorithm("#" + cy.nodes()[0].id());
@@ -438,6 +450,7 @@ $(function () {
 
             if (ResbfsAl !== 1) {
                 alert("Please connect all your " + ResbfsAl + " distinct groups of concepts within your Cognitive-Affective Map.\nPlease return to your Cognitive-Affective Map and add additional connections to it.");
+                return false;
             } else {
                 toastr.success('Your CAM data has been sent to the sever. Thank you for participating!');
                 // append data to URL

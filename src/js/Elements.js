@@ -49,7 +49,7 @@ class Elements {
     addConnector(node) {
         var connector = new ConnectorCAM();
 
-        const success = connector.establishConnection(this.currentNode, node, 3, true);
+        const success = connector.establishConnection(this.currentNode, node, IncreaseSliderIntensity, true);
 
         if (success) {
             this.addElement(connector);
@@ -222,7 +222,6 @@ class Elements {
     }
 
     getElementNearby(position) {
-
         for (var elt of this.connectors) {
             if (elt.getIsActive()) {
                 const motherPos = this.getNodeById(elt.motherID).position;

@@ -12,7 +12,7 @@ class ConnectorCAM {
         this.date = null;
         this.kind = "Connector"; // information for drawing edges / nodes
         this.isSelected = false;
-        this.intensity = 3;
+        this.intensity = IncreaseSliderIntensity; // 3
         this.isDeletable = isDeletable;
         this.isOver = false;
         this.isBidirectional = true;
@@ -194,13 +194,15 @@ class ConnectorCAM {
         let newRect = document.createElementNS(svgns, "line");
         newRect.setAttribute("class", "connector");
         newRect.setAttribute("id", this.id);
-        newRect.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1) `)
+        newRect.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1) `) // ${zoomScaleConnector}
         newRect.setAttribute("x1", (motherD + DistanceArrows) * Math.cos(angle) * compensation);
         newRect.setAttribute("y1", (motherD + DistanceArrows) * Math.sin(angle) * compensation);
         newRect.setAttribute("x2", (dist - DistanceArrows) * Math.cos(angle) * compensation);
         newRect.setAttribute("y2", (dist - DistanceArrows) * Math.sin(angle) * compensation);
         newRect.setAttribute("stroke", "#808080");
         newRect.setAttribute("stroke-width", this.intensity);
+
+
 
         newRect.setAttribute("marker-start", "url(#arrowRight)");
         if (this.isBidirectional) newRect.setAttribute("marker-end", "url(#arrowLeft)");
@@ -266,6 +268,9 @@ class ConnectorCAM {
             "y": daughter.position.y
         };
         let group = document.createElementNS(svgns, "g");
+        //group.setAttribute("transform", `translate(${vec.x},${vec.y}) scale(1,1)`) // ${zoomScaleConnector}
+        //group.setAttribute("transform", `translate(${dir.x},${dir.y}) scale(.9,1)`) // ${zoomScaleConnector}
+        //group.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1)`) // ${zoomScaleConnector}
 
         /* change ordering to enable click on ability "node selected -> connector"*/
         if (mother.isSelected || daughter.isSelected) {

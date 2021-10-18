@@ -16,7 +16,12 @@ var LengthWords = 15; // after each word with cumsum >= X characters
 
 // hide connector: direction of influence
 var HideConDirInf;
-var DistanceArrows = 50;
+var DistanceArrows = 40;
+// change zoom level of svg elements
+var zoomScaleNode = 0.45;
+//var zoomScaleConnector = 1;
+const IncreaseSliderIntensity = 3;
+
 
 // show researcher buttons
 var ShowResearcherButtons;
@@ -86,9 +91,11 @@ if (Object.keys(params).length != 0) {
 var CAM = new Elements();
 const svgns = "http://www.w3.org/2000/svg";
 
-var zoomScale = 0.55;
 
 
+
+
+// after 2x show information regarding changing ambivalent node turn off
 var CounterChangeAmbiConcept = 0;
 
 
@@ -135,7 +142,7 @@ arrowLeft.appendChild(polyL);
 arrow.appendChild(arrowLeft);
 
 /* variables front end */
-const IncreaseSliderIntensity = 3;
+
 // colors for highlighting selected elements
 const HighlightSelected = "#b3b3b3";
 const HighlightAdjacent = "rgb(163, 163, 163)";

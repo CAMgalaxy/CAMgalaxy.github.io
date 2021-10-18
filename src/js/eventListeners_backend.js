@@ -66,7 +66,7 @@ $(document).on("mousedown", ".node", function (event) {
             if ((CAM.currentNode.position.x - 380) < 0) {
                 var changeAtLeft = "left+" + (CAM.currentNode.position.x + 70); // to far left position to right
             } else {
-                var changeAtLeft = "left+" + (CAM.currentNode.position.x - 380); // position to left
+                var changeAtLeft = "left+" + (CAM.currentNode.position.x - 360); // position to left
             }
             var changeAtTop = "top+" + (CAM.currentNode.position.y - 10);
 
@@ -222,7 +222,7 @@ $(document).on("click", "#background", function (event) {
 
         const isNearby = CAM.getElementNearby(positionClick);
         if (!isNearby) {
-            CAM.addElement(new NodeCAM(0, " ", positionClick, 1, 1, 1));
+            CAM.addElement(new NodeCAM(0, "", positionClick, 1, 1, 1));
         }
     }
 

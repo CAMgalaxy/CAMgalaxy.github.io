@@ -56,8 +56,12 @@ var cy = cytoscape({
 
 // add nodes and edges to cy 
 function addElementsCy() {
+   // var CAMnodesCy = CAM.nodes.filter(element => element.isActive === true);
+   // var CAMconnectorsCy = CAM.connectors.filter(element => element.isActive === true);
+
+    // console.log("connectors within Cy: ", CAMconnectorsCy);
     // add nodes
-    CAM.nodes.forEach(elt => {
+    CAM.nodes.forEach(elt => { //  CAM.nodes -> only active nodes here
         //(new Node(elt))
         if (elt.getIsActive()) {
             cy.add([{
@@ -76,7 +80,7 @@ function addElementsCy() {
 
     // add connectors
     var h = 0;
-    CAM.connectors.forEach(elt => {
+    CAM.connectors.forEach(elt => { //   CAM.connectors -> only active connectors here
         //(new Node(elt))
         if (elt.getIsActive()) {
             cy.add([{
@@ -90,8 +94,7 @@ function addElementsCy() {
             h += 1;
         }
     });
-
-
+    console.log("num of active connectors: ", h);
 }
 
 // adjusted bfs algorithm
@@ -124,6 +127,9 @@ function bfsAlgorithm(rootsnode) {
         NodesPathtmp.forEach(element => NodesIDs.push(element.id()));
         //console.log("bfs visited -> Nodes IDs: ", NodesIDs, "in round: ", timesRun);
     }
+
+    // set added nodes and edges to zero: 
+    cy.remove(cy.elements());
 
     return timesRun;
 }
