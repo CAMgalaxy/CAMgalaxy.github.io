@@ -270,8 +270,8 @@ $(function () {
 
         },
         position: {
-            my: "center", // add percentage offsets
-            at: "center",
+            my: "left top+15", // add percentage offsets
+            at: "left top+15",
             of: $(".boxCAMSVG")
         }
     });
@@ -294,6 +294,10 @@ $(function () {
 
             CAM.currentNode.isSelected = true;
 
+            CAM.currentNode.enterLog({
+                type: "selected",
+                value: true
+            });
 
             console.log('dialog got open');
             $('.ui-widget-overlay').on('click', function () {
@@ -303,10 +307,31 @@ $(function () {
         },
         close: function (event, ui) {
             console.log('dialog got closed');
+
+            // adjust event Log
+            CAM.currentNode.enterLog({
+                type: "text",
+                value: CAM.currentNode.getText()
+            });
+
+            CAM.currentNode.enterLog({
+                type: "value",
+                value: CAM.currentNode.getValue()
+            });
+
+            CAM.currentNode.enterLog({
+                type: "comment",
+                value: CAM.currentNode.getComment()
+            });
+
+            CAM.currentNode.enterLog({
+                type: "selected",
+                value: false
+            });
         },
         position: {
-            my: "center", // add percentage offsets
-            at: "center",
+            my: "left top+15", // add percentage offsets
+            at: "left top+15",
             of: $(".boxCAMSVG")
         }
     });
@@ -323,7 +348,7 @@ $(function () {
     // > text
     $('#inptextnode').on("input", function () {
         if (this.value.length < MaxLengthWords) {
-            console.log(this.value);
+
             CAM.updateElement("text", this.value);
             CAM.draw();
         } else {

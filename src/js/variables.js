@@ -23,6 +23,10 @@ var zoomScaleNode = 0.45;
 const IncreaseSliderIntensity = 3;
 
 
+
+// only save X values from position eventLog
+var arrayPositions;
+
 // show researcher buttons
 var ShowResearcherButtons;
 

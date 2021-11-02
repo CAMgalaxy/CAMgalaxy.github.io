@@ -1,5 +1,6 @@
 $(document).on("mousedown", ".node", function (event) {
 
+    arrayPositions = [];
     /* if double click */
     if (event.detail == 2) {
         CAM.selecteNode($(this)[0].id);
@@ -16,7 +17,7 @@ $(document).on("mousedown", ".node", function (event) {
             if (CAM.currentNode.value == 0) {
                 document.getElementById("nodeSlider").value = 4;
 
-                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("checkboxAmbivalent").checked = false;
                 document.getElementById("nodeSlider").disabled = false;
 
                 /*
@@ -32,10 +33,10 @@ $(document).on("mousedown", ".node", function (event) {
                 backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 60%)";
                 backendGreenColorNodeSlider.style.backgroundColor = "hsl(110, 50%, 60%)";
 
-                document.getElementById("checkboxAmbivalent").checked  = true;
+                document.getElementById("checkboxAmbivalent").checked = true;
                 document.getElementById("nodeSlider").disabled = true;
             } else if (CAM.currentNode.value < 0) {
-                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("checkboxAmbivalent").checked = false;
                 document.getElementById("nodeSlider").disabled = false;
                 if (CAM.currentNode.value == -1) {
                     document.getElementById("nodeSlider").value = 3;
@@ -48,7 +49,7 @@ $(document).on("mousedown", ".node", function (event) {
                     backendRedColorNodeSlider.style.backgroundColor = "hsl(0, 50%, 40%)";
                 }
             } else if (CAM.currentNode.value > 0 && CAM.currentNode.value <= 4) {
-                document.getElementById("checkboxAmbivalent").checked  = false;
+                document.getElementById("checkboxAmbivalent").checked = false;
                 document.getElementById("nodeSlider").disabled = false;
                 if (CAM.currentNode.value == 1) {
                     document.getElementById("nodeSlider").value = 5;
@@ -70,6 +71,8 @@ $(document).on("mousedown", ".node", function (event) {
             }
             var changeAtTop = "top+" + (CAM.currentNode.position.y - 10);
 
+            /*
+            console.log("position NODE: left", changeAtLeft, "top", changeAtTop);
 
             $("#dialogInteractionNode").dialog({
                 position: {
@@ -78,7 +81,7 @@ $(document).on("mousedown", ".node", function (event) {
                     of: $(".boxCAMSVG")
                 }
             });
-
+*/
             // console.log($('#dialogInteractionNode').dialog('option', 'position'));
 
             $("#dialogInteractionNode").dialog("open");
@@ -94,9 +97,28 @@ $(document).on("mousedown", ".node", function (event) {
 
 
 $(document).on("mouseup", ".node", function (event) {
+    // save only every 10th element of positions for event entry
+    var newArrayPositions = arrayPositions.slice(1, arrayPositions.length - 1).filter(function (value, index, Arr) {
+        return index % 10 == 0;
+    });
+
+    newArrayPositions.unshift(arrayPositions[0]);
+    newArrayPositions.push(arrayPositions[arrayPositions.length - 1]);
+    // console.log(newArrayPositions);
+
+    // simple check that no 2 undefined entries are included (non-moved element)
+    if (newArrayPositions.length > 2) {
+        newArrayPositions.forEach(element => {
+            CAM.currentNode.eventLog.push(element);
+        });
+    }
+
+
+
+
+
     CAM.readyToMove = false;
     if (CAM.hasElementMoved) {
-
         resetConnectorSelection();
         resetNodeSelection();
         CAM.hasElementMoved = false;
@@ -188,11 +210,15 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
                 var changeAtLeft = "left+" + (MeanPositionX - 340); // position to left
             }
 
-            if(Math.abs(currentMotherNode.position.x - currentDaughterNode.position.x) < 300){
+            if (Math.abs(currentMotherNode.position.x - currentDaughterNode.position.x) < 300) {
                 var changeAtTop = "top+" + (MeanPositionY - 130); // x = horizontal spacing less than 300
-            }else{
+            } else {
                 var changeAtTop = "top+" + (MeanPositionY);
             }
+
+
+/*
+            console.log("position CONNECTOR: left", changeAtLeft, "top", changeAtTop);
 
             $("#dialogInteractionEdge").dialog({
                 position: {
@@ -201,6 +227,7 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
                     of: $(".boxCAMSVG")
                 }
             });
+            */
 
             console.log($('#dialogInteractionEdge').dialog('option', 'position'));
 
@@ -235,15 +262,25 @@ $(document).on("mousemove", "#CAMSVG", function (event) {
         x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
         y: (event.clientY - $("#CAMSVG").position().top), // / zoomScale
     }
+
+
     if (CAM.readyToMove) {
         CAM.hasElementMoved = true;
         CAM.updateElement("position", positionClick);
+
+        arrayPositions.push({
+            time: new Date(),
+            type: "position",
+            value: positionClick
+        });
+
     } else {
         //const isNearby = CAM.getElementNearby(positionClick);
         //if(!isNearby){
         //    resetConnectorSelection();
         //}
     }
+
     CAM.draw();
 });
 

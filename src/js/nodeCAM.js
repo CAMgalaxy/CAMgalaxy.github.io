@@ -254,12 +254,6 @@ class NodeCAM {
     }
 
     updateNode(field, value) {
-
-        this.enterLog({
-            type: field,
-            value: value
-        });
-
         if (field === "text") this.setText(value);
         if (field === "position") this.setPosition(value);
         if (field === "value") this.setValue(value);
@@ -269,6 +263,12 @@ class NodeCAM {
         if (field === "connector") this.setIsConnectorSelected(value);
 
 
+             /*
+        this.enterLog({
+            type: field,
+            value: value
+        });
+        */
     }
 
     enterLog(log) {
