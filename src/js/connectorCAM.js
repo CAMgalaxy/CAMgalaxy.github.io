@@ -206,6 +206,10 @@ class ConnectorCAM {
 
         newRect.setAttribute("marker-start", "url(#arrowRight)");
         if (this.isBidirectional) newRect.setAttribute("marker-end", "url(#arrowLeft)");
+        if(!this.isBidirectional){ // adjust distance to element if uni-directional
+            newRect.setAttribute("x2", (dist - 20) * Math.cos(angle) * compensation);
+            newRect.setAttribute("y2", (dist - 20) * Math.sin(angle) * compensation);
+        }
 
         if (this.isSelected === true) {
             newRect.setAttribute("stroke", HighlightSelected);

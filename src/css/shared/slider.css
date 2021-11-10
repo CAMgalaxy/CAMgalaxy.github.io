@@ -40,6 +40,7 @@ input[type="range"]::-ms-thumb {
 .labelsNodeSlider{
     display: inline-flex;
     flex-wrap: wrap; 
+    font-size: 16px;
 }
 
 .labelsNodeSlider > span:not(:last-child) {
@@ -52,6 +53,7 @@ input[type="range"]::-ms-thumb {
 .labelsConnectorSlider{
     display: inline-flex;
     flex-wrap: wrap; 
+    font-size: 16px;
 }
 
 .labelsConnectorSlider > span:not(:last-child) {

@@ -329,8 +329,10 @@ class NodeCAM {
         newText.setAttribute("class", "noselect node");
         newText.setAttribute("x", 0);
         newText.setAttribute("fill", "black");
-        newText.setAttribute("alignment-baseline", "center")
+        newText.setAttribute("alignment-baseline", "center");
         newText.setAttribute("text-anchor", "middle")
+        newText.setAttribute("font-size", "20px")
+
 
         // insert break lines:
 
@@ -348,7 +350,7 @@ class NodeCAM {
 
             for (var i = 0; i <= LengthText.length; i++) {
                 if (LengthText[i] > LengthCumWords) {
-                    ArrayText[i] = " <tspan dy='1em' x='0'>" + ArrayText[i] + "</tspan>";
+                    ArrayText[i] = " <tspan dy='1.1em' x='0'>" + ArrayText[i] + "</tspan>";
                     LengthCumWords += LengthWords;
                 }
             }

@@ -15,37 +15,14 @@
 
 /* delete  button */
 .deleteButton {
-    color: var(--color-btn-delete-text);
-    background-color: var(--color-btn-delete-background);
-    border: 1px solid var(--color-btn-delete-background);
-    border-radius: .5rem;
-    padding: .3rem 1rem;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /*not equal to root font-family*/
     cursor: pointer;
     /*get hand instead of normal cursor*/
-    text-decoration: none;
-    text-align: center;
+    float: right;
 }
 
 .deleteButton:hover {
     background-color: var(--color-btn-delete-background-hover-dark);
 }
-
-
-
-/* > delete cross */
-.deleteButtonElement {
-    float: right;
-    cursor: pointer;
-}
-
-.deleteButtonElement:hover {
-    background-color: var(--color-btn-delete-background-hover-dark);
-}
-
 
 
 /* connector  buttons (pos., neg. support) */
@@ -62,3 +39,22 @@
 .connectorButton:hover {
     background-color: var(--color-btn-connector-background-hover-dark);
 }
+
+
+
+/* researcher  buttons (pos., neg. support) */
+.typeResearcherButton {
+    height: 40px;
+    width: 80px;
+    font-size: 12px;
+  
+    cursor: pointer;
+    /* interactive element */
+    color: white;
+    background: black;
+    font-weight: bold;
+  }
+  
+  .typeResearcherButton:hover {
+    color: rgb(102, 102, 102);
+  }

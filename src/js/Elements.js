@@ -1,6 +1,7 @@
 class Elements {
     constructor() {
         this.idCAM = uuid.v4();
+        this.projectCAM = config.CAMproject;
         this.date = (new Date).getUTCSeconds();
         this.nodes = [];
         this.connectors = [];

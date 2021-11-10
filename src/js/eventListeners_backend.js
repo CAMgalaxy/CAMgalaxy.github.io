@@ -96,25 +96,52 @@ $(document).on("mousedown", ".node", function (event) {
 });
 
 
-$(document).on("mouseup", ".node", function (event) {
-    // save only every 10th element of positions for event entry
-    var newArrayPositions = arrayPositions.slice(1, arrayPositions.length - 1).filter(function (value, index, Arr) {
-        return index % 10 == 0;
-    });
 
+$(document).on("mouseup", ".node", function (event) {
+    // save position data for only every 150px difference of X or Y
+    var newArrX = [];
+    var tmpArrayPosX = arrayPositions[0];
+    for (var i = 1; i < arrayPositions.length; i++){
+        if(Math.abs(arrayPositions[i].value.x - tmpArrayPosX.value.x) >= 150){
+            newArrX.push(1)
+            tmpArrayPosX = arrayPositions[i];
+        }else{
+            newArrX.push(0)
+        }
+    }
+    newArrX.unshift(0);
+
+    var newArrY = [];
+    var tmpArrayPosY = arrayPositions[0];
+    for (var i = 1; i < arrayPositions.length; i++){
+        if(Math.abs(arrayPositions[i].value.y - tmpArrayPosY.value.y) >= 150){
+            newArrY.push(1)
+            tmpArrayPosY = arrayPositions[i];
+        }else{
+            newArrY.push(0)
+        }
+    }
+    newArrY.unshift(0);
+
+    var newArrayPositions = [];
     newArrayPositions.unshift(arrayPositions[0]);
-    newArrayPositions.push(arrayPositions[arrayPositions.length - 1]);
-    // console.log(newArrayPositions);
 
     // simple check that no 2 undefined entries are included (non-moved element)
-    if (newArrayPositions.length > 2) {
+    if (arrayPositions.length > 2) {
+        for (var i = 1; i < arrayPositions.length; i++){
+            if(newArrX[i] == 1 || newArrY[i] == 1){
+                newArrayPositions.push(arrayPositions[i])
+        }
+    }
+
+    //console.log("newArrayPositions ", newArrayPositions)
         newArrayPositions.forEach(element => {
             CAM.currentNode.eventLog.push(element);
         });
+
     }
 
-
-
+    newArrayPositions.push(arrayPositions[arrayPositions.length - 1]);
 
 
     CAM.readyToMove = false;
@@ -217,17 +244,17 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
             }
 
 
-/*
-            console.log("position CONNECTOR: left", changeAtLeft, "top", changeAtTop);
+            /*
+                        console.log("position CONNECTOR: left", changeAtLeft, "top", changeAtTop);
 
-            $("#dialogInteractionEdge").dialog({
-                position: {
-                    my: "left top", // add percentage offsets
-                    at: changeAtLeft + " " + changeAtTop,
-                    of: $(".boxCAMSVG")
-                }
-            });
-            */
+                        $("#dialogInteractionEdge").dialog({
+                            position: {
+                                my: "left top", // add percentage offsets
+                                at: changeAtLeft + " " + changeAtTop,
+                                of: $(".boxCAMSVG")
+                            }
+                        });
+                        */
 
             console.log($('#dialogInteractionEdge').dialog('option', 'position'));
 
@@ -257,6 +284,55 @@ $(document).on("click", "#background", function (event) {
 });
 
 
+/* move complete CAM by mousedown of background */
+
+/*
+$(document).on("mousedown", "#CAMSVG", function (event) {
+    mouseIsDown = true;
+    console.log(mouseIsDown)
+});
+$(document).on("mouseup", "#CAMSVG", function (event) {
+    mouseIsDown = false;
+    console.log(mouseIsDown)
+});
+
+$(document).on("mousemove", "#CAMSVG", function (event) {
+    if (mouseIsDown) {
+        if (!CAM.readyToMove) {
+            const positionClick = {
+                x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
+                y: (event.clientY - $("#CAMSVG").position().top), // / zoomScale
+            }
+
+
+            console.log("juhu move hole CAM")
+            console.log("position of diff X node 0: ", tmpDiffX)
+            console.log(positionClick)
+
+            var tmpDiffX = CAM.nodes[0].position.x - positionClick.x;
+            if(tmpDiffX < 0){
+                CAM.nodes[0].position.x = CAM.nodes[0].position.x + Math.abs(tmpDiffX);
+            }else if(tmpDiffX > 0){
+                CAM.nodes[0].position.x = CAM.nodes[0].position.x - Math.abs(tmpDiffX);
+            }
+
+            var tmpDiffY = CAM.nodes[0].position.y - positionClick.y;
+            if(tmpDiffY < 0){
+                CAM.nodes[0].position.y = CAM.nodes[0].position.y + Math.abs(tmpDiffY);
+            }else if(tmpDiffY > 0){
+                CAM.nodes[0].position.y = CAM.nodes[0].position.y - Math.abs(tmpDiffY);
+            }
+      
+            CAM.draw()
+
+        }
+    }
+});
+*/
+
+
+/* .... */
+
 $(document).on("mousemove", "#CAMSVG", function (event) {
     const positionClick = {
         x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
@@ -280,6 +356,7 @@ $(document).on("mousemove", "#CAMSVG", function (event) {
         //    resetConnectorSelection();
         //}
     }
+
 
     CAM.draw();
 });

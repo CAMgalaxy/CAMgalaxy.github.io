@@ -4,7 +4,6 @@
 }
 
 
-
 /* properties */
 .properties {
     padding: 5px;
@@ -12,6 +11,21 @@
     border-bottom: 2px solid black;
     background-color: var(--color-background-body);
 }
+
+
+.properties-align {
+    margin-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.properties-size-naming {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+
 
 /* > tab content 
 .tabcontent {
@@ -30,4 +44,3 @@
     padding: 20px;
 }
 */
-

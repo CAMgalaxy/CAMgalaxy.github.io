@@ -238,7 +238,7 @@ $(function () {
 
             CAM.currentConnector.isSelected = true;
 
-            console.log('dialog got open');
+            console.log('dialog connector got open');
             $('.ui-widget-overlay').on('click', function () { // .bind
                 $("#dialogInteractionEdge").dialog('close');
             });
@@ -251,27 +251,33 @@ $(function () {
         close: function (event, ui) {
             console.log('dialog got closed');
 
-            if (CAM.currentConnector.agreement) {
+            // if connector got deleted
+            if (CAM.currentConnector !== null) {
+                CAM.currentConnector.isSelected = false;
+                CAM.draw();
+
+                if (CAM.currentConnector.agreement) {
+                    CAM.currentConnector.enterLog({
+                        type: "change intensity of connector",
+                        value: CAM.currentConnector.intensity
+                    });
+                } else {
+                    CAM.currentConnector.enterLog({
+                        type: "change intensity of connector",
+                        value: CAM.currentConnector.intensity * -1
+                    });
+                }
+
                 CAM.currentConnector.enterLog({
-                    type: "change intensity of connector",
-                    value: CAM.currentConnector.intensity
-                });
-            } else {
-                CAM.currentConnector.enterLog({
-                    type: "change intensity of connector",
-                    value: CAM.currentConnector.intensity * -1
+                    type: "selected",
+                    value: false
                 });
             }
 
-            CAM.currentConnector.enterLog({
-                type: "selected",
-                value: false
-            });
-
         },
         position: {
-            my: "left top+15", // add percentage offsets
-            at: "left top+15",
+            my: "right-0.5% top+3%", // add percentage offsets
+            at: "right-0.5% top+3%",
             of: $(".boxCAMSVG")
         }
     });
@@ -300,6 +306,9 @@ $(function () {
             });
 
             console.log('dialog got open');
+
+            //setTimeout("$('#dialogInteractionNode').dialog('close')",5000);
+
             $('.ui-widget-overlay').on('click', function () {
                 $("#dialogInteractionNode").dialog('close');
             });
@@ -308,30 +317,39 @@ $(function () {
         close: function (event, ui) {
             console.log('dialog got closed');
 
-            // adjust event Log
-            CAM.currentNode.enterLog({
-                type: "text",
-                value: CAM.currentNode.getText()
-            });
+            /*        */
+            // if node got deleted
+            if (CAM.currentNode !== null) {
+                CAM.currentNode.isSelected = false;
+                CAM.draw();
 
-            CAM.currentNode.enterLog({
-                type: "value",
-                value: CAM.currentNode.getValue()
-            });
+                // adjust event Log
+                CAM.currentNode.enterLog({
+                    type: "text",
+                    value: CAM.currentNode.getText()
+                });
 
-            CAM.currentNode.enterLog({
-                type: "comment",
-                value: CAM.currentNode.getComment()
-            });
+                CAM.currentNode.enterLog({
+                    type: "value",
+                    value: CAM.currentNode.getValue()
+                });
 
-            CAM.currentNode.enterLog({
-                type: "selected",
-                value: false
-            });
+                CAM.currentNode.enterLog({
+                    type: "comment",
+                    value: CAM.currentNode.getComment()
+                });
+
+                CAM.currentNode.enterLog({
+                    type: "selected",
+                    value: false
+                });
+            }
+
+
         },
         position: {
-            my: "left top+15", // add percentage offsets
-            at: "left top+15",
+            my: "right-0.5% top+3%", // add percentage offsets
+            at: "right-0.5% top+3%",
             of: $(".boxCAMSVG")
         }
     });
@@ -368,11 +386,15 @@ $(function () {
     // > delete
     $("#deleteNode").on("click", (evt) => {
         console.log("Deleted using botton");
+        CAM.currentNode.enterLog({
+            type: "node was deleted",
+            value: -99
+        });
         CAM.deleteElement();
 
         $("#dialogInteractionNode").dialog('close');
     });
- 
+
 
     /* interactive components: EDGE */
     // > PLACEHOLDER: direction of influence
@@ -398,6 +420,10 @@ $(function () {
     // > delete
     $("#deleteEdge").on("click", (evt) => {
         console.log("Deleted using botton");
+        CAM.currentConnector.enterLog({
+            type: "connector was deleted",
+            value: -99
+        });
         CAM.deleteElement();
 
         $("#dialogInteractionEdge").dialog('close'); // close pop-up
@@ -448,11 +474,11 @@ $(function () {
 
         // every concept should include text
         var CAMnodesText = CAMnodes.filter(element => element.text.length === 0);
-console.log(CAMnodesText)
-if(CAMnodesText.length > 0){
-    alert(CAMnodesText.length + " concepts are empty." + "\nPlease return to your Cognitive-Affective Map and add text to the empty concepts.");
-    return false;
-}
+        console.log(CAMnodesText)
+        if (CAMnodesText.length > 0) {
+            alert(CAMnodesText.length + " concepts are empty." + "\nPlease return to your Cognitive-Affective Map and add text to the empty concepts.");
+            return false;
+        }
         // necessary # of concepts
         if (CAMnodes.length < ConNumNodes) {
             alert("Please draw at least " + ConNumNodes + " concepts. \nPlease return to your Cognitive-Affective Map and add additional concepts to it.");
@@ -480,7 +506,7 @@ if(CAMnodesText.length > 0){
                 toastr.success('Your CAM data has been sent to the sever. Thank you for participating!');
                 // append data to URL
                 if (ADAPTIVESTUDYlog) {
-                    alert('append data to URL');
+                    alert('append data to URL - !!! include');
                 }
             }
         }
@@ -502,7 +528,24 @@ function downloadCAMsvg(svgEl, fileName) {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(svgBlob);
     a.download = fileName;
+
+    var img = document.createElement("img");
+    img.src = a.href;
+
+
+    console.log(a.href);
+    //$(location).prop('href', 'http://stackoverflow.com')
+    //window.location.replace(a.href);
+   // window.open(a.href, "_blank");
+    //window.open(a.href, "theFrame");
+    //window.open(a.href, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=400,left=650,width=1300,height=800");
+
     a.click();
+
+    /*
+    > https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
+    canvg('canvas', $("#editor").html());
+    */
 }
 
 function onDownloadSVGfile() {
@@ -668,12 +711,13 @@ function updateQueryStringParameter(uri, key, value) {
 $(function () {
     $("#gen").on("click", (evt) => {
 
-        var dataCAM = CAM;
 
         /* reduce size of the CAM object (or use only post-processed data)
         see: https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
         */
         /*
+        var dataCAM = CAM;
+
         dataCAM.nodes.forEach(elt => {
            elt.eventLog = [];
         });
@@ -681,6 +725,19 @@ $(function () {
             elt.eventLog = [];
          });
 */
+
+/*
+https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
+
+    // the canvg call that takes the svg xml and converts it to a canvas
+    canvg('canvas', $("#CAMSVG")[0].outerHTML);
+    // the canvas calls to output a png
+    var canvas = document.getElementById("canvas");
+    var imgage = canvas.toDataURL("image/png");
+    // do what you want with the base64, write to screen, post to server, etc...
+         console.log(imgage);
+             <script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
+         */
 
         var a = getActiveListNodes();
         a.unshift(CAM.idCAM);
