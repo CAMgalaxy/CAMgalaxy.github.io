@@ -299,6 +299,7 @@ class NodeCAM {
     draw() {
 
         let group = document.createElementNS(svgns, "g");
+        /*
         // prevent nodes from slipping outside the drawing frame
         if(this.position.x <= 40){
             group.setAttribute("transform", `translate(${this.position.x+40},${this.position.y}) scale(${zoomScaleNode})`)
@@ -312,7 +313,8 @@ class NodeCAM {
         else{
             group.setAttribute("transform", `translate(${this.position.x},${this.position.y}) scale(${zoomScaleNode})`)
         }
-
+        */
+        group.setAttribute("transform", `translate(${this.position.x},${this.position.y}) scale(${zoomScaleNode})`)
         //let newRect = document.createElementNS(svgns, "rect");
 
 

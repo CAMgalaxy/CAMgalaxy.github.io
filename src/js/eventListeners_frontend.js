@@ -520,6 +520,59 @@ adjusted: https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-s
 
 function downloadCAMsvg(svgEl, fileName) {
     svgEl.setAttribute("xmlns", svgns);
+
+    /* adjust CAM picture if negative coordinates / svg to small */
+    document.getElementById('CAMSVG').setAttribute("height", "1400px");
+    document.getElementById('CAMSVG').setAttribute("width", "2400px");
+
+    var condHitX = false;
+    var condHitY = false;
+
+    var arrayPosX = [];
+    CAM.nodes.forEach(element => {
+        arrayPosX.push(element.position.x);
+    });
+
+    if (arrayPosX.some(element => element < 100)) {
+        condHitX = true;
+        CAM.nodes.forEach(element => {
+            element.position.x = element.position.x + (Math.abs(Math.min(...arrayPosX)) + 100);
+        });
+
+        CAM.draw()
+    }else{
+        CAM.nodes.forEach(element => {
+            element.position.x = element.position.x - (Math.abs(Math.min(...arrayPosX)) - 100);
+        }); 
+
+        CAM.draw()
+    }
+
+
+    //console.log(arrayPosX)
+    //console.log(Math.abs(Math.min(...arrayPosX)));
+
+
+    var arrayPosY = [];
+    CAM.nodes.forEach(element => {
+        arrayPosY.push(element.position.y);
+    });
+
+    if (arrayPosY.some(element => element < 100)) {
+        condHitY = true;
+        CAM.nodes.forEach(element => {
+            element.position.y = element.position.y + (Math.abs(Math.min(...arrayPosY)) + 100);
+        });
+
+        CAM.draw()
+    }else{
+        CAM.nodes.forEach(element => {
+            element.position.y = element.position.y - (Math.abs(Math.min(...arrayPosY)) - 100);
+        }); 
+
+        CAM.draw()
+    }
+
     var svgData = svgEl.outerHTML;
     var preface = '<?xml version="1.0" standalone="no"?>\r\n';
     var svgBlob = new Blob([preface, svgData], {
@@ -536,12 +589,42 @@ function downloadCAMsvg(svgEl, fileName) {
     console.log(a.href);
     //$(location).prop('href', 'http://stackoverflow.com')
     //window.location.replace(a.href);
-   // window.open(a.href, "_blank");
+    // window.open(a.href, "_blank");
     //window.open(a.href, "theFrame");
     //window.open(a.href, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=400,left=650,width=1300,height=800");
-
     a.click();
 
+
+       /* REDO adjustments of CAM picture if negative coordinates / svg to small */
+       document.getElementById('CAMSVG').setAttribute("height", "800px");
+       document.getElementById('CAMSVG').setAttribute("width", "1300px");
+    if (condHitX) {
+        CAM.nodes.forEach(element => {
+            element.position.x = element.position.x - (Math.abs(Math.min(...arrayPosX)) + 100);
+        });
+
+        CAM.draw()
+    }else{
+        CAM.nodes.forEach(element => {
+            element.position.x = element.position.x + (Math.abs(Math.min(...arrayPosX)) - 100);
+        }); 
+
+        CAM.draw()
+    }
+
+    if (condHitY) {
+        CAM.nodes.forEach(element => {
+            element.position.y = element.position.y - (Math.abs(Math.min(...arrayPosY)) + 100);
+        });
+
+        CAM.draw()
+    }else{
+        CAM.nodes.forEach(element => {
+            element.position.y = element.position.y + (Math.abs(Math.min(...arrayPosY)) - 100);
+        }); 
+
+        CAM.draw()
+    }
     /*
     > https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
     canvg('canvas', $("#editor").html());
@@ -726,18 +809,18 @@ $(function () {
          });
 */
 
-/*
-https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
+        /*
+        https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
 
-    // the canvg call that takes the svg xml and converts it to a canvas
-    canvg('canvas', $("#CAMSVG")[0].outerHTML);
-    // the canvas calls to output a png
-    var canvas = document.getElementById("canvas");
-    var imgage = canvas.toDataURL("image/png");
-    // do what you want with the base64, write to screen, post to server, etc...
-         console.log(imgage);
-             <script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
-         */
+            // the canvg call that takes the svg xml and converts it to a canvas
+            canvg('canvas', $("#CAMSVG")[0].outerHTML);
+            // the canvas calls to output a png
+            var canvas = document.getElementById("canvas");
+            var imgage = canvas.toDataURL("image/png");
+            // do what you want with the base64, write to screen, post to server, etc...
+                 console.log(imgage);
+                     <script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
+                 */
 
         var a = getActiveListNodes();
         a.unshift(CAM.idCAM);
