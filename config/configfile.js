@@ -6,6 +6,7 @@ var config = {
     MaxLengthWords: 40, // stop / breaklines content nodes:
     LengthSentence: 20,
     LengthWords: 10,
+    ShowResearcherButtons: false,
     AdaptiveStudy: false
 }
 

@@ -276,8 +276,8 @@ $(function () {
 
         },
         position: {
-            my: "right-0.5% top+3%", // add percentage offsets
-            at: "right-0.5% top+3%",
+            my: "right-0.5% top+3.5%", // add percentage offsets
+            at: "right-0.5% top+3.5%",
             of: $(".boxCAMSVG")
         }
     });
@@ -348,8 +348,8 @@ $(function () {
 
         },
         position: {
-            my: "right-0.5% top+3%", // add percentage offsets
-            at: "right-0.5% top+3%",
+            my: "right-0.5% top+3.5%", // add percentage offsets
+            at: "right-0.5% top+3.5%",
             of: $(".boxCAMSVG")
         }
     });

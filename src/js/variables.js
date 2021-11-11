@@ -3,8 +3,11 @@ var CAM = new Elements();
 const svgns = "http://www.w3.org/2000/svg";
 
 /* camera option -> move SVG within broader frame*/
-var mouseIsDown = false
-
+// speed of CAM movement
+const moveCAMSpeed = 10;
+// stopping condition X coordinates
+var stopConX = 0;
+var stopConY = 0;
 
 /* !!! partly RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 var LengthSentence = config.LengthSentence; // if >= X characters
@@ -13,6 +16,8 @@ var LengthWords = config.LengthWords; // after each word with cumsum >= X charac
 /* GLOBAL variables */
 // hide connector: direction of influence
 //var HideConDirInf;
+
+
 
 // save only part of positions in eventLog when moving node
 var arrayPositions;
@@ -36,3 +41,11 @@ const HighlightAdjacent = "rgb(163, 163, 163)";
 
 // increase slider intensity by X (thicker lines)
 const IncreaseSliderIntensity = 3;
+
+if(config.ShowResearcherButtons === false){
+    $(function () {
+        $('#hideResearcherButtonsNode').hide(); // hide
+        $('#hideResearcherButtonsConnector').hide();
+        $('#hideResearcherButtonsTop').hide();
+    });
+}
