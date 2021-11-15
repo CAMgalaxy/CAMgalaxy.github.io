@@ -42,10 +42,4 @@ const HighlightAdjacent = "rgb(163, 163, 163)";
 // increase slider intensity by X (thicker lines)
 const IncreaseSliderIntensity = 3;
 
-if(config.ShowResearcherButtons === false){
-    $(function () {
-        $('#hideResearcherButtonsNode').hide(); // hide
-        $('#hideResearcherButtonsConnector').hide();
-        $('#hideResearcherButtonsTop').hide();
-    });
-}
+

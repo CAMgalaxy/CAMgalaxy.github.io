@@ -378,7 +378,6 @@ $(function () {
 
     // > comment
     $('#inpcommentnode').on("input", function () {
-        console.log(this.value);
         CAM.updateElement("comment", this.value);
         CAM.draw();
     });
@@ -823,7 +822,8 @@ $(function () {
                  */
 
         var a = getActiveListNodes();
-        a.unshift(CAM.idCAM);
+        a.unshift(CAM.idCAM); // id of single CAM
+        a.unshift(CAM.projectCAM); // id of current project
         console.log(a);
         //You can reload the url like so
         var encodedCAM = Base64.encode(JSON.stringify(a));

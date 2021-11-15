@@ -386,6 +386,62 @@ function resetNodeSelection() {
 }
 
 
+if(config.cameraFeature){
+    $(document).on("mouseover", "#background", function (event) {
+        var positionMouse = {
+            x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
+            y: (event.clientY - $("#CAMSVG").position().top), // / zoomScale
+        }
+    
+        /*
+       var arrayPosX = [];
+        CAM.nodes.forEach(element => {
+            arrayPosX.push(element.position.x)
+        });
+        /arrayPosX = arrayPosX.filter(element => element > 1900 || element < -300);
+        */
+    
+        //console.log("positionMouse - X: ", positionMouse.x, "positionMouse - Y: ", positionMouse.y);
+        //console.log("positionMouse.y: ", positionMouse.y);
+        if (positionMouse.x < 20 || positionMouse.x > 1280 || positionMouse.y < 20 || positionMouse.y > 740) {
+          
+    
+            //console.log("stopConY: ", stopConY);
+           // $("body").css("cursor", "move");
+    
+    
+            if (stopConX > -500 && positionMouse.x > 1290) {
+                CAM.nodes.forEach(element => {
+                    element.position.x -= moveCAMSpeed;
+                });
+                stopConX -= moveCAMSpeed;
+            } else if (stopConX < 500 && positionMouse.x < 10) {
+                CAM.nodes.forEach(element => {
+                    element.position.x += moveCAMSpeed;
+                });
+                stopConX += moveCAMSpeed;
+            }
+            
+            if (stopConY > -250 && positionMouse.y > 755) {
+                CAM.nodes.forEach(element => {
+                    element.position.y -= moveCAMSpeed;
+                });
+                stopConY -= moveCAMSpeed;
+            } else if (stopConY < 250 && positionMouse.y < 10) {
+                CAM.nodes.forEach(element => {
+                    element.position.y += moveCAMSpeed;
+                });
+                stopConY += moveCAMSpeed;
+            }
+    
+            CAM.draw()
+        } else {
+            $("body").css("cursor", "default");
+        }
+    });
+}
+
+
 
 /* keep it for debug purpose
 document.addEventListener('keydown', (e) => {

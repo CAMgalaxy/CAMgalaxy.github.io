@@ -10,7 +10,7 @@ function getActiveListNodes(){
         //(new Node(elt))
         if(elt.getIsActive()){
         listOfNodes.push({"id": elt.id, 
-        "text": elt.getText(), "value": elt.getValue(), "comment": elt.getComment(), "text": elt.getText(), 
+        "text": elt.getText(), "value": elt.getValue(), "comment": elt.getComment(),
         "isDeletable": elt.getIsDeletable(), 
         "connectedTo": elt.connectedTo}); // adjust connectedTo using daughter / mother
         }

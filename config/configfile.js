@@ -2,12 +2,13 @@
 var config = {
     CAMproject: "proj_" + uuid.v4(), // necessary for server (see ERM)
     ConNumNodes: 10, // number of nodes necessary to draw
-    ConConnected: true, // if true = possible to draw arrows
+    HideConDirInf: false, // if false = possible to draw arrows
     MaxLengthWords: 40, // stop / breaklines content nodes:
     LengthSentence: 20,
     LengthWords: 10,
-    ShowResearcherButtons: false,
-    AdaptiveStudy: false
+    ShowResearcherButtons: false, // show researcher functionalities
+    AdaptiveStudy: false, // run as adaptive study -> change URL
+    cameraFeature: true // include camera / splotlight feature to move screen
 }
 
 // adaptive study

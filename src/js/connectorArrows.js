@@ -10,7 +10,7 @@ arrowRight.setAttribute("orient", "auto");
 arrowRight.setAttribute("markerUnits", "userSpaceOnUse");
 
 let polyR = document.createElementNS(svgns, "polygon");
-if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+if (config.HideConDirInf == true) {
     polyR.setAttribute("points", "0 0, 0 0, 0 0");
 }else{
     polyR.setAttribute("points", "30 0, 30 15, 0 7.5");
@@ -30,7 +30,7 @@ arrowLeft.setAttribute("orient", "auto");
 arrowLeft.setAttribute("markerUnits", "userSpaceOnUse");
 
 let polyL = document.createElementNS(svgns, "polygon");
-if (urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") {
+if (config.HideConDirInf == true) {
     polyL.setAttribute("points", "0 0, 0 0, 0 0");
 }else{
     polyL.setAttribute("points", "0 0, 30 7.5, 0 15");
