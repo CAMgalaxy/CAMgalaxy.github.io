@@ -7,6 +7,16 @@
 @import 'shared/dialog.css';
 @import 'shared/slider.css';
 
+
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
 :root{
   font-family: Verdana, Geneva, Tahoma, sans-serif; /* also change: ".ui-dialog-buttonset > button"*/
 }

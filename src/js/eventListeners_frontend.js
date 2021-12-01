@@ -365,16 +365,34 @@ $(function () {
     /* interactive components: NODE */
     // > text
     $('#inptextnode').on("input", function () {
-        if (this.value.length < MaxLengthWords) {
 
+        var numWords = this.value.split(' ').filter(word => word != "");
+        numWords = numWords.length;
+        // console.log("length chars: ", this.value.length, this.value.length <= MaxLengthChars);
+        // console.log("numWords: ", numWords, numWords <= MaxLengthWords);
+
+        if (numWords <= MaxLengthWords && this.value.length <= MaxLengthChars) {
             CAM.updateElement("text", this.value);
             CAM.draw();
-        } else {
-            alert("Please do not use more than" + MaxLengthWords + " characters for a single node!\nInstead, please draw several connected nodes.");
+        } else if (numWords > MaxLengthWords) {
+            toastr.warning("Instead, please draw several connected nodes.", "Please do not use more than " + MaxLengthWords + " words for a single node!", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
+
+
+            // alert("Please do not use more than " + MaxLengthWords + " words for a single node!\nInstead, please draw several connected nodes.");
+        } else if (this.value.length > MaxLengthChars) {
+            toastr.warning("Instead, please draw several connected nodes.", "Please do not use more than " + MaxLengthChars + " characters for a single node!", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
         }
     });
-
-
 
     // > comment
     $('#inpcommentnode').on("input", function () {
@@ -475,12 +493,22 @@ $(function () {
         var CAMnodesText = CAMnodes.filter(element => element.text.length === 0);
         console.log(CAMnodesText)
         if (CAMnodesText.length > 0) {
-            alert(CAMnodesText.length + " concepts are empty." + "\nPlease return to your Cognitive-Affective Map and add text to the empty concepts.");
+            toastr.warning("Please return to your Cognitive-Affective Map and add text to the empty concepts.", CAMnodesText.length + " concept(s) are empty.", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
             return false;
         }
         // necessary # of concepts
         if (CAMnodes.length < ConNumNodes) {
-            alert("Please draw at least " + ConNumNodes + " concepts. \nPlease return to your Cognitive-Affective Map and add additional concepts to it.");
+            toastr.warning("Please return to your Cognitive-Affective Map and add additional concepts to it.", "Please draw at least " + ConNumNodes + " concepts.", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
             return false;
         } else if ((CAMnodes.length - 1) > CAMconnectors.length) { // CAMnodes.every(element => element.isConnected !== true)
             /* 
@@ -491,7 +519,13 @@ $(function () {
             console.log("CAM.nodes.length: ", CAMnodes.length);
 
             // console.log(CAMnodes.every(element => element.isConnected !== true));
-            alert("Please connect all your concepts within your Cognitive-Affective Map. \nPlease return to your Cognitive-Affective Map and add additional connections to it.");
+            toastr.warning("Please return to your Cognitive-Affective Map and add additional connections to it.", "Please connect all your concepts within your Cognitive-Affective Map.", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
+            
             return false;
         } else {
             addElementsCy();
@@ -499,12 +533,22 @@ $(function () {
             console.log("num of distinct components of CAM: ", ResbfsAl);
 
             if (ResbfsAl !== 1) {
-                alert("Please connect all your " + ResbfsAl + " distinct groups of concepts within your Cognitive-Affective Map.\nPlease return to your Cognitive-Affective Map and add additional connections to it.");
+                toastr.warning("Please return to your Cognitive-Affective Map and add additional connections to it.", "Please connect all your " + ResbfsAl + " distinct groups of concepts within your Cognitive-Affective Map.", {
+                    closeButton: true,
+                    timeOut: 2000,
+                    positionClass: "toast-top-center",
+                    preventDuplicates: true
+                })
+                
                 return false;
             } else {
-                toastr.success('Your CAM data has been sent to the sever. Thank you for participating!');
+                toastr.success('Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the final part of the study.');
                 // append data to URL
-                if (ADAPTIVESTUDYlog) {
+                setTimeout(function() {
+              
+                }, 5000);
+
+                if (config.AdaptiveStudy) {
                     alert('append data to URL - !!! include');
                 }
             }
@@ -539,10 +583,10 @@ function downloadCAMsvg(svgEl, fileName) {
         });
 
         CAM.draw()
-    }else{
+    } else {
         CAM.nodes.forEach(element => {
             element.position.x = element.position.x - (Math.abs(Math.min(...arrayPosX)) - 100);
-        }); 
+        });
 
         CAM.draw()
     }
@@ -564,10 +608,10 @@ function downloadCAMsvg(svgEl, fileName) {
         });
 
         CAM.draw()
-    }else{
+    } else {
         CAM.nodes.forEach(element => {
             element.position.y = element.position.y - (Math.abs(Math.min(...arrayPosY)) - 100);
-        }); 
+        });
 
         CAM.draw()
     }
@@ -594,19 +638,19 @@ function downloadCAMsvg(svgEl, fileName) {
     a.click();
 
 
-       /* REDO adjustments of CAM picture if negative coordinates / svg to small */
-       document.getElementById('CAMSVG').setAttribute("height", "800px");
-       document.getElementById('CAMSVG').setAttribute("width", "1300px");
+    /* REDO adjustments of CAM picture if negative coordinates / svg to small */
+    document.getElementById('CAMSVG').setAttribute("height", "800px");
+    document.getElementById('CAMSVG').setAttribute("width", "1300px");
     if (condHitX) {
         CAM.nodes.forEach(element => {
             element.position.x = element.position.x - (Math.abs(Math.min(...arrayPosX)) + 100);
         });
 
         CAM.draw()
-    }else{
+    } else {
         CAM.nodes.forEach(element => {
             element.position.x = element.position.x + (Math.abs(Math.min(...arrayPosX)) - 100);
-        }); 
+        });
 
         CAM.draw()
     }
@@ -617,10 +661,10 @@ function downloadCAMsvg(svgEl, fileName) {
         });
 
         CAM.draw()
-    }else{
+    } else {
         CAM.nodes.forEach(element => {
             element.position.y = element.position.y + (Math.abs(Math.min(...arrayPosY)) - 100);
-        }); 
+        });
 
         CAM.draw()
     }
@@ -633,7 +677,6 @@ function downloadCAMsvg(svgEl, fileName) {
 function onDownloadSVGfile() {
     console.log("CAM picture (svg) has been saved");
     downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.idCAM + ".svg");
-
     toastr.info('You can save your CAM as a picture (svg file).');
 }
 
@@ -722,7 +765,26 @@ function fileToJSON(file) {
 
 $(function () {
     $("#deleteCAM").on("click", () => {
-        let confirmdel = confirm("Do you really want to delete your CAM? No data will be saved on the server.");
+
+        toastr.info("Do you really want to delete your CAM? No data will be saved on the server.<br/><button type='button' id='confirmationYes' class='btn clear'>Yes</button>",'Delete?',
+        {
+            closeButton: false,
+            allowHtml: true,
+            showDuration: 4000,
+            onShown: function (toast) {
+                $("#confirmationYes").on("click", function(){
+                    CAM.connectors = [];
+                    CAM.nodes = [];
+        
+                    toastr.error('You CAM has been deleted. No data will be saved on the server.');
+        
+                    console.log("complete CAM has been deleted");
+                    CAM.draw();
+                });
+              }
+        });
+
+        //let confirmdel = confirm("Do you really want to delete your CAM? No data will be saved on the server.");
         if (confirmdel == true) {
             CAM.connectors = [];
             CAM.nodes = [];

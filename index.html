@@ -42,7 +42,7 @@
     <link rel='shortcut icon' type='image/png' href='./img/favicon_logoCAM2.PNG' />
 </head>
 
-<body>
+<body id="hideall">
     <!-- DIALOGS -->
     <!-- > quick reference -->
     <div id="dialogReference" title="Quick reference">
@@ -79,9 +79,10 @@
                             style="width: 50px; height: 40px; vertical-align:middle;"> Concepts inhibit each other
                     </li>
                     <div id="showCameraFeature">
-                        <h3>Move your Cognitive-Affective Map</h3> by moving your cursor to the edge of the drawing window (grey area):
+                        <h3>Move your Cognitive-Affective Map</h3> by moving your cursor to the edge of the drawing
+                        window (grey area):
                         <img src="./img/cameraFeature.JPG" alt=""
-                        style="width: 260px; height: 120px; vertical-align:text-top;">
+                            style="width: 260px; height: 120px; vertical-align:text-top;">
                     </div>
                 </ul>
             </div>
@@ -193,7 +194,7 @@
                 <div class="properties-size-naming" style="margin-top: 25px;">
                     Direction of Connection:
                 </div>
-    
+
                 <div style="text-align: center;">
                     <div>
                         <button id="bidirectional" type="button" class="material-icons"
@@ -358,10 +359,64 @@
 
     </div>
 -->
+
 </body>
+
+<div id="alert" style="background: white; visibility: hidden;" class="content">
+    <div id="alert-text" style="text-align: center;">
+        <strong>Please do not change or minimize the browser window while the study is running. Only if there is a break
+            in the course of the study.</strong>
+        <br>
+        <button id="alert-button-text" type="button" onclick="document.getElementById('alert').style.visibility = 'hidden'; 
+     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen()">
+            click to continue
+        </button>
+    </div>
+</div>
+
 
 
 <script>
+    window.addEventListener('load', (e) => {
+        document.getElementById('alert').style.visibility = "visible";
+        document.getElementById('hideall').style.visibility = "hidden";
+        var lastBlurTimestamp = e.timeStamp;
+    });
+
+
+    window.addEventListener('blur', (e) => {
+        document.getElementById('alert').style.visibility = "visible";
+        document.getElementById('hideall').style.visibility = "hidden";
+        var lastBlurTimestamp = e.timeStamp;
+    });
+
+    function enterFullscreen() {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // for IE11 (remove June 15, 2022)
+            document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // iOS Safari
+            document.documentElement.webkitRequestFullscreen();
+        }
+    }
+
+    /*
+    var viewFullScreen = document.getElementById("quickref");					
+
+    window.addEventListener("load", function() {
+    var docElm = document.documentElement;
+    if (docElm.requestFullscreen) {
+      docElm.requestFullscreen();
+    } else if (docElm.msRequestFullscreen) {
+      docElm.msRequestFullscreen();
+    } else if (docElm.mozRequestFullScreen) {
+      docElm.mozRequestFullScreen();
+    } else if (docElm.webkitRequestFullScreen) {
+      docElm.webkitRequestFullScreen();
+    }
+  })
+  */
+
     CAM.addElement(new NodeCAM(3, "the middleman (centered node)", {
         x: 650,
         y: 400
