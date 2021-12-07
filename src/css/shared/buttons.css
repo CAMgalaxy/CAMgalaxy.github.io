@@ -58,3 +58,28 @@
   .typeResearcherButton:hover {
     color: rgb(102, 102, 102);
   }
+
+
+
+  /* defocus button */
+#alert-button-text {
+    font-family: "Arial", sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    line-height: var(--line-height);
+    border: 2px solid #e5e5e5;
+    border-radius: 4px;
+    margin: 8px 0;
+    padding: 8px;
+  }
+  
+  #alert-button-text {
+    background-color: white;
+    border-radius: 3px;
+    padding: 8px 8px 6px;
+  }
+  
+  #alert-button-text:hover {
+    border-color: #ddd;
+    background-color: #fcfcfc;
+  }

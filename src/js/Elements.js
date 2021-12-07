@@ -1,7 +1,9 @@
 class Elements {
     constructor() {
         this.idCAM = uuid.v4();
+        this.participantCAM = null;
         this.projectCAM = config.CAMproject;
+        this.defocusCAM = null;
         this.date = (new Date).getUTCSeconds();
         this.nodes = [];
         this.connectors = [];
@@ -105,6 +107,13 @@ class Elements {
     deleteConnector() {
         if (!this.currentConnector.getIsDeletable()) {
             console.log("This element cannot be deleted.");
+
+            toastr.info("Instead, please choose other connectors.", "You cannot delete predefined connectors.", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
             return;
         }
         CAM.currentConnector.isDeletable
@@ -128,6 +137,14 @@ class Elements {
 
         if (!this.currentNode.getIsDeletable()) {
             console.log("This element cannot be deleted.");
+
+            toastr.info("Instead, please choose other concepts.", "You cannot delete predefined concepts.", {
+                closeButton: true,
+                timeOut: 2000,
+                positionClass: "toast-top-center",
+                preventDuplicates: true
+            })
+
             return;
         }
 

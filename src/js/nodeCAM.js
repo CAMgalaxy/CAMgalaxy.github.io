@@ -1,6 +1,6 @@
 class NodeCAM {
 
-    constructor(value, text, position, isDraggable = true, isDeletable = true) {
+    constructor(value, text, position, isDraggable = true, isDeletable = true, isTextChangeable = true) {
         this.id = uuid.v4();
         this.value = value;
         this.text = text;
@@ -22,6 +22,7 @@ class NodeCAM {
         this.isDeletable = isDeletable;
         this.hasElementMoved = false;
         this.eventLog = [];
+        this.isTextChangeable = isTextChangeable;
 
         this.enterLog({
             type: "create node",

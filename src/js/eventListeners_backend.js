@@ -267,6 +267,7 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
 
 
 $(document).on("click", "#background", function (event) {
+    showDialogOnce();
 
     if (!(resetConnectorSelection() || resetNodeSelection())) {
         const positionClick = {

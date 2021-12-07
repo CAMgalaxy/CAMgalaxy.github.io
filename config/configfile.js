@@ -1,6 +1,6 @@
 /* default values */
 var config = {
-    CAMproject: "proj_" + uuid.v4(), // necessary for server (see ERM)
+    CAMproject: "proj_" + "EmpraWS21", // uuid.v4() - necessary for server (see ERM)
     ConNumNodes: 10, // number of nodes necessary to draw
     HideConDirInf: false, // if false = possible to draw arrows
     MaxLengthWords: 3, // maximum number of words for each concept

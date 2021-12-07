@@ -1,3 +1,15 @@
+function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    } else {
+        return uri + separator + key + "=" + value;
+    }
+  }
+
+
 $(function () {
     /* edge slider */
     $('#edgeSlider').on("input", function () {
@@ -353,6 +365,44 @@ $(function () {
             of: $(".boxCAMSVG")
         }
     });
+
+
+    $("#dialogStart").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: false,
+        draggable: true,
+        width: 400,
+        maxWidth: 400,
+        height: 'auto',
+        buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
+        },
+        open: function (event, ui) {
+            $(".ui-dialog-titlebar").show(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
+        
+            $('.ui-widget-overlay').on('click', function () {
+                $("#dialogStart").dialog('close');
+            });
+        },
+        close: function (event, ui) {
+            console.log('dialog got closed');
+
+            
+            },
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
 });
 
 
@@ -366,32 +416,44 @@ $(function () {
     // > text
     $('#inptextnode').on("input", function () {
 
-        var numWords = this.value.split(' ').filter(word => word != "");
-        numWords = numWords.length;
-        // console.log("length chars: ", this.value.length, this.value.length <= MaxLengthChars);
-        // console.log("numWords: ", numWords, numWords <= MaxLengthWords);
+        console.log(CAM.currentNode.isTextChangeable)
 
-        if (numWords <= MaxLengthWords && this.value.length <= MaxLengthChars) {
-            CAM.updateElement("text", this.value);
-            CAM.draw();
-        } else if (numWords > MaxLengthWords) {
-            toastr.warning("Instead, please draw several connected nodes.", "Please do not use more than " + MaxLengthWords + " words for a single node!", {
-                closeButton: true,
-                timeOut: 2000,
-                positionClass: "toast-top-center",
-                preventDuplicates: true
-            })
-
-
-            // alert("Please do not use more than " + MaxLengthWords + " words for a single node!\nInstead, please draw several connected nodes.");
-        } else if (this.value.length > MaxLengthChars) {
-            toastr.warning("Instead, please draw several connected nodes.", "Please do not use more than " + MaxLengthChars + " characters for a single node!", {
+        if(CAM.currentNode.isTextChangeable){
+            var numWords = this.value.split(' ').filter(word => word != "");
+            numWords = numWords.length;
+            // console.log("length chars: ", this.value.length, this.value.length <= MaxLengthChars);
+            // console.log("numWords: ", numWords, numWords <= MaxLengthWords);
+    
+            if (numWords <= MaxLengthWords && this.value.length <= MaxLengthChars) {
+                CAM.updateElement("text", this.value);
+                CAM.draw();
+            } else if (numWords > MaxLengthWords) {
+                toastr.warning("Instead, please draw several connected concepts.", "Please do not use more than " + MaxLengthWords + " words for a single concept!", {
+                    closeButton: true,
+                    timeOut: 2000,
+                    positionClass: "toast-top-center",
+                    preventDuplicates: true
+                })
+    
+    
+                // alert("Please do not use more than " + MaxLengthWords + " words for a single node!\nInstead, please draw several connected nodes.");
+            } else if (this.value.length > MaxLengthChars) {
+                toastr.warning("Instead, please draw several connected concepts.", "Please do not use more than " + MaxLengthChars + " characters for a single concept!", {
+                    closeButton: true,
+                    timeOut: 2000,
+                    positionClass: "toast-top-center",
+                    preventDuplicates: true
+                })
+            }
+        }else{
+            toastr.info("Instead, please choose other concepts.", "You cannot change the content of predefined concepts.", {
                 closeButton: true,
                 timeOut: 2000,
                 positionClass: "toast-top-center",
                 preventDuplicates: true
             })
         }
+    
     });
 
     // > comment
@@ -544,9 +606,22 @@ $(function () {
             } else {
                 toastr.success('Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the final part of the study.');
                 // append data to URL
-                setTimeout(function() {
-              
-                }, 5000);
+                if (typeof jatos.jQuery === "function") {
+                    // If JATOS is available, send data there
+                    CAM.defocusCAM = arraydefocusevent;
+                    var resultJson = CAM;
+                    console.log("my result data sent to JATOS final time: ", resultJson);
+                    jatos.submitResultData(resultJson)
+                      .then(() => console.log('success'))
+                      .catch(() => console.log('error'));
+            
+                      
+                    // then redirect
+                    var newUrl = updateQueryStringParameter("https://studien.psychologie.uni-freiburg.de/publix/324/start?batchId=403&generalMultiple", 
+                    "IDparticipant", "part3_" + CAM.participantCAM);
+
+                    jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+                  }
 
                 if (config.AdaptiveStudy) {
                     alert('append data to URL - !!! include');
@@ -555,7 +630,6 @@ $(function () {
         }
     });
 })
-
 
 
 /* > save SVG object as svg file
@@ -841,17 +915,8 @@ $(function () {
 
 
 
-function updateQueryStringParameter(uri, key, value) {
-    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
 
-    if (uri.match(re)) {
-        return uri.replace(re, '$1' + key + "=" + value + '$2');
-    } else {
-        return uri + separator + key + "=" + value;
-    }
-}
-
+/* EXPERIMENTAL FUNCTIONS */
 $(function () {
     $("#gen").on("click", (evt) => {
 
@@ -890,7 +955,7 @@ $(function () {
         //You can reload the url like so
         var encodedCAM = Base64.encode(JSON.stringify(a));
         var newUrl = updateQueryStringParameter(ADAPTIVESTUDYurl, "encoded", encodedCAM);
-
+        // CAM.participantCAM
         var decodedCAM = Base64.decode(encodedCAM);
         console.log("encode: ", encodedCAM);
         console.log("decode: ", decodedCAM);

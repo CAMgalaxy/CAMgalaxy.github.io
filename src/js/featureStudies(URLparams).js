@@ -1,3 +1,40 @@
+
+
+var showDialogOnce = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            //alert(123);
+            $("#dialogStart").dialog("open");
+
+            /* if software is on JATOS */
+            if (typeof jatos.jQuery === "function") {
+                console.log("I WAS TRIGGERED!!!");
+        
+                var studyData = jatos.urlQueryParameters;
+        
+                if (typeof studyData.IDparticipant === "undefined") {
+                    alert('No ID was submitted. Study is aborted! Please write an e-mail to the study director that an error has occurred.');
+                    jatos.abortStudy();
+                }
+                console.log("URL params", studyData);
+                CAM.participantCAM = studyData.IDparticipant;
+        
+                var resultJson = CAM;
+                console.log("my result data sent to JATOS first time: ", resultJson);
+                jatos.submitResultData(resultJson)
+                    .then(() => console.log('success'))
+                    .catch(() => console.log('error'));
+        
+            }
+        }
+    };
+})();
+
+
+
+
 /* !!! RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 // necessary conditions to save CAM
 var ConNumNodes = config.ConNumNodes; // # of nodes
@@ -24,17 +61,17 @@ if (urlSearchParams.has('ConNumNodes')) {
 }
 
 // hide connector: direction of influence
-if ((urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true" ) ||
-config.HideConDirInf == true) {
+if ((urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "true") ||
+    config.HideConDirInf == true) {
     DistanceArrows = 20;
     $(function () {
         $('#hideConnectorDirInfluence').hide();
     });
     config.HideConDirInf = true;
-}else if ((urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "false" ) ||
-config.HideConDirInf == false) {
-// if no arrows closeness to node
-var DistanceArrows = 40;
+} else if ((urlSearchParams.has('HideConDirInf') && urlSearchParams.get('HideConDirInf') === "false") ||
+    config.HideConDirInf == false) {
+    // if no arrows closeness to node
+    var DistanceArrows = 40;
     $(function () {
         $('#hideConnectorDirInfluence').show();
     });
@@ -59,28 +96,28 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
         $('#hideResearcherButtonsConnector').show();
         $('#hideResearcherButtonsTop').show();
     });
-}else if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "false") ||
-config.ShowResearcherButtons == false) {
-$(function () {
-    // hide all researcher functionalities
-    $('#hideResearcherButtonsNode').hide(); // hide
-    $('#hideResearcherButtonsConnector').hide();
-    $('#hideResearcherButtonsTop').hide();
-});
+} else if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "false") ||
+    config.ShowResearcherButtons == false) {
+    $(function () {
+        // hide all researcher functionalities
+        $('#hideResearcherButtonsNode').hide(); // hide
+        $('#hideResearcherButtonsConnector').hide();
+        $('#hideResearcherButtonsTop').hide();
+    });
 }
 
 
 // enable camera functionality
-if((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "true") ||
+if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "true") ||
     config.cameraFeature == true) {
     $(function () {
         $('#showCameraFeature').show();
     });
-}else if((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "false") ||
-config.cameraFeature == false) {
-$(function () {
-    $('#showCameraFeature').hide();
-});
+} else if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "false") ||
+    config.cameraFeature == false) {
+    $(function () {
+        $('#showCameraFeature').hide();
+    });
 }
 
 /* end url parameters */
