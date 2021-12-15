@@ -1,12 +1,12 @@
 /* default values */
 var config = {
     CAMproject: "proj_" + "EmpraWS21", // uuid.v4() - necessary for server (see ERM)
-    ConNumNodes: 10, // number of nodes necessary to draw
+    ConNumNodes: 20, // number of nodes necessary to draw
     HideConDirInf: false, // if false = possible to draw arrows
     MaxLengthWords: 3, // maximum number of words for each concept
     MaxLengthChars: 30, // maximum number of characters for each concept
     LengthSentence: 20, // include breaklines
-    LengthWords: 10,
+    LengthWords: 12,
     ShowResearcherButtons: false, // show researcher functionalities
     cameraFeature: false, // include camera / splotlight feature to move screen
     AdaptiveStudy: false // run as adaptive study -> change URL
