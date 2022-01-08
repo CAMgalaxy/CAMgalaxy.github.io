@@ -12,7 +12,7 @@ var showDialogOnce = (function() {
             if (typeof jatos.jQuery === "function") {
                 console.log("I WAS TRIGGERED!!!");
         
-                var studyData = jatos.urlQueryParameters;
+                studyData = jatos.urlQueryParameters;
         
                 if (typeof studyData.IDparticipant === "undefined") {
                     alert('No ID was submitted. Study is aborted! Please write an e-mail to the study director that an error has occurred.');
@@ -51,7 +51,7 @@ var MaxLengthChars = config.MaxLengthChars; // allow not more than X characters
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
-console.log("url params: ", params);
+console.log("url params adjust CAMEL: ", params);
 
 
 

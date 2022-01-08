@@ -619,6 +619,7 @@ $(function () {
                     // then redirect
                     var newUrl = updateQueryStringParameter("https://studien.psychologie.uni-freiburg.de/publix/324/start?batchId=403&generalMultiple", 
                     "IDparticipant", "part3_" + CAM.participantCAM);
+                    newUrl = updateQueryStringParameter(newUrl, "SONA_ID", studyData.SONA_ID);
 
                     jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
                   }
@@ -797,18 +798,25 @@ $(function () {
 
         /* draw CAM */
         arrayIDs = [];
+        var h = 0;
         for (var i = 0; i < jsonObj.nodes.length; i++) {
             const elementNode = jsonObj.nodes[i];
             console.log(elementNode);
 
-            CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
-                x: elementNode.position.x,
-                y: elementNode.position.y
-            }, false, true));
 
-            CAM.nodes[i].id = elementNode.id; // add ID of former node
-            CAM.nodes[i].isDraggable = true; // moveable
-            arrayIDs.push(elementNode.id);
+            if(elementNode.isActive){
+                CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
+                    x: elementNode.position.x,
+                    y: elementNode.position.y
+                }, false, true));
+    
+                CAM.nodes[h].id = elementNode.id; // add ID of former node
+                CAM.nodes[h].isDraggable = true; // moveable
+                arrayIDs.push(elementNode.id);
+                h++;
+            }
+
+
         }
 
         // draw connectors
@@ -816,11 +824,14 @@ $(function () {
             //CAM.nodes.match(elt => elt.id ===     jsonObj.connectors[0].motherID)
             const elementConnector = jsonObj.connectors[i];
             console.log(elementConnector);
+
+            if(elementConnector.isActive){
             var connector1 = new ConnectorCAM();
 
             connector1.establishConnection(CAM.nodes[arrayIDs.indexOf(elementConnector.motherID)], CAM.nodes[arrayIDs.indexOf(elementConnector.daughterID)],
                 elementConnector.intensity, elementConnector.agreement);
             CAM.addElement(connector1);
+            }
         }
         // draw CAM
         CAM.draw();

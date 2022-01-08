@@ -168,7 +168,7 @@ class ConnectorCAM {
             value: false
         });
 
-        this.isActive = null;
+        this.isActive = false;
         console.log("The connection has been destroyed.");
         return true;
     }
