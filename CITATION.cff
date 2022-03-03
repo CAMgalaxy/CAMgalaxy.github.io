@@ -2,8 +2,10 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Gouret, Fenn
-    given-names: Florian, Julius
+  - family-names: Gouret
+    given-names: Florian
+  - family-names: Fenn
+    given-names: Julius
     orcid: https://camgalaxy.github.io/
 title: "Cognitive-Affective Maps extended logic"
 version: 1.0.4
