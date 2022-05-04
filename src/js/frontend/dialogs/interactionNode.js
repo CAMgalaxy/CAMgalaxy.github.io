@@ -251,8 +251,13 @@ $(function () {
             }
         }
     });
-
-
-
-
 })
+
+
+// hide ambivalent node
+if(config.hideAmbivalent){
+    $('#hideAmvivalentNode').hide();
+    $(function () {
+        $('#hideAmvivalentNode').hide();
+    });
+}

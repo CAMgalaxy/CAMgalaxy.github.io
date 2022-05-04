@@ -34,8 +34,8 @@ function saveCam() {
         return false;
     }
     // necessary # of concepts
-    if (CAMnodes.length < ConNumNodes) {
-        toastr.warning("Please return to your Cognitive-Affective Map and add additional concepts to it.", "Please draw at least " + ConNumNodes + " concepts.", {
+    if (CAMnodes.length < config.ConNumNodes) {
+        toastr.warning("Please return to your Cognitive-Affective Map and add additional concepts to it.", "Please draw at least " + config.ConNumNodes + " concepts.", {
             closeButton: true,
             timeOut: 2000,
             positionClass: "toast-top-center",

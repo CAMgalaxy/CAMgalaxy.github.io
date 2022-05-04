@@ -298,6 +298,9 @@ function resetNodeSelection() {
 }
 
 
+
+
+
 /* Add camera feature */
 if(config.cameraFeature){
     $(document).on("mouseover", "#background", function (event) {

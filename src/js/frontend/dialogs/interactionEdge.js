@@ -137,3 +137,11 @@ $(function () {
         }
     });
 })
+
+// hide arrows
+if(config.hideArrows){
+    $('#hideConnectorDirInfluence').hide();
+    $(function () {
+        $('#hideConnectorDirInfluence').hide();
+    });
+}

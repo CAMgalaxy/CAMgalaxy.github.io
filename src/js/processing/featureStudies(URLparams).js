@@ -1,10 +1,10 @@
 /* !!! RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 // necessary conditions to save CAM
-var ConNumNodes = config.ConNumNodes; // # of nodes
+//var ConNumNodes = config.ConNumNodes; // # of nodes
 
 // stop / breaklines in text:
 // > maximum number of characters:
-var MaxLengthWords = config.MaxLengthWords; // allow not more than X characters
+//var MaxLengthWords = config.MaxLengthWords; // allow not more than X characters
 
 
 /* DEFAULT values */
@@ -33,42 +33,11 @@ const params = Object.fromEntries(urlSearchParams.entries());
 console.log("url params: ", params);
 
 
-
-// necessary conditions to save CAM
-if (urlSearchParams.has('ConNumNodes')) {
-    ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
-}
-
-// hide connector: direction of influence + reference
-if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === "true") ||
-    config.hideArrows == true) {
-    DistanceArrows = 20;
-    $('#hideConnectorDirInfluence').hide();
-    $(function () {
-        $('#hideConnectorDirInfluence').hide();
-    });
-}
-
-
-// hide node: no ambivalent node + reference
-if ((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "true") ||
-    config.hideAmbivalent == true) {
-    $('#hideAmvivalentNode').hide();
-    $(function () {
-        $('#hideAmvivalentNode').hide();
-    });
-}
-
-// stop / breaklines in text:
-if (urlSearchParams.has('MaxLengthWords')) {
-    MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
-}
-
-
-
-// show researcher buttons
-if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "true") ||
-    config.ShowResearcherButtons == true) {
+// hide researcher buttons
+if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "false") ||
+    config.ShowResearcherButtons == false) {
+    config.ShowResearcherButtons = false;
+}else{
     $(function () {
         $('#hideResearcherButtonsNode').show();
         $('#hideResearcherButtonsConnector').show();
@@ -77,12 +46,48 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
 }
 
 
+// hide connector: direction of influence + reference
+if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === "true") ||
+    config.hideArrows == true) {
+    config.hideArrows = true;
+    DistanceArrows = 20;
+}
+
+
+// hide ambivalent node + reference
+if ((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "true") ||
+    config.hideAmbivalent == true) {
+    config.hideAmbivalent = true;
+}
+
+
+// necessary conditions to save CAM
+if (urlSearchParams.has('ConNumNodes')) {
+    config.ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
+    //ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
+}
+
+// stop / breaklines in text:
+if (urlSearchParams.has('MaxLengthWords')) {
+    config.MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
+    //MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
+}
+
+
 // enable camera functionality
 if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "true") ||
     config.cameraFeature == true) {
+    config.cameraFeature = true;
     $(function () {
         $('#showCameraFeature').show();
     });
 }
 
-/* end url parameters */
+// set on fullscreen mode
+if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "true") ||
+    config.fullScreen == true) {
+    config.fullScreen = true;
+}
+
+
+console.log("config file: ", config);
