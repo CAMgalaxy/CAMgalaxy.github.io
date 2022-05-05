@@ -18,6 +18,17 @@ $(function () {
     $('#hideResearcherButtonsTop').hide();
 });
 
+// hide reference slider agreement only
+$(function () {
+    $('#showSliderAgreeOnlyRef').hide();
+});
+
+
+
+
+
+
+
 // hide camera functionality
 $(function () {
     $('#showCameraFeature').hide();
@@ -44,6 +55,27 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
         $('#hideResearcherButtonsTop').show();
     });
 }
+
+
+
+
+// show agreement only slider
+if ((urlSearchParams.has('showSliderAgreementOnly') && urlSearchParams.get('showSliderAgreementOnly') === "true") ||
+    config.showSliderAgreementOnly == true) {
+    config.showSliderAgreementOnly = true;
+    $(function () {
+        $('#hideSliderDisAgree').hide();
+        $('#hideSliderAgreementOnly').show();
+    });
+}else{
+    config.showSliderAgreementOnly = false;
+    $(function () {
+        $('#hideSliderDisAgree').show();
+        $('#hideSliderAgreementOnly').hide();
+    });
+}
+
+
 
 
 // hide connector: direction of influence + reference

@@ -61,6 +61,22 @@ input[type="range"]::-ms-thumb {
     width: 56px;
    }
 
+
+   
+
+   /* style labels connector slider */
+   .labelsConnectorSliderAgreementOnly{
+    display: inline-flex;
+    flex-wrap: wrap; 
+    font-size: 22px;
+}
+
+.labelsConnectorSliderAgreementOnly > span:not(:last-child) {
+    /* margin-left: 32px; /* HERE WE ADD THE SPACE */
+    width: 140px;
+   }
+
+
 /* hover over */
 input[type=range]:hover {
     background-color: rgb(75, 75, 75);
@@ -78,6 +94,17 @@ input[type=range]:hover {
     width: 300px;
     height: 100%;
     z-index: -999;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color:  hsl(110, 50%, 60%);
+}
+
+.greenConnectorColorSliderAgreementOnly {
+    width: 300px;
+    height: 100%;
+    z-index: -999;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     background-color:  hsl(110, 50%, 60%);

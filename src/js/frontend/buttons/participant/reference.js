@@ -31,9 +31,11 @@ const ref = `
             <li><img src="./img/solid_lini_mini.svg" alt=""
                     style="width: 50px; height: 40px; vertical-align:middle;"> Concepts support each other
             </li>
-            <li><img src="./img/dashed_lini_mini.svg" alt=""
+            <div id="hideSliderDisAgreeRef">
+                <li><img src="./img/dashed_lini_mini.svg" alt=""
                     style="width: 50px; height: 40px; vertical-align:middle;"> Concepts inhibit each other
-            </li>
+                </li>
+            </div>
             <div id="showCameraFeature">
                 <h3>Move your Cognitive-Affective Map</h3> by moving your cursor to the edge of the drawing
                 window (grey area):
@@ -72,9 +74,16 @@ const ref = `
 
         <h3>Change content of connections: </h3>
         <ul style="list-style-type:none; margin: 0px; padding: 0px;">
+        <div id="hideSliderDisAgreeRef2">
             <li><b>Change type and strength:</b> Use the slider to change the type (agreement or disagreement)
                 and strength of the connection</li>
-                <div id="hideConnectorDirInfluence">
+        </div>
+        <div id="showSliderAgreeOnlyRef">
+            <li><b>Change strength:</b> Use the slider to change the strength of the connection</li>
+        </div>
+
+        
+            <div id="hideConnectorDirInfluence">
             <li style="margin-top: 10px;"><b>Direction of Influence:</b> </li>
             <li style="padding-left: 10px;"><span style="vertical-align:middle;"
                     class="material-icons">sync_alt</span> Concepts influence each other</li>
@@ -111,3 +120,6 @@ const ref = `
 
 var target = document.getElementById("dialogReference");
 target.innerHTML += ref;
+
+
+

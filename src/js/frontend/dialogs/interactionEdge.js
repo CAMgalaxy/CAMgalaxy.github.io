@@ -7,7 +7,7 @@ const interactionEdge = `
 
 
             <!-- > adjust type and strength of connector -->
-            <div class="properties-align" style="margin-bottom:20px">
+            <div class="properties-align" style="margin-bottom:20px" id="hideSliderDisAgree">
                 <div class="properties-size-naming">
                     Type and Strength of Connection:
                 </div>
@@ -32,6 +32,26 @@ const interactionEdge = `
                     </div>
                 </div>
             </div>
+
+
+            <div class="properties-align" id="hideSliderAgreementOnly">
+                <div class="properties-size-naming">
+                   Strength of Connection:
+                </div>
+                <div class="outerConnectorSlider">
+                    <div class="greenConnectorColorSliderAgreementOnly">
+                        <input type="range" min="4" max="6" step="1" value="4" id="edgeSliderAgreementOnly" autofocus>
+                    </div>
+                </div>
+                <div class="labelsConnectorSliderAgreementOnly">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                </div>
+            </div>
+
+
+
 
             <!-- > adjust of connectivity of edge -->
             <div id="hideConnectorDirInfluence">
@@ -71,17 +91,20 @@ $(function () {
 
     $('#edgeSlider').on("input", function () {
 
+
         var intensitySlider = document.querySelector('#edgeSlider');
         var intensity = 0;
 
         var myGreenColorSlider = document.querySelector('.greenConnectorColorSlider');
         var myGreenColorTick = document.querySelector('.greenColorTick');
-        
+
         var myRedColorSlider = document.querySelector('.redColorConnectorSlider');
         var myRedColorTick = document.querySelector('.redColorTick');
 
+        // console.log("intensitySlider.value:", intensitySlider.value)
+
         // background-color to white
-     
+
         const colourPalette = [COLOUR.white, COLOUR.red1, COLOUR.red2, COLOUR.red3, COLOUR.green3, COLOUR.green2, COLOUR.green1];
 
         var agreement = intensitySlider.value <= 3 ? false : true;
@@ -98,6 +121,31 @@ $(function () {
         CAM.currentConnector.intensity = intensity
         CAM.draw();
     });
+
+
+    $('#edgeSliderAgreementOnly').on("input", function () {
+
+
+        var intensitySlider = document.querySelector('#edgeSliderAgreementOnly');
+        var intensity = 0;
+
+        var myGreenColorSlider = document.querySelector('.greenConnectorColorSliderAgreementOnly');
+
+        // console.log("intensitySlider.value:", intensitySlider.value)
+
+        // background-color to white
+
+        const colourPalette = [COLOUR.white, COLOUR.red1, COLOUR.red2, COLOUR.red3, COLOUR.green3, COLOUR.green2, COLOUR.green1];
+
+
+        myGreenColorSlider.style.backgroundColor = intensitySlider.value > 3 ? colourPalette[intensitySlider.value] : colourPalette[0];
+
+        intensity = intensitySlider.value <= 3 ? (4 - intensitySlider.value) * IncreaseSliderIntensity : (intensitySlider.value - 3) * IncreaseSliderIntensity;
+
+        CAM.currentConnector.intensity = intensity
+        CAM.draw();
+    });
+    
 
 
 
@@ -139,9 +187,22 @@ $(function () {
 })
 
 // hide arrows
-if(config.hideArrows){
+if (config.hideArrows) {
     $('#hideConnectorDirInfluence').hide();
     $(function () {
         $('#hideConnectorDirInfluence').hide();
     });
 }
+
+
+
+// hide / show slider reference 
+if (config.showSliderAgreementOnly) {
+    $(function () {
+        $('#hideSliderDisAgreeRef').hide();
+        $('#hideSliderDisAgreeRef2').hide();
+        $('#showSliderAgreeOnlyRef').show();
+    });
+}
+
+
