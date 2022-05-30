@@ -21,7 +21,7 @@ $(function () {
         /* get file list */
         var fileToLoad = document.getElementById("fileToLoad").files; // [0]
         //console.log("file to load: ", fileToLoad)
-
+        // console.log("fileToLoad:", fileToLoad);
         /* parse to JSON file */
         var jsonObj = await fileToJSON(fileToLoad);
         console.log("file to load parsed: ", jsonObj);
@@ -31,33 +31,46 @@ $(function () {
         arrayIDs = [];
         for (var i = 0; i < jsonObj.nodes.length; i++) {
             const elementNode = jsonObj.nodes[i];
-            console.log(elementNode);
+            //console.log(elementNode);
 
-            CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
-                x: elementNode.position.x,
-                y: elementNode.position.y
-            }, false, true));
+            if(elementNode.isActive){
+                CAM.addElement(new NodeCAM(elementNode.value, elementNode.text, {
+                    x: elementNode.position.x,
+                    y: elementNode.position.y
+                }, elementNode.isDraggable, elementNode.isDeletable, elementNode.isTextChangeable));
+    
+         
+                // CAM.nodes[i].id = elementNode.id; // add ID of former node
+                // CAM.nodes[i].isDraggable = true; // moveable
+                arrayIDs.push(elementNode.id);
+            }
 
-            CAM.nodes[i].id = elementNode.id; // add ID of former node
-            CAM.nodes[i].isDraggable = true; // moveable
-            arrayIDs.push(elementNode.id);
         }
 
         // draw connectors
         for (var i = 0; i < jsonObj.connectors.length; i++) {
             //CAM.nodes.match(elt => elt.id ===     jsonObj.connectors[0].source)
             const elementConnector = jsonObj.connectors[i];
-            console.log(elementConnector);
+            //console.log(elementConnector);
+
+            if(elementConnector.isActive){
             var connector1 = new ConnectorCAM();
 
             connector1.establishConnection(CAM.nodes[arrayIDs.indexOf(elementConnector.source)], CAM.nodes[arrayIDs.indexOf(elementConnector.target)],
                 elementConnector.intensity, elementConnector.agreement);
+            connector1.isBidirectional = elementConnector.isBidirectional;
+            connector1.isDeletable = elementConnector.isDeletable;
             CAM.addElement(connector1);
+            }
         }
         // draw CAM
         CAM.draw();
     });
 });
+
+
+
+
 
 function fileToJSON(file) {
     return new Promise((resolve, reject) => {

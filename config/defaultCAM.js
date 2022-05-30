@@ -1,6 +1,57 @@
 /* default CAM which will be redrawn if CAM is deleted */
 
 function defaultCAM() {
+
+/*
+    CAM.addElement(new NodeCAM(-1, "Belastungen", {
+        x: 450,
+        y: 400
+    }, true, false, false));
+
+
+    CAM.addElement(new NodeCAM(1, "Ressourcen", {
+        x: 850,
+        y: 400
+    }, true, false, false));
+
+
+
+
+    CAM.addElement(new NodeCAM(0, "in der Partnerschaft", {
+        x: 100,
+        y: 50
+    }, true, false, false));
+    CAM.addElement(new NodeCAM(0, "Umfeld (Freunde, Familie)", {
+        x: 100,
+        y: 120
+    }, true, false, false));
+    CAM.addElement(new NodeCAM(0, "räumliche   Umgebung", {
+        x: 100,
+        y: 190
+    }, true, false, false));
+    CAM.addElement(new NodeCAM(0, "Freizeit", {
+        x: 100,
+        y: 260
+    }, true, false, false));
+    CAM.addElement(new NodeCAM(0, "Arbeit", {
+        x: 100,
+        y: 330
+    }, true, false, false));
+    CAM.addElement(new NodeCAM(0, "Gesundheit", {
+        x: 100,
+        y: 400
+    }, true, false, false));
+
+
+    CAM.addElement(new NodeCAM(0, " ", {
+        x: 100,
+        y: 500
+    }, true, true, true));
+    CAM.addElement(new NodeCAM(0, " ", {
+        x: 100,
+        y: 570
+    }, true, true, true));
+    /*
     CAM.addElement(new NodeCAM(3, "the middleman (centered node)", {
         x: 650,
         y: 400
@@ -50,7 +101,7 @@ function defaultCAM() {
     connector4.value = -1
     CAM.addElement(connector4);
 
-
+*/
     CAM.draw();
 
 }

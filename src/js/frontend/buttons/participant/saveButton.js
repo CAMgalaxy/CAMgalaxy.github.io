@@ -124,8 +124,9 @@ function saveCam() {
                         "IDparticipant", "part3_" + CAM.participantCAM);
                         newUrl = updateQueryStringParameter(newUrl, "SONA_ID", studyData.SONA_ID);
                         */
-                        var newUrl = "https://www.spiegel.de/"
-                        jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+                        // var newUrl = "http://127.0.0.1:9000/publix/804/start?batchId=804&generalMultiple"
+                        // jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+                        jatos.endStudy(true, "everything worked fine");
                     }
                 }
 

@@ -48,7 +48,7 @@ const interaction = `
     <input type="checkbox" id="checkboxAmbivalent" style="font-size: 20px;">
     <label for="checkboxAmbivalent" style="font-size: 16px; margin-left: 5px;">set concept to </label>
 
-    <image title="Concept is set to ambivalent" type="image"
+    <image type="image"
         src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
         style="width: 85px; height: 65px; margin-left: 5px; margin-top: 5px;"></image>
 

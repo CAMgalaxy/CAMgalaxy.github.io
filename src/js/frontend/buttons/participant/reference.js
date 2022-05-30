@@ -9,8 +9,8 @@ const ref = `
     </div>
     <!-- interactive component: DEFAULT -->
     <div id="informationDefault" class="tab-defaulttext">
-        <i>Please click on the navigation bar if you need help how to draw a Cognitive Affective Map, else you
-            can just close this window.</i>
+        <i>${languageFileOut.qr_start}</i>
+            
     </div>
 
     <div id="QRLegend" class="tabcontent">
