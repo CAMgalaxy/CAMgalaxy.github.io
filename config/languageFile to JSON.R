@@ -19,7 +19,6 @@ library(xlsx)
 ################
 dir()
 dat <- xlsx::read.xlsx2(file = "languageFile.xlsx", sheetIndex = 1)
-toJSON(dat)
-############################################################################
-# ...
-############################################################################
+write(toJSON(dat), "languageFile.json")
+
+
