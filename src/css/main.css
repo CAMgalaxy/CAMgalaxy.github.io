@@ -7,6 +7,8 @@
 @import 'shared/dialog.css';
 @import 'shared/slider.css';
 
+@import 'shared/setconfig.css';
+
 :root{
   font-family: Verdana, Geneva, Tahoma, sans-serif; /* also change: ".ui-dialog-buttonset > button"*/
 }
@@ -107,3 +109,5 @@ background-color: rgb(139, 139, 139);
 .outer-connector:hover{
   stroke:rgba(48, 48, 48, 0.39);
 }
+
+

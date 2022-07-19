@@ -1,5 +1,5 @@
 /* add button: */
-const downloadJSONButton = `<button class="material-icons" onclick="onDownloadCAMdata()" title="Save CAM as file" style="margin-right: 5px;">vertical_align_bottom</button>`;
+const downloadJSONButton = `<button class="material-icons" onclick="onDownloadCAMdata()" title="Save CAM as file" style="margin-left: 10px; margin-right: 5px;">vertical_align_bottom</button>`;
 var target = document.getElementById("hideResearcherButtonsTop");
 target.innerHTML += downloadJSONButton;
 

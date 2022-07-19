@@ -7,11 +7,11 @@ var config = {
     showSliderAgreementOnly: false, // show only slider for agreement (+1 - +3)
     MaxLengthWords: 3, // maximum number of words for each concept
     MaxLengthChars: 30, // maximum number of characters for each concept
-    LengthSentence: 20, // include breaklines
-    LengthWords: 12,
+    LengthSentence: 16, // include breaklines if >= X characters
+    LengthWords: 12, // include breaklines after each word with cumsum >= X characters
     ShowResearcherButtons: true, // if true = show researcher functionalities
-    cameraFeature: true, // include camera / splotlight feature to move screen
+    cameraFeature: false, // include camera / splotlight feature to move screen
     fullScreen: false, // if true = study in fullscreen mode + paradata
     AdaptiveStudy: false, // run as adaptive study 
-    ADAPTIVESTUDYurl: "https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple" // URL the CAM data should be append to
+    ADAPTIVESTUDYurl: null // "https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple" // URL the CAM data should be append to
 }

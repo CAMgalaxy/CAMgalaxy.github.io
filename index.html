@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="./src/css/main.css">
     <link rel="stylesheet" href="./src/css/toastrmin.css">
 
+    <!-- 
     <script src="./src/js/server/connection.js"></script>
+    -->
+
 
     <!-- external js libraries: 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -46,6 +49,10 @@
 
 <body id="hideall">
     <!-- DIALOGS -->
+    <!-- > set up study -->
+    <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
+
+
     <!-- > quick reference -->
     <div id="dialogReference" title="Quick reference"></div>
 
@@ -65,7 +72,7 @@
         <div class="boxCAMSVG">
             <div id="headerInterface">
                 <div id="leftButton" class="cam-header-left">
-                    <div id="hideResearcherButtonsTop">
+                    <div id="hideResearcherButtonsTop" >
                     </div>
                 </div>
 
@@ -142,11 +149,12 @@
 <script src="./src/js/frontend/buttons/participant/deleteButton.js"></script>
 
 
-<!-- add buttons researcher -->
+<!-- add buttons researcher 
 <script src="./src/js/frontend/buttons/researcher/testbutton.js"></script>
+-->
 <script src="./src/js/frontend/buttons/researcher/downloadJSONbutton.js"></script>
 <script src="./src/js/frontend/buttons/researcher/uploadJSONbutton.js"></script>
-
+<script src="./src/js/frontend/buttons/researcher/createConfigSave.js"></script>
 
 <script src="./config/defaultCAM.js" crossorigin="anonymous"></script>
 <script>

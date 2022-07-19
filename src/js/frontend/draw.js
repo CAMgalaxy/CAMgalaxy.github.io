@@ -80,9 +80,9 @@ function getTextSVG(node) {
     nodeText.setAttribute("text-anchor", "middle")
     nodeText.setAttribute("font-size", TEXT.size)
 
-    if (node.text.length >= LengthSentence) {
+    if (node.text.length >= config.LengthSentence) {
         const cumulativeSum = (sum => value => sum += value)(0);
-        var LengthCumWords = LengthWords;
+        var LengthCumWords = config.LengthWords;
         var LengthText = [];
         var ArrayText = node.text.split(' ');
 
@@ -93,7 +93,7 @@ function getTextSVG(node) {
         for (var i = 0; i <= LengthText.length; i++) {
             if (LengthText[i] > LengthCumWords) {
                 ArrayText[i] = " <tspan dy='1.1em' x='0'>" + ArrayText[i] + "</tspan>";
-                LengthCumWords += LengthWords;
+                LengthCumWords += config.LengthWords;
             }
         }
 

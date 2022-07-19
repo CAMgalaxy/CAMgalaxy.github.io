@@ -12,7 +12,11 @@ Two differents options are available regarding the use of this software:
 
 ## Analyse your data
 
-You can use the CAM-App...
+
+Data can be analyzed using the following software:
+- CAM-App, links to
+    - version 1.X: [link](https://fennapps.shinyapps.io/shinyCAMELv01/)
+    - version 2.X: [link](https://fennapps.shinyapps.io/shinyCAMEL_v02/)
 
 ### Prerequisites
 

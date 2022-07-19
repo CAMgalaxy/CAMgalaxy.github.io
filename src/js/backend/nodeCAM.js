@@ -103,6 +103,12 @@ class NodeCAM {
     getIsDeletable() {
         return this.isDeletable;
     }
+    getIsDraggable() {
+        return this.isDraggable;
+    }
+    getIsTextChangeable() {
+        return this.isTextChangeable;
+    }
 
 
 

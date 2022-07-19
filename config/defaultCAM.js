@@ -1,6 +1,13 @@
 /* default CAM which will be redrawn if CAM is deleted */
 
 function defaultCAM() {
+    CAM.addElement(new NodeCAM(0, "centered node (change or delete me!)", {
+        x: 650,
+        y: 400
+    }, true, true, true));
+
+
+    /*
     CAM.addElement(new NodeCAM(3, "the middleman (centered node)", {
         x: 650,
         y: 400
@@ -49,6 +56,7 @@ function defaultCAM() {
     connector4.establishConnection(CAM.nodes[0], CAM.nodes[4], IncreaseSliderIntensity, true);
     connector4.value = -1
     CAM.addElement(connector4);
+    */
 
     CAM.draw();
 }

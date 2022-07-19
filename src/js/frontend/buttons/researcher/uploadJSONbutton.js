@@ -30,7 +30,7 @@ $(function () {
         /* draw CAM */
         arrayIDs = [];
         for (var i = 0; i < jsonObj.nodes.length; i++) {
-            const elementNode = jsonObj.nodes[i];
+            var elementNode = jsonObj.nodes[i];
             //console.log(elementNode);
 
             if(elementNode.isActive){
@@ -50,7 +50,7 @@ $(function () {
         // draw connectors
         for (var i = 0; i < jsonObj.connectors.length; i++) {
             //CAM.nodes.match(elt => elt.id ===     jsonObj.connectors[0].source)
-            const elementConnector = jsonObj.connectors[i];
+            var elementConnector = jsonObj.connectors[i];
             //console.log(elementConnector);
 
             if(elementConnector.isActive){

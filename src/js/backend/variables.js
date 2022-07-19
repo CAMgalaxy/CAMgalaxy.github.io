@@ -11,8 +11,8 @@ var stopConX = 0;
 var stopConY = 0;
 
 /* !!! partly RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-var LengthSentence = config.LengthSentence; // if >= X characters
-var LengthWords = config.LengthWords; // after each word with cumsum >= X characters
+//var LengthSentence = config.LengthSentence; // if >= X characters
+//var LengthWords = config.LengthWords; // after each word with cumsum >= X characters
 
 /* GLOBAL variables */
 // hide connector: direction of influence
