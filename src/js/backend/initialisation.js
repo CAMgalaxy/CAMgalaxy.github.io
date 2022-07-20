@@ -23,12 +23,15 @@ async function fetchData(URL) {
         CAM.importElement(element);
     });
     CAM.draw();
+
 }
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const link = urlParams.get('link')
-console.log(link);
+const link = urlParams.get('link');
+const participantID = urlParams.get('participantID');
 
-fetchData(link);
+console.log(participantID);
+
+fetchData(link + "&participantID=" + participantID);
 

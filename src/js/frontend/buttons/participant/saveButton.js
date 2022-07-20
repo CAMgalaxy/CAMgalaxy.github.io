@@ -129,6 +129,33 @@ function saveCam() {
                         jatos.endStudy(true, "everything worked fine");
                     }
                 }
+                if (true) {
+
+                    async function pushData() {
+
+                        let info = {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                jwt: token,
+                                cam: CAM,
+                            }),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                            }
+                        }
+
+                        const res = await fetch('http://127.0.0.1:3001/participants/addExperience', info);
+
+                        if (res.status != 200) {
+                            return {};
+                        }
+                        window.location.replace(linkRedirect + "&token=" + token);
+
+                    }
+
+                    pushData();
+                }
 
                 /* if server is  >>> XYZ <<< */
 
