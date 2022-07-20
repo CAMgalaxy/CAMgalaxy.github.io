@@ -7,6 +7,7 @@ async function fetchData(URL) {
     linkRedirect = data.link;
     token = data.token
 
+    console.log(linkRedirect);
     camMother.nodes.forEach(element => {
         element.kind = "Node";
         element.comment = "";
@@ -32,7 +33,7 @@ const link = urlParams.get('link');
 const participantID = urlParams.get('participantID');
 CAM.creator = participantID
 
-console.log(participantID);
+
 
 fetchData(link + "&participantID=" + participantID);
 

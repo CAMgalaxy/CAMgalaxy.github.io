@@ -147,10 +147,10 @@ function saveCam() {
 
                         const res = await fetch('http://127.0.0.1:3001/participants/addExperience', info);
 
-                        if (res.status != 200) {
-                            return {};
+                        if (res.status == 201) {
+                            window.location = linkRedirect + "&jwt=" + token;
                         }
-                        window.location.replace(linkRedirect + "&token=" + token);
+
 
                     }
 
