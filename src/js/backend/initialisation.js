@@ -30,6 +30,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const link = urlParams.get('link');
 const participantID = urlParams.get('participantID');
+CAM.creator = participantID
 
 console.log(participantID);
 
