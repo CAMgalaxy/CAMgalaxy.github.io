@@ -17,7 +17,9 @@ var stopConY = 0;
 /* GLOBAL variables */
 // hide connector: direction of influence
 
-
+//working env variables
+var camMother = null;
+var linkRedirect = null;
 
 // save only part of positions in eventLog when moving node
 var arrayPositions;
