@@ -20,6 +20,7 @@ var stopConY = 0;
 //working env variables
 var camMother = null;
 var linkRedirect = null;
+var token = null;
 
 // save only part of positions in eventLog when moving node
 var arrayPositions;

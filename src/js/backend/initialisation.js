@@ -5,7 +5,24 @@ async function fetchData(URL) {
     camMother = JSON.parse(data.cam);
     config = JSON.parse(data.config);
     linkRedirect = data.link;
+    token = data.token
 
+    camMother.nodes.forEach(element => {
+        element.kind = "Node";
+        element.comment = "";
+        element.eventLog = [];
+        element.isActive = true;
+        element.isConnectorSelected = false;
+        element.isSelected = false;
+        CAM.importElement(element);
+    });
+
+    camMother.connectors.forEach(element => {
+        element.kind = "Connector";
+        element.eventLog = "";
+        CAM.importElement(element);
+    });
+    CAM.draw();
 }
 
 const queryString = window.location.search;
@@ -13,6 +30,5 @@ const urlParams = new URLSearchParams(queryString);
 const link = urlParams.get('link')
 console.log(link);
 
-const URL = "http://127.0.0.1:3001/participants/getOneExperiment?id=62d69047a9b832b91ce51579";
 fetchData(link);
 

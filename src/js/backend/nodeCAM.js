@@ -37,7 +37,7 @@ class NodeCAM {
         this.isDraggable = node.isDraggable;
         this.isDeletable = node.isDeletable;
         this.eventLog = node.eventLog;
-        this.isTextChangeable = isTextChangeable;
+        this.isTextChangeable = node.isTextChangeable;
     }
 
     /* set functions */
@@ -72,7 +72,7 @@ class NodeCAM {
         this.isTextChangeable = val;
     }
 
-    
+
 
     /* get functions */
 
