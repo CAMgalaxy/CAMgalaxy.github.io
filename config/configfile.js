@@ -15,3 +15,4 @@ var config = {
     AdaptiveStudy: false, // run as adaptive study 
     ADAPTIVESTUDYurl: null // "https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple" // URL the CAM data should be append to
 }
+
