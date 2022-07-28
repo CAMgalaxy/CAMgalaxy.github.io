@@ -2,7 +2,6 @@
         const dataRaw = await fetch(URL);
         if(dataRaw.status != 200){
 console.log(dataRaw.status)
-            defaultCAM() 
             return;
         }
 
