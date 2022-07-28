@@ -88,6 +88,25 @@ var target = document.getElementById("dialogInteractionEdge");
 target.innerHTML += interactionEdge;
 
 $(function () {
+    if(config.ShowResearcherButtons){
+        $('#hideResearcherButtonsNode').show();
+        $('#hideResearcherButtonsConnector').show();
+        $('#hideResearcherButtonsTop').show();
+    }else{
+        $('#hideResearcherButtonsNode').hide();
+        $('#hideResearcherButtonsConnector').hide();
+        $('#hideResearcherButtonsTop').hide();
+    }
+    if(config.showSliderAgreementOnly){
+        $('#hideSliderDisAgree').hide();
+        $('#hideSliderAgreementOnly').show();
+    }else{
+        $('#hideSliderDisAgree').show();
+        $('#hideSliderAgreementOnly').hide();
+    }
+
+
+
 
     $('#edgeSlider').on("input", function () {
 

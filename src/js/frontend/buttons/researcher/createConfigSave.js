@@ -17,7 +17,7 @@ const interactionSetUpStudy = `
         </div>
         <div class="row" style="background-color:#aaa;">
             <div class="column1">
-                Number of nodes necessary to draw (more than 20 recommended):
+                Number of nodes necessary to draw (about 20 recommended):
             </div>
             <div class="column2">
             <input type="number" id="setConNumNodes" min="1" style="width: 60%; margin-top: 14px;" value="20">
@@ -25,7 +25,7 @@ const interactionSetUpStudy = `
         </div>
         <div class="row" style="background-color:#bababa;">
             <div class="column1">
-                Maximum number of words for each concept (3 recommended):
+                Maximum number of words for each concept (2-3 recommended):
             </div>
             <div class="column2">
                 <input type="number" id="setMaxLengthWords" min="1" style="width: 60%; margin-top: 10px;" value="3">

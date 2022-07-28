@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- for Microsoft Browser? -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- for Microsoft Browser? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- language file -->
     <script src="./config/languageFile.js" crossorigin="anonymous"></script>
 
     <!-- css files: -->
-    <link rel="stylesheet" href="./src/css/main.css">
-    <link rel="stylesheet" href="./src/css/toastrmin.css">
+    <link rel="stylesheet" href="./src/css/main.css" />
+    <link rel="stylesheet" href="./src/css/toastrmin.css" />
 
     <!-- 
     <script src="./src/js/server/connection.js"></script>
     -->
-
 
     <!-- external js libraries: 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -29,30 +28,49 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 -->
 
+    <script
+      src="./src/js/libraries/uuidmin.js"
+      crossorigin="anonymous"
+    ></script>
 
-
-    <script src="./src/js/libraries/uuidmin.js" crossorigin="anonymous"></script>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
     <script src="./src/js/libraries/jquery.js" crossorigin="anonymous"></script>
-    <script src="./src/js/libraries/jqueryUI.js" crossorigin="anonymous"></script>
-    <script src="./src/js/libraries/toastrmin.js" crossorigin="anonymous"></script>
-    <script src="./src/js/libraries/cytoscapemin.js" crossorigin="anonymous"></script>
+    <script
+      src="./src/js/libraries/jqueryUI.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="./src/js/libraries/toastrmin.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="./src/js/libraries/cytoscapemin.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./src/js/libraries/base64.js" crossorigin="anonymous"></script>
     <script src="./src/js/libraries/jatos.js" crossorigin="anonymous"></script>
 
-    <script src="./src/js/libraries/xlsxmin.js" crossorigin="anonymous"></script>
+    <script
+      src="./src/js/libraries/xlsxmin.js"
+      crossorigin="anonymous"
+    ></script>
 
     <title>C.A.M.E.L</title>
-    <link rel='shortcut icon' type='image/png' href='./img/favicon_logoCAM2.PNG' />
-</head>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="./img/favicon_logoCAM2.PNG"
+    />
+  </head>
 
-<body id="hideall">
+  <body id="hideall">
     <!-- DIALOGS -->
     <!-- > set up study -->
     <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
-
 
     <!-- > quick reference -->
     <div id="dialogReference" title="Quick reference"></div>
@@ -63,105 +81,232 @@
     <!-- > change node -->
     <div id="dialogInteractionNode" title="Change concept"></div>
 
-
-
-
     <!-- HEADER -->
 
     <!-- SVG, components  -->
     <div class="main">
-        <div class="boxCAMSVG">
-            <div id="headerInterface">
-                <div id="leftButton" class="cam-header-left">
-                    <div id="hideResearcherButtonsTop">
-                    </div>
-                </div>
+      <div class="boxCAMSVG">
+        <div id="headerInterface">
+          <div id="leftButton" class="cam-header-left">
+            <div id="hideResearcherButtonsTop"></div>
+          </div>
 
-                <div class="cam-header-middle">
-                    <span style="font-weight: bold;">Cognitive-Affective Maps</span>
-                    <img src="./img/logoCAM2.svg" alt="img Valence logo not found"
-                        style="height:1.3rem; width:auto; margin-top: 3px;">
-                </div>
+          <div class="cam-header-middle">
+            <span style="font-weight: bold">Cognitive-Affective Maps</span>
+            <img
+              src="./img/logoCAM2.svg"
+              alt="img Valence logo not found"
+              style="height: 1.3rem; width: auto; margin-top: 3px"
+            />
+          </div>
 
-                <div id="rightButton" class="cam-header-right">
-                    <button id="quickref" class="material-icons" title="Open a quick reference"
-                        style="color:green">help</button>
-                </div>
-            </div>
-            <div class="CAMContainer">
-                <svg id="CAMSVG">
-                </svg>
-            </div>
+          <div id="rightButton" class="cam-header-right">
+            <button
+              id="quickref"
+              class="material-icons"
+              title="Open a quick reference"
+              style="color: green"
+            >
+              help
+            </button>
+          </div>
         </div>
+        <div class="CAMContainer">
+          <svg id="CAMSVG"></svg>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 
-<!-- defocus div element: -->
-<div id="alert" style="background: white; visibility: hidden;" class="content">
-    <div id="alert-text" style="text-align: center;">
-        <strong>Please do not change or minimize the browser window while the study is running. Only if there is a break
-            in the course of the study.</strong>
-        <br>
-        <button id="alert-button-text" type="button" onclick="document.getElementById('alert').style.visibility = 'hidden'; 
-     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen();">
-            <!-- showDialogOnce();-->
-            click to continue
-        </button>
+  <!-- defocus div element: -->
+  <div id="alert" style="background: white; visibility: hidden" class="content">
+    <div id="alert-text" style="text-align: center">
+      <strong
+        >Please do not change or minimize the browser window while the study is
+        running. Only if there is a break in the course of the study.</strong
+      >
+      <br />
+      <button
+        id="alert-button-text"
+        type="button"
+        onclick="document.getElementById('alert').style.visibility = 'hidden'; 
+     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen();"
+      >
+        <!-- showDialogOnce();-->
+        click to continue
+      </button>
     </div>
-</div>
+  </div>
 
+  <!-- Config files: -->
+  <script src="./config/configfile.js" crossorigin="anonymous"></script>
+  <!-- URL parameters -->
+  <script
+    src="./src/js/processing/featureStudies(URLparams).js"
+    crossorigin="anonymous"
+  ></script>
+  <!-- overwrite config if CAMEL administrative panel was used -->
+  <script
+    src="./src/js/backend/initialisationConfig.js"
+    crossorigin="anonymous"
+  ></script>
 
+  <script>
+    var delay = (function () {
+      var timer = 0;
+      return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
 
-<!-- own js files: -->
-<script src="./config/configfile.js" crossorigin="anonymous"></script>
-<!-- URL parameters -->
-<script src="./src/js/processing/featureStudies(URLparams).js" crossorigin="anonymous"></script>
+    delay(function () {
+       // processing files
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/processing/preprocessingCAM.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/processing/postprocessingCAM.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
+      // backend files
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/Elements.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/nodeCAM.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/connectorCAM.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/variables.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<!-- processing files -->
-<script src="./src/js/processing/preprocessingCAM.js"></script>
-<script src="./src/js/processing/postprocessingCAM.js"></script>
+      // frontend files
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/eventListeners_backend.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/connectorArrows.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<!-- backend files -->
-<script src="./src/js/backend/Elements.js" crossorigin="anonymous"></script>
-<script src="./src/js/backend/nodeCAM.js" crossorigin="anonymous"></script>
-<script src="./src/js/backend/connectorCAM.js" crossorigin="anonymous"></script>
-<script src="./src/js/backend/variables.js" crossorigin="anonymous"></script>
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/eventListeners_frontend.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/colours.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/draw.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/paradata_focus.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<!-- frontend files -->
-<script src="./src/js/frontend/eventListeners_backend.js"></script>
-<script src="./src/js/frontend/connectorArrows.js" crossorigin="anonymous"></script>
-<!-- <script src="./src/js/frontend/cam-interface.js" crossorigin="anonymous"></script> -->
-<script src="./src/js/frontend/eventListeners_frontend.js"></script>
-<script src="./src/js/frontend/colours.js"></script>
-<script src="./src/js/frontend/draw.js"></script>
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/dialogs/interactionNode.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/dialogs/interactionEdge.js"; // hide researcher functionalities
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<script src="./src/js/frontend/paradata_focus.js"></script>
+      // add buttons participant 
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/participant/saveButton.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/participant/downloadSVGButton.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/participant/deleteButton.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<script src="./src/js/frontend/dialogs/interactionNode.js"></script>
-<script src="./src/js/frontend/dialogs/interactionEdge.js"></script>
+    // add buttons participant 
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/researcher/downloadJSONbutton.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/researcher/uploadJSONbutton.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/researcher/createConfigSave.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
 
-<!-- define CAM object before variable.js -->
+      // default CAM + initialisation CAM data
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./config/defaultCAM.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/initialisation.js";
+        script.async = true;
+        document.head.appendChild(script);
+      })();
 
-<!-- add buttons participant -->
-<script src="./src/js/frontend/buttons/participant/reference.js"></script>
-<script src="./src/js/frontend/buttons/participant/saveButton.js"></script>
-<script src="./src/js/frontend/buttons/participant/downloadSVGButton.js"></script>
-<script src="./src/js/frontend/buttons/participant/deleteButton.js"></script>
-
-
-<!-- add buttons researcher 
-<script src="./src/js/frontend/buttons/researcher/testbutton.js"></script>
--->
-<script src="./src/js/frontend/buttons/researcher/downloadJSONbutton.js"></script>
-<script src="./src/js/frontend/buttons/researcher/uploadJSONbutton.js"></script>
-<script src="./src/js/frontend/buttons/researcher/createConfigSave.js"></script>
-
-<script src="./src/js/backend/initialisation.js" crossorigin="anonymous"></script>
-
-<!-- <script src="./config/defaultCAM.js" crossorigin="anonymous"></script>-->
-<script>
-
-</script>
-
+    }, 500); // end delay
+  </script>
 </html>

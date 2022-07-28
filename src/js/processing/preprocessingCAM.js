@@ -3,6 +3,8 @@ Class for pre-processing CAM data used to
 - check necessary conditions (like #nodes)
 */
 
+console.log("Preprocessing step")
+
 // set cytoscape container to add elements
 var cy = cytoscape({
     //very commonly used options

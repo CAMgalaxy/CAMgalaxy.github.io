@@ -91,12 +91,6 @@ function saveCam() {
             })();
 
             delay(function () {
-
-                // delelte !!!
-                if (config.AdaptiveStudy) {
-                    alert('append data to URL - !!! include');
-                }
-
                 /* if server is >>> JATOS <<< */
                 if (typeof jatos.jQuery === "function") {
                     // set defocus data
@@ -123,15 +117,31 @@ function saveCam() {
                         var newUrl = updateQueryStringParameter("https://studien.psychologie.uni-freiburg.de/publix/324/start?batchId=403&generalMultiple", 
                         "IDparticipant", "part3_" + CAM.participantCAM);
                         newUrl = updateQueryStringParameter(newUrl, "SONA_ID", studyData.SONA_ID);
-                        */
                         // var newUrl = "http://127.0.0.1:9000/publix/804/start?batchId=804&generalMultiple"
                         // jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+                                       */
                         jatos.endStudy(true, "everything worked fine");
                     }
                 }
-                if (true) {
+
+
+                /* if server is >>> Mango DB <<< */
 
                     async function pushData() {
+
+                        // if no MangoDB return and print toastr
+                        const dataRaw2 = await fetch(URL);
+                        if(dataRaw2.status != 200){
+                            toastr.success("You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.", {
+                                closeButton: true,
+                                timeOut: 4000,
+                                positionClass: "toast-top-center",
+                                preventDuplicates: true
+                            })
+                            console.log(dataRaw2.status)
+
+                            return;
+                        }
 
                         let info = {
                             method: 'POST',
@@ -150,15 +160,12 @@ function saveCam() {
                         if (res.status == 201) {
                             window.location = linkRedirect + "&jwt=" + token;
                         }
-
-
                     }
-
                     pushData();
-                }
+              
 
                 /* if server is  >>> XYZ <<< */
-
+                
 
             }, 3000); // end delay
 

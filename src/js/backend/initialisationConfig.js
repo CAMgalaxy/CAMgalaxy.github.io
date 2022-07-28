@@ -9,8 +9,9 @@ console.log(dataRaw.status)
 
         const data = await dataRaw.json()
     
-        camMother = JSON.parse(data.cam);
         config = JSON.parse(data.config);
+        console.log('config within: ', config)
+        /*
         linkRedirect = data.link;
         token = data.token
     
@@ -31,18 +32,20 @@ console.log(dataRaw.status)
             CAM.importElement(element);
         });
         CAM.draw();
+        */
     
     }
     
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const link = urlParams.get('link');
-    const participantID = urlParams.get('participantID');
-    CAM.creator = participantID;
+    const queryString2 = window.location.search;
+    const urlParams2 = new URLSearchParams(queryString2);
+    const link2 = urlParams2.get('link');
+
     
     
     
-    fetchData(link + "&participantID=" + participantID);
+    fetchData(link2);
+
+    console.log('config outer: ', config)
 
 
 

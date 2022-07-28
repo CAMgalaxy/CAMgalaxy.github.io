@@ -45,16 +45,13 @@ console.log("url params: ", params);
 
 
 // hide researcher buttons
-if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "false") ||
-    config.ShowResearcherButtons == false) {
-    config.ShowResearcherButtons = false;
+if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "true")) {
+    config.ShowResearcherButtons = true;
 }else{
-    $(function () {
-        $('#hideResearcherButtonsNode').show();
-        $('#hideResearcherButtonsConnector').show();
-        $('#hideResearcherButtonsTop').show();
-    });
+    config.ShowResearcherButtons = false;
 }
+
+
 
 
 
@@ -63,16 +60,8 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
 if ((urlSearchParams.has('showSliderAgreementOnly') && urlSearchParams.get('showSliderAgreementOnly') === "true") ||
     config.showSliderAgreementOnly == true) {
     config.showSliderAgreementOnly = true;
-    $(function () {
-        $('#hideSliderDisAgree').hide();
-        $('#hideSliderAgreementOnly').show();
-    });
 }else{
     config.showSliderAgreementOnly = false;
-    $(function () {
-        $('#hideSliderDisAgree').show();
-        $('#hideSliderAgreementOnly').hide();
-    });
 }
 
 
@@ -116,10 +105,11 @@ if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature'
 }
 
 // set on fullscreen mode
-if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "true") ||
-    config.fullScreen == true) {
+if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "false")) {
+    config.fullScreen = false;
+}else{
     config.fullScreen = true;
 }
 
 
-console.log("config file: ", config);
+console.log("config URL params: ", config);
