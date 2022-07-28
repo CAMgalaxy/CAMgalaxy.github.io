@@ -5,8 +5,6 @@ console.log(dataRaw.status)
             defaultCAM() 
             return;
         }
-
-
         const data = await dataRaw.json()
     
         camMother = JSON.parse(data.cam);

@@ -5,7 +5,7 @@ console.log(dataRaw.status)
             return;
         }
 
-
+        usingMangoDB = true;
         const data = await dataRaw.json()
     
         config = JSON.parse(data.config);

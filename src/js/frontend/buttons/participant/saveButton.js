@@ -123,26 +123,11 @@ function saveCam() {
                         jatos.endStudy(true, "everything worked fine");
                     }
                 }
-
+                console.log("usingMangoDB: ", usingMangoDB)
 
                 /* if server is >>> Mango DB <<< */
-
+                if(usingMangoDB){
                     async function pushData() {
-
-                        // if no MangoDB return and print toastr
-                        const dataRaw2 = await fetch(URL);
-                        if(dataRaw2.status != 200){
-                            toastr.success("You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.", {
-                                closeButton: true,
-                                timeOut: 4000,
-                                positionClass: "toast-top-center",
-                                preventDuplicates: true
-                            })
-                            console.log(dataRaw2.status)
-
-                            return;
-                        }
-
                         let info = {
                             method: 'POST',
                             body: JSON.stringify({
@@ -162,6 +147,15 @@ function saveCam() {
                         }
                     }
                     pushData();
+                }else{
+                    toastr.success("You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.", {
+                        closeButton: true,
+                        timeOut: 4000,
+                        positionClass: "toast-top-center",
+                        preventDuplicates: true
+                    })
+                }
+
               
 
                 /* if server is  >>> XYZ <<< */
