@@ -4,7 +4,7 @@ var config = {
     ConNumNodes: 20, // number of nodes necessary to draw
     hideArrows: false, // if false = possible to draw arrows
     hideAmbivalent: false, // if false = possible to draw ambivalent node
-    showSliderAgreementOnly: false, // show only slider for agreement (+1 - +3)
+    showOnlyPosSlid: false, // show only slider for agreement (+1 - +3)
     MaxLengthWords: 3, // maximum number of words for each concept
     MaxLengthChars: 30, // maximum number of characters for each concept
     LengthSentence: 16, // include breaklines if >= X characters
@@ -17,4 +17,4 @@ var config = {
 }
 
 // global variable
-var usingMangoDB = null;
+var usingMangoDB = false;

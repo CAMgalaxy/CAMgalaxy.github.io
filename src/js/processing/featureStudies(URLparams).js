@@ -57,11 +57,11 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
 
 
 // show agreement only slider
-if ((urlSearchParams.has('showSliderAgreementOnly') && urlSearchParams.get('showSliderAgreementOnly') === "true") ||
-    config.showSliderAgreementOnly == true) {
-    config.showSliderAgreementOnly = true;
+if ((urlSearchParams.has('showOnlyPosSlid') && urlSearchParams.get('showOnlyPosSlid') === "true") ||
+    config.showOnlyPosSlid == true) {
+    config.showOnlyPosSlid = true;
 }else{
-    config.showSliderAgreementOnly = false;
+    config.showOnlyPosSlid = false;
 }
 
 

@@ -97,7 +97,7 @@ $(function () {
         $('#hideResearcherButtonsConnector').hide();
         $('#hideResearcherButtonsTop').hide();
     }
-    if(config.showSliderAgreementOnly){
+    if(config.showOnlyPosSlid){
         $('#hideSliderDisAgree').hide();
         $('#hideSliderAgreementOnly').show();
     }else{
@@ -216,7 +216,7 @@ if (config.hideArrows) {
 
 
 // hide / show slider reference 
-if (config.showSliderAgreementOnly) {
+if (config.showOnlyPosSlid) {
     $(function () {
         $('#hideSliderDisAgreeRef').hide();
         $('#hideSliderDisAgreeRef2').hide();

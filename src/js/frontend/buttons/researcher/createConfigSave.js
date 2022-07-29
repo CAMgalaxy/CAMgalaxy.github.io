@@ -20,7 +20,7 @@ const interactionSetUpStudy = `
                 Number of nodes necessary to draw (about 20 recommended):
             </div>
             <div class="column2">
-            <input type="number" id="setConNumNodes" min="1" style="width: 60%; margin-top: 14px;" value="20">
+            <input type="number" id="setConNumNodes" min="1" max="50" style="width: 60%; margin-top: 14px;" value="20">
             </div>
         </div>
         <div class="row" style="background-color:#bababa;">
@@ -28,7 +28,7 @@ const interactionSetUpStudy = `
                 Maximum number of words for each concept (2-3 recommended):
             </div>
             <div class="column2">
-                <input type="number" id="setMaxLengthWords" min="1" style="width: 60%; margin-top: 10px;" value="3">
+                <input type="number" id="setMaxLengthWords" min="1" max="5" style="width: 60%; margin-top: 10px;" value="3">
             </div>
         </div>
         <div class="row" style="background-color:#aaa;">
@@ -36,13 +36,13 @@ const interactionSetUpStudy = `
                 Maximum number of characters for each concept (at least 30 recommended):
             </div>
             <div class="column2">
-                <input type="number" id="setMaxLengthChars" min="30" style="width: 60%; margin-top: 10px;" value="30">
+                <input type="number" id="setMaxLengthChars" min="30" max="300" style="width: 60%; margin-top: 10px;" value="30">
             </div>
         </div>
 
         <div class="row" style="background-color:#bababa;">
             <div class="column1">
-                Possibility to draw arrows / directed networks (recommended):
+                Possibility to draw arrows / directed connections (recommended):
             </div>
             <div class="column2">
                 <label class="switch" style="margin-top: 8px;">
@@ -59,7 +59,7 @@ const interactionSetUpStudy = `
             </div>
             <div class="column2">
                 <label class="switch" style="margin-top: 8px;">
-                <input type="checkbox" id="setshowSliderAgreementOnly" checked>
+                <input type="checkbox" id="setshowOnlyPosSlid" checked>
                 <div class="slider round">
                 </div>
                 </label>
@@ -153,7 +153,7 @@ function setConfigCAMfile() {
             MaxLengthChars: $('#setMaxLengthChars').val(), // maximum number of characters for each concept
     
             hideArrows: null, // if false = possible to draw arrows
-            showSliderAgreementOnly: null, // if true show only slider for agreement (+1 - +3)
+            showOnlyPosSlid: null, // if true show only slider for agreement (+1 - +3)
     
             hideAmbivalent: null,  // if false = possible to draw ambivalent node
             cameraFeature: null, // if true include camera / splotlight feature to move screen
@@ -192,10 +192,10 @@ function setConfigCAMfile() {
         setCAMConfig.config.hideAmbivalent = true;
     }
 
-    if($('#setshowSliderAgreementOnly').is(":checked")){
-        setCAMConfig.config.showSliderAgreementOnly = false;
+    if($('#setshowOnlyPosSlid').is(":checked")){
+        setCAMConfig.config.showOnlyPosSlid = false;
     }else{
-        setCAMConfig.config.showSliderAgreementOnly = true;
+        setCAMConfig.config.showOnlyPosSlid = true;
     }
 
     if($('#setcameraFeature').is(":checked")){
@@ -305,7 +305,7 @@ $(function () {
        setConfigCAMfile();
     });
 
-    $('#sethideArrows,#setfullScreen, #sethideAmbivalent, #setshowSliderAgreementOnly, #setcameraFeature').click(function () {
+    $('#sethideArrows,#setfullScreen, #sethideAmbivalent, #setshowOnlyPosSlid, #setcameraFeature').click(function () {
         setConfigCAMfile();
     });
 
