@@ -143,7 +143,7 @@ function saveCam() {
                         const res = await fetch('https://camel-main.herokuapp.com/participants/addExperience', info);
 
                         if (res.status == 201) {
-                            window.location = linkRedirect + "&jwt=" + token;
+                            window.location = linkRedirect + "&jwt=" + token + "&participantID=" + CAM.creator;
                         }
                     }
                     pushData();
