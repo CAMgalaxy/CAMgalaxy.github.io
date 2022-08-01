@@ -11,7 +11,7 @@ class ConnectorCAM {
         this.target = null;
         this.agreement = null; // shape of line
         this.isActive = null;
-        this.date = null;
+        this.date = (new Date).getTime(); // representing the milliseconds elapsed between 1 January 1970 00:00:00 UTC and the given date
         this.kind = "Connector"; // information for drawing edges / nodes
         this.isSelected = false;
         this.intensity = IncreaseSliderIntensity; // 3
@@ -106,7 +106,7 @@ class ConnectorCAM {
     */
     establishConnection(source, target, intensity, agreement) {
         this.agreement = agreement;
-        this.date = (new Date()).getSeconds();
+        this.date = (new Date).getTime();
         this.source = source.id;
         this.target = target.id;
         this.isActive = true;
@@ -158,7 +158,7 @@ class ConnectorCAM {
 
     enterLog(log) {
         this.eventLog.push({
-            time: new Date(),
+            time: (new Date).getTime(),
             type: log.type,
             value: log.value
         });

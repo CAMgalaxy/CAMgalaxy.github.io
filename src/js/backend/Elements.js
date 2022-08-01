@@ -5,7 +5,7 @@ class Elements {
         this.creator = uuid.v4(); // id of the maker
         this.projectCAM = config.CAMproject;
         this.defocusCAM = null;
-        this.date = (new Date).getUTCSeconds();
+        this.date = (new Date).getTime(); // representing the milliseconds elapsed between 1 January 1970 00:00:00 UTC and the given date
         this.nodes = [];
         this.connectors = [];
         this.currentID = null;
@@ -275,6 +275,8 @@ class Elements {
             var connector = new ConnectorCAM();
             connector.establishConnection(source, target, element.intensity, element.agreement);
             connector.id = element.id;
+            connector.isDeletable = element.isDeletable;
+
             this.connectors.push(connector);
         }
         this.draw();

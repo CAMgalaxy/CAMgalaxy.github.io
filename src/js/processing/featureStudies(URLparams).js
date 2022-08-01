@@ -72,6 +72,8 @@ if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === 
     config.hideArrows == true) {
     config.hideArrows = true;
     DistanceArrows = 20;
+}else{
+    config.hideArrows = false;
 }
 
 
@@ -79,6 +81,8 @@ if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === 
 if ((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "true") ||
     config.hideAmbivalent == true) {
     config.hideAmbivalent = true;
+}else{
+    config.hideAmbivalent = false;
 }
 
 
@@ -105,7 +109,8 @@ if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature'
 }
 
 // set on fullscreen mode
-if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "false")) {
+if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "false")  ||
+config.fullScreen == false) {
     config.fullScreen = false;
 }else{
     config.fullScreen = true;

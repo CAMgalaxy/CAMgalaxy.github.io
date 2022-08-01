@@ -18,3 +18,5 @@ var config = {
 
 // global variable
 var usingMangoDB = false;
+
+console.log("config config file:", config)

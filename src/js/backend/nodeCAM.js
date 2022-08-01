@@ -7,7 +7,7 @@ class NodeCAM {
         this.comment = "";
         this.position = position;
         this.isActive = true;
-        this.date = (new Date).getSeconds();
+        this.date = (new Date).getTime(); // representing the milliseconds elapsed between 1 January 1970 00:00:00 UTC and the given date
         this.kind = "Node";
         this.isSelected = false;
         this.isConnectorSelected = false;
@@ -125,7 +125,7 @@ class NodeCAM {
 
     enterLog(log) {
         this.eventLog.push({
-            time: new Date(),
+            time: (new Date).getTime(),
             type: log.type,
             value: log.value
         });

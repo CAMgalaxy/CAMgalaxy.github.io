@@ -1,3 +1,8 @@
+// only add to event log if value has been changed:
+var currentText = null;
+var currentValue = null;
+var currentComment = null;
+
 $(function () {
 
     $("#dialogReference").dialog({
@@ -121,6 +126,12 @@ $(function () {
                 value: true
             });
 
+            // only add to event log if value has been changed:
+            currentText = CAM.currentNode.getText();
+            currentValue = CAM.currentNode.getValue();
+            currentComment = CAM.currentNode.getComment();
+
+
             console.log('dialog got open');
 
             //setTimeout("$('#dialogInteractionNode').dialog('close')",5000);
@@ -140,20 +151,26 @@ $(function () {
                 CAM.draw();
 
                 // adjust event Log
-                CAM.currentNode.enterLog({
-                    type: "text",
-                    value: CAM.currentNode.getText()
-                });
+                if(currentText !== CAM.currentNode.getText()){
+                    CAM.currentNode.enterLog({
+                        type: "text",
+                        value: CAM.currentNode.getText()
+                    });
+                }
 
+                if(currentValue !== CAM.currentNode.getValue()){
                 CAM.currentNode.enterLog({
                     type: "value",
                     value: CAM.currentNode.getValue()
                 });
+            }
 
+            if(currentComment !== CAM.currentNode.getComment()){
                 CAM.currentNode.enterLog({
                     type: "comment",
                     value: CAM.currentNode.getComment()
                 });
+            }
 
                 CAM.currentNode.enterLog({
                     type: "selected",

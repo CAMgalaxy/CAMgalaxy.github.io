@@ -97,7 +97,7 @@ $(function () {
         var MaxLengthWords = config.MaxLengthWords; // allow not more than X words
         var MaxLengthChars = config.MaxLengthChars; // allow not more than X characters
 
-        console.log(CAM.currentNode.isTextChangeable)
+        // console.log("CAM.currentNode.isTextChangeable:", CAM.currentNode.isTextChangeable)
 
         if(CAM.currentNode.isTextChangeable){
             var numWords = this.value.split(' ').filter(word => word != "");
@@ -106,7 +106,7 @@ $(function () {
             // console.log("numWords: ", numWords, numWords <= MaxLengthWords);
     
             if (numWords <= MaxLengthWords && this.value.length <= MaxLengthChars) {
-                console.log("show me:", this.value);
+                //console.log("show me:", this.value);
                 CAM.updateElement("Node", "text", this.value);
                 CAM.draw();
             } else if (numWords > MaxLengthWords) {

@@ -7,6 +7,15 @@ function defaultCAM() {
     }, true, true, true));
 
 
+    CAM.addElement(new NodeCAM(1, "I cannot be moved or deleted", {
+        x: 300,
+        y: 100
+    }, false, false, true));
+    var connector1 = new ConnectorCAM();
+    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, true);
+    connector1.value = 1
+    CAM.addElement(connector1);
+
     /*
     CAM.addElement(new NodeCAM(3, "the middleman (centered node)", {
         x: 650,

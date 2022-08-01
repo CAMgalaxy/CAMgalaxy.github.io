@@ -233,8 +233,9 @@ function drawLine(connector, motherD, position, angle, dist, compensation) {
     lineConnector.setAttribute("stroke", COLOUR.line);
     lineConnector.setAttribute("stroke-width", connector.intensity);
 
-
     lineConnector.setAttribute("marker-start", "url(#arrowRight)");
+
+    
 
     if (connector.isBidirectional) lineConnector.setAttribute("marker-end", "url(#arrowLeft)");
 
@@ -257,6 +258,45 @@ function drawLine(connector, motherD, position, angle, dist, compensation) {
     }
 
     return lineConnector;
+}
+
+
+function drawCross(connector, motherD, position, angle, dist, compensation, mother, daughter) {
+
+    /*
+let lineConnector = document.createElementNS(svgns, "line");
+lineConnector.setAttribute("class", "connector");
+lineConnector.setAttribute("id", connector.id);
+lineConnector.setAttribute("transform", `translate(${position.x},${position.y}) scale(1,1) `) // ${zoomScaleConnector}
+lineConnector.setAttribute("x1", (motherD + dist * .5 + 30 * compensation * Math.cos(angle)) * Math.cos(angle) * compensation);
+lineConnector.setAttribute("y1", (motherD + dist * .5 + 0) * Math.sin(angle) * compensation);
+lineConnector.setAttribute("x2", (dist - dist * .5 + 0) * Math.cos(angle) * compensation);
+lineConnector.setAttribute("y2", (dist - dist * .5 + 0) * Math.sin(angle) * compensation);
+lineConnector.setAttribute("stroke", "red");
+lineConnector.setAttribute("stroke-width", "5");
+*/
+
+
+/*
+const vec = {
+    x: (mother.position.x - daughter.position.x),
+    y: (mother.position.y - daughter.position.y),
+};
+
+var x1 = (motherD + DistanceArrows) * Math.cos(angle) * compensation;
+var y1 = (motherD + DistanceArrows) * Math.sin(angle) * compensation;
+var x2 = (dist - DistanceArrows) * Math.cos(angle) * compensation;
+var y2 = (dist - DistanceArrows) * Math.sin(angle) * compensation;
+
+let drawCross = document.createElementNS(svgns, "circle");
+drawCross.setAttribute("cx", vec.x + DistanceArrows * Math.cos(angle) * compensation );
+drawCross.setAttribute("cy", vec.y  + DistanceArrows * Math.sin(angle) * compensation);
+drawCross.setAttribute("r", "22");
+drawCross.setAttribute("fill", "red");
+*/
+
+
+    return drawCross;
 }
 
 function drawOuter(connector, daughter, dist, angle, compensation) {
@@ -293,6 +333,7 @@ function drawConnector(connector, mother, daughter) {
         x: (mother.position.x - daughter.position.x),
         y: (mother.position.y - daughter.position.y),
     };
+
     const dir = {
         x: vec.x / Math.sqrt(vec.x ** 2 + vec.y ** 2),
         y: vec.y / Math.sqrt(vec.x ** 2 + vec.y ** 2)
@@ -319,6 +360,11 @@ function drawConnector(connector, mother, daughter) {
 
     const outer = this.drawOuter(connector, daughter, dist, angle, compensation);
     group.appendChild(outer);
+
+    //const drawCross = this.drawCross(connector, motherD, position, angle, dist, compensation, mother, daughter);
+    //group.appendChild(drawCross);
+
+    
 
     return group;
 }
