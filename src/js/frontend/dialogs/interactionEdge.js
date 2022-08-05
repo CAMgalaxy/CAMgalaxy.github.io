@@ -4,17 +4,17 @@ const interactionEdge = `
                 <button id="deleteEdge" class="material-icons deleteButton" style="color:red;" title="Delete Connector">
                     delete </button>
             </div>
-
+            
 
             <!-- > adjust type and strength of connector -->
             <div class="properties-align" style="margin-bottom:20px" id="hideSliderDisAgree">
                 <div class="properties-size-naming">
-                    Type and Strength of Connection:
+                ${languageFileOut.cd_01}
                 </div>
 
                 <div class="spacing-connector">
-                    <span class="redColorTick">Disagreement</span>
-                    <span class="greenColorTick">Agreement</span>
+                    <span class="redColorTick">${languageFileOut.cd_02}</span>
+                    <span class="greenColorTick">${languageFileOut.cd_03}</span>
                 </div>
                 <div class="outerConnectorSlider">
                     <div class="greenConnectorColorSlider">
@@ -36,7 +36,7 @@ const interactionEdge = `
 
             <div class="properties-align" id="hideSliderAgreementOnly">
                 <div class="properties-size-naming">
-                   Strength of Connection:
+                ${languageFileOut.cd_01a}
                 </div>
                 <div class="outerConnectorSlider">
                     <div class="greenConnectorColorSliderAgreementOnly">
@@ -56,13 +56,13 @@ const interactionEdge = `
             <!-- > adjust of connectivity of edge -->
             <div id="hideConnectorDirInfluence">
                 <div class="properties-size-naming" style="margin-top: 25px;">
-                    Direction of Connection:
+                ${languageFileOut.cd_04}
                 </div>
 
                 <div style="text-align: center;">
                     <div>
                         <button id="bidirectional" type="button" class="material-icons"
-                            title="Concepts influence each other" class="connectorButton"
+                            title="Concepts influence each other"
                             style="font-size: 50px;">sync_alt</button>
                         <button id="monodirectional" type="button" class="material-icons"
                             title="Concepts influence each other in a one-sided direction. Press button multiple times to change direction"
@@ -86,6 +86,18 @@ const interactionEdge = `
 
 var target = document.getElementById("dialogInteractionEdge");
 target.innerHTML += interactionEdge;
+
+
+// language file
+$(function () {
+    document.getElementById("deleteEdge").title = languageFileOut.cd_07buttonDelete;
+
+    document.getElementById("bidirectional").title = languageFileOut.cd_05button; // buttons top right (btr)
+    document.getElementById("monodirectional").title = languageFileOut.cd_06button; // buttons top right (btr)
+  });
+
+
+
 
 $(function () {
     if(config.ShowResearcherButtons){
@@ -211,6 +223,11 @@ if (config.hideArrows) {
     $(function () {
         $('#hideConnectorDirInfluence').hide();
     });
+}else{
+    $('#hideConnectorDirInfluence').show();
+    $(function () {
+        $('#hideConnectorDirInfluence').show();
+    });
 }
 
 
@@ -221,6 +238,12 @@ if (config.showOnlyPosSlid) {
         $('#hideSliderDisAgreeRef').hide();
         $('#hideSliderDisAgreeRef2').hide();
         $('#showSliderAgreeOnlyRef').show();
+    });
+}else{
+    $(function () {
+        $('#hideSliderDisAgreeRef').show();
+        $('#hideSliderDisAgreeRef2').show();
+        $('#showSliderAgreeOnlyRef').hide();
     });
 }
 

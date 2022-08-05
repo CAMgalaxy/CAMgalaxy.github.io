@@ -104,8 +104,21 @@ const interactionSetUpStudy = `
             </label>
         </div>
     </div>
+
+    <div class="row" style="background-color:#aaa;">
+        <div class="column1">
+            Set the language of the C.A.M.E.L. interface:
+        </div>
+    <div class="column2">
+        <label class="switch" style="margin-top: 8px;">
+            <select name="setLanguage" id="setLanguage">
+            <option value="English">English</option>
+            <option value="German">German</option>
+            <option value="Spanish">Spanish</option>
+            </select> 
+        </label>
     </div>
-    
+    </div>
     <br>
     <div class="properties-align" style="font-size: 15px;">
        After you have set the configuration click button and copy & paste the code (JSON file) to the administrative:
@@ -158,6 +171,8 @@ function setConfigCAMfile() {
             hideAmbivalent: null,  // if false = possible to draw ambivalent node
             cameraFeature: null, // if true include camera / splotlight feature to move screen
             fullScreen: null, // if true = study in fullscreen mode + paradata
+
+            setLanguage: $('#setLanguage').val(),  // set language of your CAM study
     
             /* default: */
             LengthSentence: 16, // include breaklines if >= X characters
@@ -309,7 +324,7 @@ $(function () {
         setConfigCAMfile();
     });
 
-    $('#setConNumNodes,#setMaxLengthWords, #setMaxLengthChars').change(function () {
+    $('#setConNumNodes,#setMaxLengthWords, #setMaxLengthChars, #setLanguage').change(function () {
         setConfigCAMfile();
     });
 

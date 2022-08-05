@@ -1,8 +1,13 @@
 /* add button: */
-const dlButton = `<button class="material-icons" onclick="onDownloadSVGfile()" title="Save CAM as picture" style="margin-right: 5px;">crop_original</button>`;
+const dlButton = `<button id="saveCAMpicture" class="material-icons" onclick="onDownloadSVGfile()" title="Save CAM as picture" style="margin-right: 5px;">crop_original</button>`;
 var target = document.getElementById("rightButton");
 target.innerHTML += dlButton;
 
+
+// language file
+$(function () {
+    document.getElementById("saveCAMpicture").title = languageFileOut.btr_03; // buttons top right (btr)
+  });
 
 function onDownloadSVGfile() {
     console.log("CAM picture (svg) has been saved");

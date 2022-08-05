@@ -3,6 +3,11 @@ const saveButton = `<button id="saveCAM" onclick="saveCam()" class="material-ico
 var target = document.getElementById("rightButton");
 target.innerHTML += saveButton;
 
+// language file
+$(function () {
+  document.getElementById("saveCAM").title = languageFileOut.btr_02; // buttons top right (btr)
+});
+
 function updateQueryStringParameter(uri, key, value) {
   var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
   var separator = uri.indexOf("?") !== -1 ? "&" : "?";

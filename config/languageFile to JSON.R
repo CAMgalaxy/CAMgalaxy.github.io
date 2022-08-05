@@ -19,4 +19,5 @@ library(xlsx)
 ################
 dir()
 dat <- xlsx::read.xlsx2(file = "languageFile.xlsx", sheetIndex = 1)
+options("encoding" = "UTF-8")
 write(toJSON(dat), "languageFile.json")

@@ -12,6 +12,7 @@
 var DistanceArrows = 40;
 
 // hide all researcher functionalities
+/*
 $(function () {
     $('#hideResearcherButtonsNode').hide(); // hide
     $('#hideResearcherButtonsConnector').hide();
@@ -23,16 +24,12 @@ $(function () {
     $('#showSliderAgreeOnlyRef').hide();
 });
 
-
-
-
-
-
-
 // hide camera functionality
 $(function () {
     $('#showCameraFeature').hide();
 });
+*/
+
 
 /* start url parameters */
 // provide precheck IF partcipants changing URL
@@ -45,10 +42,10 @@ console.log("url params: ", params);
 
 
 // hide researcher buttons
-if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "true")) {
-    config.ShowResearcherButtons = true;
-}else{
+if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "false")) {
     config.ShowResearcherButtons = false;
+}else if((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowResearcherButtons') === "true")){
+    config.ShowResearcherButtons = true;
 }
 
 
@@ -57,10 +54,9 @@ if ((urlSearchParams.has('ShowResearcherButtons') && urlSearchParams.get('ShowRe
 
 
 // show agreement only slider
-if ((urlSearchParams.has('showOnlyPosSlid') && urlSearchParams.get('showOnlyPosSlid') === "true") ||
-    config.showOnlyPosSlid == true) {
+if ((urlSearchParams.has('showOnlyPosSlid') && urlSearchParams.get('showOnlyPosSlid') === "true")) {
     config.showOnlyPosSlid = true;
-}else{
+}else if((urlSearchParams.has('showOnlyPosSlid') && urlSearchParams.get('showOnlyPosSlid') === "false")){
     config.showOnlyPosSlid = false;
 }
 
@@ -68,20 +64,18 @@ if ((urlSearchParams.has('showOnlyPosSlid') && urlSearchParams.get('showOnlyPosS
 
 
 // hide connector: direction of influence + reference
-if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === "true") ||
-    config.hideArrows == true) {
+if ((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === "true")) {
     config.hideArrows = true;
     DistanceArrows = 20;
-}else{
+}else if((urlSearchParams.has('hideArrows') && urlSearchParams.get('hideArrows') === "false")){
     config.hideArrows = false;
 }
 
 
 // hide ambivalent node + reference
-if ((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "true") ||
-    config.hideAmbivalent == true) {
+if ((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "true")) {
     config.hideAmbivalent = true;
-}else{
+}else if((urlSearchParams.has('hideAmbivalent') && urlSearchParams.get('hideAmbivalent') === "false")){
     config.hideAmbivalent = false;
 }
 
@@ -100,8 +94,12 @@ if (urlSearchParams.has('MaxLengthWords')) {
 
 
 // enable camera functionality
-if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "true") ||
-    config.cameraFeature == true) {
+if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "false")) {
+    config.cameraFeature = false;
+    $(function () {
+        $('#showCameraFeature').hide();
+    });
+}else if((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature') === "true")){
     config.cameraFeature = true;
     $(function () {
         $('#showCameraFeature').show();
@@ -109,10 +107,9 @@ if ((urlSearchParams.has('cameraFeature') && urlSearchParams.get('cameraFeature'
 }
 
 // set on fullscreen mode
-if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "false")  ||
-config.fullScreen == false) {
+if ((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "false")) {
     config.fullScreen = false;
-}else{
+}else if((urlSearchParams.has('fullScreen') && urlSearchParams.get('fullScreen') === "true")){
     config.fullScreen = true;
 }
 

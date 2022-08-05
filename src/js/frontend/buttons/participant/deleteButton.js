@@ -3,6 +3,10 @@ const buttonDelete = `<button id="deleteCAM" class="material-icons" style="color
 var target = document.getElementById("rightButton");
 target.innerHTML += buttonDelete;
 
+// language file
+$(function () {
+    document.getElementById("deleteCAM").title = languageFileOut.btr_04; // buttons top right (btr)
+  });
 
 function deleteCam() {
     let confirmdel = confirm("Do you really want to delete your CAM? No data will be saved on the server.");

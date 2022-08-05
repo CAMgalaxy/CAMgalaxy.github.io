@@ -2,14 +2,14 @@ const interaction = `
 <div class="properties" id="interactionNode">
 <!-- delete node: -->
 <div style="padding-bottom: 30px;">
-    <button id="deleteNode" class="material-icons deleteButton" style="color:red;" title="Delete Connector">
+    <button id="deleteNode" class="material-icons deleteButton" style="color:red;" title="Delete Concept">
         delete </button>
 </div>
 
 <!-- > adjust text -->
 <div class="properties-align">
     <div class="properties-size-naming">
-        Content:
+    ${languageFileOut.nd_01}
     </div>
     <input id="inptextnode" type="text"
         style="width: 99%; text-align: left;   margin: auto; display: block;" autofocus>
@@ -19,7 +19,7 @@ const interaction = `
 <!-- > adjust type and strength of concept -->
 <div class="properties-align">
     <div class="properties-size-naming">
-        Type and Strength of Concept:
+    ${languageFileOut.nd_02}
     </div>
 </div>
 
@@ -46,7 +46,7 @@ const interaction = `
 <div id="hideAmvivalentNode" class="spacing-node">
 
     <input type="checkbox" id="checkboxAmbivalent" style="font-size: 20px;">
-    <label for="checkboxAmbivalent" style="font-size: 16px; margin-left: 5px;">set concept to </label>
+    <label for="checkboxAmbivalent" style="font-size: 16px; margin-left: 5px;">${languageFileOut.nd_03} </label>
 
     <image type="image"
         src="./img/ambivalent_node.svg#svgView(viewBox(5,5,250,120))"
@@ -60,7 +60,7 @@ const interaction = `
 <!-- > adjust comment -->
 <div class="properties-align">
     <div class="properties-size-naming">
-        Comment:
+    ${languageFileOut.nd_04}
     </div>
     <textarea id="inpcommentnode"
         style="width: 97%; text-align: left; margin: auto; display: block;"></textarea>
@@ -89,6 +89,11 @@ const interaction = `
 
 var target = document.getElementById("dialogInteractionNode");
 target.innerHTML += interaction;
+
+// language file
+$(function () {
+    document.getElementById("deleteNode").title = languageFileOut.nd_05buttonDelete;
+  });
 
 
 $(function () {
@@ -259,5 +264,10 @@ if(config.hideAmbivalent){
     $('#hideAmvivalentNode').hide();
     $(function () {
         $('#hideAmvivalentNode').hide();
+    });
+}else{
+    $('#hideAmvivalentNode').show();
+    $(function () {
+        $('#hideAmvivalentNode').show();
     });
 }

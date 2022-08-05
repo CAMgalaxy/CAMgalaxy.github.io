@@ -14,14 +14,20 @@ $(function () {
         draggable: true,
         width: 400,
         maxWidth: 400,
+        /*
         buttons: {
             Close: function () {
                 $(this).dialog("close");
             }
         },
+        */
         open: function (event, ui) {
-            $(".ui-dialog-titlebar").show(); // hide titlebar            
+            $(".ui-dialog-titlebar").show(); // show titlebar            
             console.log('dialog got open');
+
+            $('.ui-widget-overlay').on('click', function () { // .bind
+                $("#dialogReference").dialog('close');
+            });
         },
         close: function (event, ui) {
             console.log('dialog got closed');

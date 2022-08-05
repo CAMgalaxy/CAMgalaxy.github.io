@@ -6,9 +6,6 @@
     <!-- for Microsoft Browser? -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- language file -->
-    <script src="./config/languageFile.js" crossorigin="anonymous"></script>
-
     <!-- css files: -->
     <link rel="stylesheet" href="./src/css/main.css" />
     <link rel="stylesheet" href="./src/css/toastrmin.css" />
@@ -118,13 +115,27 @@
     </div>
   </body>
 
+
+
+  <script>
+    $(function () {
+    document.getElementById("alert-text").innerHTML = languageFileOut.ls_01; // leaving fullscreen
+
+    document.getElementById("dialogReference").title = languageFileOut.qr_top; // Quick reference
+
+    document.getElementById("quickref").title = languageFileOut.btr_01; // buttons top right (btr)
+    })
+  </script>
+
+
+
   <!-- defocus div element: -->
   <div id="alert" style="background: white; visibility: hidden" class="content">
-    <div id="alert-text" style="text-align: center">
-      <strong
-        >Please do not change or minimize the browser window while the study is
-        running. Only if there is a break in the course of the study.</strong
-      >
+    <div style="text-align: center;">
+      <div id="alert-text" style="font-weight: bold;">
+        </div>
+ 
+ 
       <br />
       <button
         id="alert-button-text"
@@ -156,7 +167,8 @@
     crossorigin="anonymous"
   ></script>
 
- 
+     <!-- language file -->
+     <script src="./config/languageFile.js" crossorigin="anonymous"></script>
 
   <script>
     var delay = (function () {
@@ -222,12 +234,7 @@
         document.head.appendChild(script);
       })();
 
-      (function () {
-        const script = document.createElement("script");
-        script.src = "./src/js/frontend/eventListeners_frontend.js";
-        script.async = false;
-        document.head.appendChild(script);
-      })();
+
       (function () {
         const script = document.createElement("script");
         script.src = "./src/js/frontend/colours.js";
@@ -257,6 +264,12 @@
       // add buttons participant 
       (function () {
         const script = document.createElement("script");
+        script.src = "./src/js/frontend/buttons/participant/reference.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      (function () {
+        const script = document.createElement("script");
         script.src = "./src/js/frontend/buttons/participant/saveButton.js";
         script.async = false;
         document.head.appendChild(script);
@@ -274,7 +287,7 @@
         document.head.appendChild(script);
       })();
 
-    // add buttons participant 
+    // add buttons researcher 
       (function () {
         const script = document.createElement("script");
         script.src = "./src/js/frontend/buttons/researcher/downloadJSONbutton.js";
@@ -290,6 +303,14 @@
       (function () {
         const script = document.createElement("script");
         script.src = "./src/js/frontend/buttons/researcher/createConfigSave.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+
+      // add fronetend event listeners
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/eventListeners_frontend.js";
         script.async = false;
         document.head.appendChild(script);
       })();
