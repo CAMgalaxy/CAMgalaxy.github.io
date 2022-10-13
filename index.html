@@ -316,6 +316,7 @@
       })();
 
       // default CAM + initialisation CAM data
+      delay(function () {
       (function () {
         const script = document.createElement("script");
         script.src = "./config/defaultCAM.js";
@@ -328,8 +329,11 @@
         script.async = true;
         document.head.appendChild(script);
       })();
+    }, 700); // end delay
+    }, 500); // end delay
 
-    }, 600); // end delay
+
+
   </script>
   
 </html>

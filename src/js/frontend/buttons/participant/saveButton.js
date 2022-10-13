@@ -98,10 +98,10 @@ function saveCam() {
       return false;
     } else {
       toastr.success(
-        "Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the final part of the study.",
+        "Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the end or the final part of the study.",
         {
           closeButton: true,
-          timeOut: 3000,
+          timeOut: 4000,
           positionClass: "toast-top-center",
           preventDuplicates: true,
         }
@@ -123,34 +123,38 @@ function saveCam() {
         }
 
         /* if server is >>> JATOS <<< */
-        if (typeof jatos.jQuery === "function") {
-          // If JATOS is available, send data there
-          var resultJson = CAM;
-          console.log("my result data sent to JATOS final time: ", resultJson);
-          jatos
-            .submitResultData(resultJson)
-            .then(() => console.log("success"))
-            .catch(() => console.log("error"));
+        console.log("usingJATOS: ", usingJATOS);
+        if (usingJATOS) {
+          if (typeof jatos.jQuery === "function") {
+            // if an ID was sent via URL param overwrite CAM creator
+            if (Object.keys(jatos.urlQueryParameters).indexOf("participantID") >= 0) {
+              CAM.creator = jatos.urlQueryParameters.participantID;
+            }
 
-          // then redirect
-          if (config.AdaptiveStudy) {
+            // If JATOS is available, send data there
+            var resultJson = CAM;
+            console.log("my result data sent to JATOS first and final time");
+            jatos
+              .submitResultData(resultJson)
+              .then(() => console.log("success"))
+              .catch(() => console.log("error"));
+
             // > with adaptive design
-          } else {
-            // > without adaptive design
-
-            /*
-                        var newUrl = updateQueryStringParameter("https://studien.psychologie.uni-freiburg.de/publix/324/start?batchId=403&generalMultiple", 
-                        "IDparticipant", "part3_" + CAM.participantCAM);
-                        newUrl = updateQueryStringParameter(newUrl, "SONA_ID", studyData.SONA_ID);
-                        // var newUrl = "http://127.0.0.1:9000/publix/804/start?batchId=804&generalMultiple"
-                        // jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
-                                       */
-            jatos.endStudy(true, "everything worked fine");
+            if (config.AdaptiveStudy) {
+              var newUrl = updateQueryStringParameter(
+                config.ADAPTIVESTUDYurl,
+                "participantID",
+                CAM.creator
+              );
+              jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+            } else {
+              jatos.endStudy(true, "everything worked fine");
+            }
           }
         }
-        console.log("usingMangoDB: ", usingMangoDB);
 
-        /* if server is >>> Mango DB <<< */
+        /* if server is >>> MangoDB <<< */
+        console.log("usingMangoDB: ", usingMangoDB);
         if (usingMangoDB) {
           async function pushData() {
             let info = {
@@ -180,7 +184,10 @@ function saveCam() {
             }
           }
           pushData();
-        } else {
+        } 
+        
+        /* if NO server >>> <<< */
+        if(!usingJATOS &&  !usingMangoDB){
           toastr.success(
             "You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.",
             {
@@ -192,8 +199,8 @@ function saveCam() {
           );
         }
 
-        /* if server is  >>> XYZ <<< */
-      }, 3000); // end delay
+
+      }, 4000); // end delay
     }
   }
 }

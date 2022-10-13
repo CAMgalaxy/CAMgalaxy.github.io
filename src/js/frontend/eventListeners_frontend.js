@@ -182,6 +182,9 @@ $(function () {
                     type: "selected",
                     value: false
                 });
+
+                // reset node selection
+                resetNodeSelection();
             }
 
 

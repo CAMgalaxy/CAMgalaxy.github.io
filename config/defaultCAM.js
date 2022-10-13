@@ -1,27 +1,36 @@
 /* default CAM which will be redrawn if CAM is deleted */
 
 function defaultCAM() {
-    CAM.addElement(new NodeCAM(0, "centered node (change or delete me!)", {
+    CAM.addElement(new NodeCAM(0, "central node (change me)", {
         x: 650,
         y: 400
     }, true, true, true));
 
+    CAM.addElement(new NodeCAM(0, "look left", {
+        x: 450,
+        y: 400
+    }, true, true, true));
 
-    CAM.addElement(new NodeCAM(1, "I cannot be moved or deleted", {
-        x: 300,
-        y: 100
-    }, false, false, true));
+    CAM.addElement(new NodeCAM(0, "look right", {
+        x: 850,
+        y: 400
+    }, true, true, true));
+
+
+    
     var connector1 = new ConnectorCAM();
     connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, true);
     connector1.value = 1
     CAM.addElement(connector1);
 
-    /*
-    CAM.addElement(new NodeCAM(3, "the middleman (centered node)", {
-        x: 650,
-        y: 400
-    }, true, true, true));
+    var connector2 = new ConnectorCAM();
+    connector2.establishConnection(CAM.nodes[0], CAM.nodes[2], IncreaseSliderIntensity, true);
+    connector2.value = 1
+    CAM.addElement(connector2);
 
+    CAM.connectors[0].isDeletable = true
+    CAM.connectors[1].isDeletable = true
+        /*
     CAM.addElement(new NodeCAM(1, "I cannot be moved or deleted", {
         x: 300,
         y: 100

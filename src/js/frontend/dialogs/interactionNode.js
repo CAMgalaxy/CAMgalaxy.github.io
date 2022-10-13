@@ -220,6 +220,28 @@ $(function () {
         $("#dialogInteractionNode").dialog('close');
     });
 
+    $(document).keyup(function(e){
+        if(e.keyCode == 46) {
+            if(CAM.currentNode != null){
+                console.log("Deleted using keypress");
+                CAM.currentNode.enterLog({
+                    type: "node was deleted",
+                    value: -77
+                });
+                CAM.deleteElement();  
+                $("#dialogInteractionNode").dialog('close');
+            }else if(CAM.currentConnector != null){
+                console.log("Deleted using keypress");
+                CAM.currentConnector.enterLog({
+                    type: "connector was deleted",
+                    value: -77
+                });
+                CAM.deleteElement();
+                $("#dialogInteractionEdge").dialog('close');
+            }
+        }
+    });
+
 
     $("#ResErasabilityNode").on("click", (evt) => {
         if (CAM.currentNode != null) {
