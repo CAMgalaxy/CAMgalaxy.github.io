@@ -27,6 +27,12 @@ $(function () {
         console.log("file to load parsed: ", jsonObj);
         //console.log("file to load parsed length nodes: ", jsonObj.nodes.length);
 
+        // add CAM information: 
+        CAM.idCAM = jsonObj.idCAM
+        CAM.creator = jsonObj.creator
+        CAM.projectCAM = jsonObj.projectCAM
+
+        
         /* draw CAM */
         arrayIDs = [];
         for (var i = 0; i < jsonObj.nodes.length; i++) {

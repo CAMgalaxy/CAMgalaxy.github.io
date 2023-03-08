@@ -284,8 +284,13 @@ function drawLine(connector, motherD, position, angle, dist, compensation) {
     lineConnector.setAttribute("marker-start", "url(#arrowRight)");
 
     
-    if (connector.isBidirectional) lineConnector.removeAttribute("marker-start");
-
+    if (connector.isBidirectional){
+        lineConnector.removeAttribute("marker-start");
+        lineConnector.setAttribute("x1", (motherD + 20) * Math.cos(angle) * compensation);
+        lineConnector.setAttribute("y1", (motherD + 20) * Math.sin(angle) * compensation);
+        lineConnector.setAttribute("x2", (dist - 20) * Math.cos(angle) * compensation);
+        lineConnector.setAttribute("y2", (dist - 20) * Math.sin(angle) * compensation);
+    }
     // if (connector.isBidirectional) lineConnector.setAttribute("marker-end", "url(#arrowLeft)");
 
     if (!connector.isBidirectional) { // adjust distance to element if uni-directional

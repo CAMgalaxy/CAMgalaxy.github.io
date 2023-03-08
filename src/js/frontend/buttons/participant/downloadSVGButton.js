@@ -11,7 +11,12 @@ $(function () {
 
 function onDownloadSVGfile() {
     console.log("CAM picture (svg) has been saved");
-    downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.idCAM + ".svg");
+    if(CAM.creator != null){
+        downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.creator + ".svg");
+    }else{
+        downloadCAMsvg(CAMSVG, "CAMsvg-" + CAM.idCAM + ".svg");
+    }
+
     toastr.info('You can save your CAM as a picture (svg file).');
 }
 

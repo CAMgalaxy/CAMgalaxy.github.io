@@ -12,13 +12,12 @@ var config = {
     MaxLengthChars: 40, // maximum number of characters for each concept
     LengthSentence: 16, // include breaklines if >= X characters
     LengthWords: 8, // include breaklines after each word with cumsum >= X characters
-    ShowResearcherButtons: false, // if true = show researcher functionalities
+    ShowResearcherButtons: true, // if true = show researcher functionalities
     cameraFeature: false, // include camera / splotlight feature to move screen
-    fullScreen: false, // if true = study in fullscreen mode + paradata
 
     setLanguage: "English", // set language of your CAM study
 
-
+    fullScreen: false, // if true = study in fullscreen mode + paradata
     showNotPopupStart: true, // only working if fullScreen is set to true
 
     AdaptiveStudy: true, // run as adaptive study 
