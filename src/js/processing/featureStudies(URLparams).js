@@ -1,3 +1,25 @@
+
+var showDialogOnce = (function() {
+    var executed = config.showNotPopupStart;
+    return function() {
+        if (!executed) {
+            executed = true;
+            //alert(123);
+            $("#dialogStart").dialog("open");
+
+            /* if software is on JATOS */
+            if (typeof jatos.jQuery === "function") {
+                var resultJson = CAM;
+                console.log("my result data sent to JATOS first time");
+                jatos.submitResultData(resultJson)
+                    .then(() => console.log('success'))
+                    .catch(() => console.log('error'));
+        
+            }
+        }
+    };
+})();
+
 /* !!! RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 // necessary conditions to save CAM
 //var ConNumNodes = config.ConNumNodes; // # of nodes

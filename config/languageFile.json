@@ -568,5 +568,235 @@
     "russian": "",
     "french": "",
     "spanish": "Borrar conexión"
+  },
+  {
+    "X_identifier": "popSave_01emptyNodes",
+    "X_location": "popup save button (popSave)",
+    "english": "Please return to your Cognitive-Affective Map and add text to the empty concepts.",
+    "german": "Bitte kehren Sie zu Ihrer Cognitive-Affective Map zurück und ergänzen sie Text zu den leeren Konzepten.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_02emptyNodes",
+    "X_location": "popup save button (popSave)",
+    "english": " concept(s) are empty.",
+    "german": " Konzept(e) sind leer.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_01numNodes",
+    "X_location": "popup save button (popSave)",
+    "english": "Please return to your Cognitive-Affective Map and add additional concepts to it.",
+    "german": "Bitte kehren Sie zu Ihrer Cognitive Affective Map zurück und fügen Sie weitere Konzepte hinzu.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_02numNodes",
+    "X_location": "popup save button (popSave)",
+    "english": "Please draw at least ",
+    "german": "Bitte zeichnen Sie mindestens ",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_03numNodes",
+    "X_location": "popup save button (popSave)",
+    "english": " concepts.",
+    "german": " Konzepte.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_01unconnectedA",
+    "X_location": "popup save button (popSave)",
+    "english": "Please return to your Cognitive-Affective Map and add additional connections to it.",
+    "german": "Bitte kehren Sie zu Ihrer Cognitive-Affective Map zurück und fügen Sie weitere Verbindungen hinzu.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_02unconnectedA",
+    "X_location": "popup save button (popSave)",
+    "english": "Please connect all your concepts within your Cognitive-Affective Map.",
+    "german": "Bitte verbinden Sie alle Ihre Konzepte innerhalb Ihrer Cognitive-Affective Map.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_01unconnectedB",
+    "X_location": "popup save button (popSave)",
+    "english": "Please return to your Cognitive-Affective Map and add additional connections to it.",
+    "german": "Bitte kehren Sie zu Ihrer Cognitive-Affective Map zurück und fügen Sie weitere Verbindungen hinzu.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_02unconnectedB",
+    "X_location": "popup save button (popSave)",
+    "english": "Please connect all your ",
+    "german": "Bitte verbinden Sie alle Ihre",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_03unconnectedB",
+    "X_location": "popup save button (popSave)",
+    "english": " distinct groups of concepts within your Cognitive-Affective Map.",
+    "german": " verschiedene Gruppen von Konzepten innerhalb Ihrer Cognitive-Affective Map.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_01savedData",
+    "X_location": "popup save button (popSave)",
+    "english": "Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the end or the final part of the study.",
+    "german": "Ihre CAM-Daten wurden an den Sever gesendet. Wir danken Ihnen für Ihre Teilnahme! Sie werden zum Ende oder zum letzten Teil der Studie weitergeleitet.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "popSave_01notSavedData",
+    "X_location": "popup save button (popSave)",
+    "english": "You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.",
+    "german": "Sie hätten die CAM-Daten erfolgreich an einen Server gesendet. Um Ihre Daten dauerhaft zu speichern, verwenden Sie bitte unser Administrationspanel oder hosten Sie die C.A.M.E.L. Software auf Ihrem eigenen Server.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_01tooManyWords",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": "Instead, please draw several connected concepts.",
+    "german": "Zeichnen Sie stattdessen bitte mehrere zusammenhängende Konzepte.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_02tooManyWords",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": "Please do not use more than ",
+    "german": "Bitte verwenden Sie nicht mehr als ",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_03tooManyWords",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": " words for a single concept!",
+    "german": " Wörter für ein einzelnes Konzept!",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_03tooManyWordsA",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": " characters for a single concept!",
+    "german": " Zeichen für ein einzelnes Konzept!",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_01predefinedConcept",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": "Instead, please choose other concepts.",
+    "german": "Wählen Sie stattdessen bitte andere Konzepte.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_02predefinedConcept",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": "You cannot change the content of predefined concepts.",
+    "german": "Sie können den Inhalt der vordefinierten Konzepte nicht ändern.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "ndw_01ambivalentConcept",
+    "X_location": "nodes dialog warnings (ndw)",
+    "english": "To change the ambivalent concept again, please uncheck the box.",
+    "german": "Um den ambivalenten Begriff wieder zu ändern, deaktivieren Sie bitte das Kontrollkästchen.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "edw_01notDeleteNode",
+    "X_location": "Elements dialog warnings (edw)",
+    "english": "Instead, please choose other concepts.",
+    "german": "Bitte wählen Sie stattdessen andere Konzepte.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "edw_02notDeleteNode",
+    "X_location": "Elements dialog warnings (edw)",
+    "english": "You cannot delete predefined concepts.",
+    "german": "Sie können keine vordefinierten Konzepte löschen.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "edw_01notDeleteConnector",
+    "X_location": "Elements dialog warnings (edw)",
+    "english": "Instead, please choose other connectors.",
+    "german": "Bitte wählen Sie stattdessen andere Verbindungen.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
+  },
+  {
+    "X_identifier": "edw_02notDeleteConnector",
+    "X_location": "Elements dialog warnings (edw)",
+    "english": "You cannot delete predefined connectors.",
+    "german": "Sie können keine vordefinierten Verbindungen löschen.",
+    "ukrainian": "",
+    "russian": "",
+    "french": "",
+    "spanish": ""
   }
 ]

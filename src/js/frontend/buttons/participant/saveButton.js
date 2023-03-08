@@ -30,8 +30,8 @@ function saveCam() {
   console.log(CAMnodesNoText);
   if (CAMnodesNoText.length > 0) {
     toastr.warning(
-      "Please return to your Cognitive-Affective Map and add text to the empty concepts.",
-      CAMnodesNoText.length + " concept(s) are empty.",
+      languageFileOut.popSave_01emptyNodes,
+      CAMnodesNoText.length + languageFileOut.popSave_02emptyNodes,
       {
         closeButton: true,
         timeOut: 2000,
@@ -44,8 +44,8 @@ function saveCam() {
   // necessary # of concepts
   if (CAMnodes.length < config.ConNumNodes) {
     toastr.warning(
-      "Please return to your Cognitive-Affective Map and add additional concepts to it.",
-      "Please draw at least " + config.ConNumNodes + " concepts.",
+      languageFileOut.popSave_01numNodes,
+      languageFileOut.popSave_02numNodes + config.ConNumNodes + languageFileOut.popSave_03numNodes,
       {
         closeButton: true,
         timeOut: 2000,
@@ -65,8 +65,8 @@ function saveCam() {
 
     // console.log(CAMnodes.every(element => element.isConnected !== true));
     toastr.warning(
-      "Please return to your Cognitive-Affective Map and add additional connections to it.",
-      "Please connect all your concepts within your Cognitive-Affective Map.",
+      languageFileOut.popSave_01unconnectedA,
+      languageFileOut.popSave_02unconnectedA,
       {
         closeButton: true,
         timeOut: 2000,
@@ -83,10 +83,10 @@ function saveCam() {
 
     if (ResbfsAl !== 1) {
       toastr.warning(
-        "Please return to your Cognitive-Affective Map and add additional connections to it.",
-        "Please connect all your " +
+        languageFileOut.popSave_01unconnectedB,
+        languageFileOut.popSave_02unconnectedB +
           ResbfsAl +
-          " distinct groups of concepts within your Cognitive-Affective Map.",
+          languageFileOut.popSave_03unconnectedB,
         {
           closeButton: true,
           timeOut: 2000,
@@ -98,7 +98,7 @@ function saveCam() {
       return false;
     } else {
       toastr.success(
-        "Your CAM data has been sent to the sever. Thank you for participating! You will be forwarded to the end or the final part of the study.",
+        languageFileOut.popSave_01savedData,
         {
           closeButton: true,
           timeOut: 4000,
@@ -126,10 +126,12 @@ function saveCam() {
         console.log("usingJATOS: ", usingJATOS);
         if (usingJATOS) {
           if (typeof jatos.jQuery === "function") {
-            // if an ID was sent via URL param overwrite CAM creator
-            if (Object.keys(jatos.urlQueryParameters).indexOf("participantID") >= 0) {
-              CAM.creator = jatos.urlQueryParameters.participantID;
-            }
+         // if an ID was sent via URL param overwrite CAM creator
+         if (Object.keys(jatos.urlQueryParameters).indexOf("participantID") >= 0) {
+          CAM.creator = jatos.urlQueryParameters.participantID;
+        }else{
+          CAM.creator = "noID";
+        }
 
             // If JATOS is available, send data there
             var resultJson = CAM;
@@ -189,7 +191,7 @@ function saveCam() {
         /* if NO server >>> <<< */
         if(!usingJATOS &&  !usingMangoDB){
           toastr.success(
-            "You would have send the CAM data successfully to a sever. To save permanently your data please use our administrative panel or host the C.A.M.E.L. software on your own server.",
+            languageFileOut.popSave_01notSavedData,
             {
               closeButton: true,
               timeOut: 4000,
@@ -198,7 +200,6 @@ function saveCam() {
             }
           );
         }
-
 
       }, 4000); // end delay
     }

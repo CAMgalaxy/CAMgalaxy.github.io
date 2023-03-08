@@ -115,17 +115,17 @@ $(function () {
                 CAM.updateElement("Node", "text", this.value);
                 CAM.draw();
             } else if (numWords > MaxLengthWords) {
-                toastr.warning("Instead, please draw several connected concepts.", "Please do not use more than " + MaxLengthWords + " words for a single concept!", {
+                toastr.warning(languageFileOut.ndw_01tooManyWords, languageFileOut.ndw_02tooManyWords + MaxLengthWords + languageFileOut.ndw_03tooManyWords, {
                     closeButton: true,
                     timeOut: 2000,
                     positionClass: "toast-top-center",
                     preventDuplicates: true
                 })
     
-    
+                
                 // alert("Please do not use more than " + MaxLengthWords + " words for a single node!\nInstead, please draw several connected nodes.");
             } else if (this.value.length > MaxLengthChars) {
-                toastr.warning("Instead, please draw several connected concepts.", "Please do not use more than " + MaxLengthChars + " characters for a single concept!", {
+                toastr.warning(languageFileOut.ndw_01tooManyWords, languageFileOut.ndw_02tooManyWords + MaxLengthChars + languageFileOut.ndw_03tooManyWordsA, {
                     closeButton: true,
                     timeOut: 2000,
                     positionClass: "toast-top-center",
@@ -133,7 +133,7 @@ $(function () {
                 })
             }
         }else{
-            toastr.info("Instead, please choose other concepts.", "You cannot change the content of predefined concepts.", {
+            toastr.info(languageFileOut.ndw_01predefinedConcept, languageFileOut.ndw_02predefinedConcept, {
                 closeButton: true,
                 timeOut: 2000,
                 positionClass: "toast-top-center",
@@ -177,7 +177,7 @@ $(function () {
         var myValueCheckbox = document.querySelector('#checkboxAmbivalent').checked;
 
         if (myValueCheckbox === true) {
-            toastr.info('To change the ambivalent concept again, please uncheck the box.');
+            toastr.info(languageFileOut.ndw_01ambivalentConcept);
             CounterChangeAmbiConcept++;
             if (CounterChangeAmbiConcept == 2) {
                 $(this).off(event);

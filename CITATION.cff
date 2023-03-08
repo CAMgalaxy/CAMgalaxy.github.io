@@ -1,14 +1,14 @@
 
-cff-version: 1.2.0
+cff-version: 1.4.2
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Gouret
-    given-names: Florian
   - family-names: Fenn
     given-names: Julius
+  - family-names: Gouret
+    given-names: Florian
   - family-names: Kiesel
     given-names: Andrea
 url: https://camgalaxy.github.io/
 title: "Cognitive-Affective Maps extended logic"
-version: 1.0.4
+version: 1.0.5
 date-released: 2022-01-15

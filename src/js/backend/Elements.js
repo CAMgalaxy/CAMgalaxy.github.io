@@ -71,8 +71,13 @@ class Elements {
 
     addConnector(connector) {
         if (this.isConnectorIn(connector) == false) {
+
+            if(config.BidirectionalDefault){
+                connector.setBidirectional(true);
+            }
+
             this.connectors.push(connector);
-            console.log("This element has been added.");
+            console.log("Connector has been added.");
             return {
                 "success": true,
                 connector
@@ -107,7 +112,7 @@ class Elements {
         if (!this.currentConnector.getIsDeletable()) {
             console.log("This element cannot be deleted.");
 
-            toastr.info("Instead, please choose other connectors.", "You cannot delete predefined connectors.", {
+            toastr.info(languageFileOut.edw_01notDeleteConnector, languageFileOut.edw_02notDeleteConnector, {
                 closeButton: true,
                 timeOut: 2000,
                 positionClass: "toast-top-center",
@@ -131,7 +136,7 @@ class Elements {
             return false;
         }
         this.nodes.push(node);
-        console.log("This element has been added.");
+        console.log("Node has been added.");
         return {
             "success": true,
             node
@@ -144,7 +149,7 @@ class Elements {
         if (!this.currentNode.getIsDeletable()) {
             console.log("This element cannot be deleted.");
 
-            toastr.info("Instead, please choose other concepts.", "You cannot delete predefined concepts.", {
+            toastr.info(languageFileOut.edw_01notDeleteNode, languageFileOut.edw_02notDeleteNode, {
                 closeButton: true,
                 timeOut: 2000,
                 positionClass: "toast-top-center",

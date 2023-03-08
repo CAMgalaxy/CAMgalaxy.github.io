@@ -1,5 +1,4 @@
 $(document).on("mousedown", ".node", function (event) {
-
     arrayPositions = [];
     /* if double click */
     if (event.detail == 2) {
@@ -157,7 +156,7 @@ $(document).on("click", ".outer-connector", function (event) {
 $(document).on("mousedown", ".connector, .outer-connector", function (event) {
     /* if double click */
 
-    console.log($(this)[0].id);
+    // console.log($(this)[0].id);
 
     if (event.detail == 2) {
         resetConnectorSelection();
@@ -236,7 +235,6 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
 
 
 $(document).on("click", "#background", function (event) {
-
     if (!(resetConnectorSelection() || resetNodeSelection())) {
         const positionClick = {
             x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,

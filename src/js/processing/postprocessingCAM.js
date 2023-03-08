@@ -62,6 +62,7 @@ function getHighestDegree(listOfNodes){
 }
 
 
+
 // get array with node(s) with longest / shortest text:
 function getHighestLowestText(listOfNodes, type){
     const ArgsType = ['min', 'max'];

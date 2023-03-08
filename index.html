@@ -66,6 +66,21 @@
 
   <body id="hideall">
     <!-- DIALOGS -->
+     <!-- -->
+    <div id="dialogStart" title="Welcome to the CAM study!">
+      <div class="properties" style="font-size: 14px;">
+        The following rules apply to the <i>Cognitive-Affective Map</i> you should draw: 
+          <ul  style="font-size: 14px;">
+              <li>Draw a minimum of 24 concepts in total.</li>
+              <li>Use no more than three words per concept.</li>
+              <li>Connect all the drawn concepts with each other.</li>
+          </ul>
+          If you need any help you can click on the green reference button top right. To save your CAM click on the disk symbol.
+          <br>
+          Please zoom out so that you can see the entire drawing window of the CAM. You can now close this dialogue window and start drawing. Have fun. 
+          </div>
+  </div>
+
     <!-- > set up study -->
     <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
 
@@ -109,7 +124,8 @@
           </div>
         </div>
         <div class="CAMContainer">
-          <svg id="CAMSVG"></svg>
+          <svg id="CAMSVG">
+          </svg>
         </div>
       </div>
     </div>
@@ -141,7 +157,7 @@
         id="alert-button-text"
         type="button"
         onclick="document.getElementById('alert').style.visibility = 'hidden'; 
-     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen();"
+     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen(); showDialogOnce();"
       >
         <!-- showDialogOnce();-->
         click to continue
@@ -329,8 +345,8 @@
         script.async = true;
         document.head.appendChild(script);
       })();
-    }, 700); // end delay
     }, 500); // end delay
+    }, 300); // end delay
 
 
 

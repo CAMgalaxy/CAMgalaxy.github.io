@@ -1,36 +1,29 @@
 /* default CAM which will be redrawn if CAM is deleted */
+function shuffle(queslist) {
+    let array_emp = [];
+    for (var i = 0; i < queslist.length; i++) {
+      array_emp.push(i);
+    }
+  
+    let j, x;
+    for (i = array_emp.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = array_emp[i];
+      array_emp[i] = array_emp[j];
+      array_emp[j] = x;
+    }
+    return array_emp;
+  }
+
+const ConceptsCAM = ["positive feelings", "negative feelings", 
+"trust in policitical institutions",
+"perceived risks", "perceived benefits"];
+
+const index_ConceptsCAM = shuffle(ConceptsCAM);
+console.log("index_ConceptsCAM:", index_ConceptsCAM);
+
 
 function defaultCAM() {
-    CAM.addElement(new NodeCAM(0, "central node (change me)", {
-        x: 650,
-        y: 400
-    }, true, true, true));
-
-    CAM.addElement(new NodeCAM(0, "look left", {
-        x: 450,
-        y: 400
-    }, true, true, true));
-
-    CAM.addElement(new NodeCAM(0, "look right", {
-        x: 850,
-        y: 400
-    }, true, true, true));
-
-
-    
-    var connector1 = new ConnectorCAM();
-    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, true);
-    connector1.value = 1
-    CAM.addElement(connector1);
-
-    var connector2 = new ConnectorCAM();
-    connector2.establishConnection(CAM.nodes[0], CAM.nodes[2], IncreaseSliderIntensity, true);
-    connector2.value = 1
-    CAM.addElement(connector2);
-
-    CAM.connectors[0].isDeletable = true
-    CAM.connectors[1].isDeletable = true
-        /*
     CAM.addElement(new NodeCAM(1, "I cannot be moved or deleted", {
         x: 300,
         y: 100
@@ -55,26 +48,22 @@ function defaultCAM() {
 
 
     var connector1 = new ConnectorCAM();
-    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, true);
-    connector1.value = 1
+    connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, false);
+    connector1.value = 1;
     CAM.addElement(connector1);
 
     var connector2 = new ConnectorCAM();
-    connector2.establishConnection(CAM.nodes[0], CAM.nodes[2], IncreaseSliderIntensity, false);
-    connector2.value = 1
+    connector2.establishConnection(CAM.nodes[0], CAM.nodes[2], IncreaseSliderIntensity, true);
+    connector2.value = 1;
     CAM.addElement(connector2);
 
     var connector3 = new ConnectorCAM();
     connector3.establishConnection(CAM.nodes[0], CAM.nodes[3], IncreaseSliderIntensity, true);
-    connector3.value = 1
+    connector3.value = 1;
     CAM.addElement(connector3);
     connector3.isBidirectional = false;
 
-    var connector4 = new ConnectorCAM();
-    connector4.establishConnection(CAM.nodes[0], CAM.nodes[4], IncreaseSliderIntensity, true);
-    connector4.value = -1
-    CAM.addElement(connector4);
-    */
+
 
     CAM.draw();
 }

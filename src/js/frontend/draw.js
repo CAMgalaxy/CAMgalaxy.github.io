@@ -4,6 +4,8 @@
 
 function draw(CAM) {
 
+
+
     const board = document.querySelector("#CAMSVG");
     board.innerHTML = "";
 
@@ -11,6 +13,21 @@ function draw(CAM) {
 
     board.appendChild(arrowRight);
     board.appendChild(arrowLeft);
+
+
+    /*
+    var newLine = document.createElementNS(svgns,'line');
+    newLine.setAttribute('id','line2');
+    newLine.setAttribute('x1','650');
+    newLine.setAttribute('y1','0');
+    newLine.setAttribute('x2','650');
+    newLine.setAttribute('y2','1300');
+    newLine.setAttribute("stroke", "black")
+    newLine.setAttribute("stroke-dasharray", "10")
+    
+    board.appendChild(newLine);
+    */
+
 
     CAM.connectors.forEach(connector => {
         if (connector.getIsActive()) {
@@ -21,12 +38,18 @@ function draw(CAM) {
         }
     });
 
+
+
+
     CAM.nodes.forEach(node => {
         if (node.getIsActive()) {
             const currentNode = drawNode(node);
             board.appendChild(currentNode);
         }
     });
+
+
+
 
 }
 
@@ -38,6 +61,9 @@ function drawBackground() {
     background.setAttribute("width", "100%");
     background.setAttribute("height", "100%");
     background.setAttribute("fill", COLOUR.background);
+
+
+
     return background;
 }
 
@@ -115,11 +141,13 @@ function drawPositiveNode(node) {
     positiveNode.setAttribute(null, "cy", 0);
     positiveNode.setAttribute("rx", "100");
     positiveNode.setAttribute("ry", "70");
-    positiveNode.setAttribute("transform", "translate(0,0)");
+    positiveNode.setAttribute("transform", "translate(0,0)"); // scale(0.1)
     positiveNode.setAttribute("fill", COLOUR.positiveNode);
     positiveNode.setAttribute("stroke", COLOUR.positiveLine);
-
     positiveNode.setAttribute("stroke-width", Math.abs(node.value) * 3);
+
+    positiveNode.setAttribute("opacity", 1);
+
 
     if (node.isSelected === true) {
         positiveNode.setAttribute("fill", COLOUR.selected);
@@ -208,8 +236,28 @@ function drawAmbivalent(node) {
         outsideShape.setAttribute("fill", COLOUR.adjacent);
     }
 
+    /*
+    let positiveNode = document.createElementNS(svgns, "ellipse");
+    positiveNode.setAttribute("id", node.id);
+    positiveNode.setAttribute("class", "node");
+    positiveNode.setAttribute(null, "cx", 0);
+    positiveNode.setAttribute(null, "cy", 0);
+    positiveNode.setAttribute("rx", "120");
+    positiveNode.setAttribute("ry", "80");
+    positiveNode.setAttribute("transform", "translate(0,0)"); // scale(0.1)
+    positiveNode.setAttribute("fill", "white");
+    positiveNode.setAttribute("stroke", "black");
+    positiveNode.setAttribute("stroke-width", 7);
+
+    ambivalentNode.appendChild(positiveNode);
+    */
     ambivalentNode.appendChild(outsideShape);
     ambivalentNode.appendChild(innerEllipse);
+
+
+
+
+
     return ambivalentNode;
 }
 
@@ -236,8 +284,9 @@ function drawLine(connector, motherD, position, angle, dist, compensation) {
     lineConnector.setAttribute("marker-start", "url(#arrowRight)");
 
     
+    if (connector.isBidirectional) lineConnector.removeAttribute("marker-start");
 
-    if (connector.isBidirectional) lineConnector.setAttribute("marker-end", "url(#arrowLeft)");
+    // if (connector.isBidirectional) lineConnector.setAttribute("marker-end", "url(#arrowLeft)");
 
     if (!connector.isBidirectional) { // adjust distance to element if uni-directional
         lineConnector.setAttribute("x2", (dist - 20) * Math.cos(angle) * compensation);

@@ -5,6 +5,45 @@ var currentComment = null;
 
 $(function () {
 
+
+    // starting dialog
+    $("#dialogStart").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: false,
+        draggable: true,
+        width: 400,
+        maxWidth: 400,
+        height: 'auto',
+        buttons: {
+            Close: function () {
+                $(this).dialog("close");
+            }
+        },
+        open: function (event, ui) {
+            $(".ui-dialog-titlebar").show(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
+        
+            $('.ui-widget-overlay').on('click', function () {
+                $("#dialogStart").dialog('close');
+            });
+        },
+        close: function (event, ui) {
+            console.log('dialog got closed');
+
+            
+            },
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
+
     $("#dialogReference").dialog({
         autoOpen: false,
         modal: true,
