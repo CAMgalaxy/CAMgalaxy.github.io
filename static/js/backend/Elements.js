@@ -63,6 +63,7 @@ class Elements {
         if (this.hasSelectedConnector) {
             const tmp_id = this.currentID;
             var success = this.deleteConnector();
+
             if (success & WEBSOCKET) sendMessage("Update", tmp_id, "Connector", "active", false);
 
         }
@@ -91,8 +92,8 @@ class Elements {
 
     findConnector(connector) {
         const connector1 = this.connectors.filter(elt =>
-            ((elt.target === connector.target && elt.source === connector.source) ||
-                (elt.target === connector.source && elt.source === connector.target))
+        ((elt.target === connector.target && elt.source === connector.source) ||
+            (elt.target === connector.source && elt.source === connector.target))
         );
         return connector1[0];
     }
@@ -107,12 +108,7 @@ class Elements {
         if (!this.currentConnector.getIsDeletable()) {
             console.log("This element cannot be deleted.");
 
-            toastr.info("Instead, please choose other connectors.", "You cannot delete predefined connectors.", {
-                closeButton: true,
-                timeOut: 2000,
-                positionClass: "toast-top-center",
-                preventDuplicates: true
-            })
+
             return false;
         }
         this.currentConnector.deleteConnection();
@@ -150,7 +146,7 @@ class Elements {
                 positionClass: "toast-top-center",
                 preventDuplicates: true
             })
-            
+
             return false;
         }
 

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- for Microsoft Browser? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- language file -->
+    <script src="./config/languageFile.js" crossorigin="anonymous"></script>
+
+    <!-- css files: -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/toastrmin.css">
+
+    <!-- 
+    <script src="./js/server/connection.js"></script>
+    -->
+
+
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-selection@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-dispatch@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-drag@3"></script>
+    <!-- external js libraries: 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"
+        integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-->
+
+
+
+    <script src="./js/libraries/uuidmin.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="./js/libraries/jquery.js" crossorigin="anonymous"></script>
+    <script src="./js/libraries/jqueryUI.js" crossorigin="anonymous"></script>
+    <script src="./js/libraries/toastrmin.js" crossorigin="anonymous"></script>
+    <script src="./js/libraries/cytoscapemin.js" crossorigin="anonymous"></script>
+    <script src="./js/libraries/base64.js" crossorigin="anonymous"></script>
+    <script src="./js/libraries/jatos.js" crossorigin="anonymous"></script>
+
+    <script src="./js/libraries/xlsxmin.js" crossorigin="anonymous"></script>
+
+    <title>C.A.M.E.L</title>
+    <link rel='shortcut icon' type='image/png' href='./img/favicon_logoCAM2.PNG' />
+</head>
+
+<body id="hideall">
+    <!-- DIALOGS -->
+    <!-- > set up study -->
+    <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
+
+
+    <!-- > quick reference -->
+    <div id="dialogReference" title="Quick reference"></div>
+
+    <!-- > change connector -->
+    <div id="dialogInteractionEdge" title="Change connector"></div>
+
+    <!-- > change node -->
+    <div id="dialogInteractionNode" title="Change concept"></div>
+
+
+
+
+    <!-- HEADER -->
+
+    <!-- SVG, components  -->
+    <div class="main">
+        <div class="boxCAMSVG">
+            <div class="icon">
+                <div class="trash icon" id="deleteCAM" onclick="deleteCam()">
+                    <svg width="25" height="30" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M14.7253 0C12.0257 0 9.81689 2.2088 9.81689 4.90844H4.90844C2.2088 4.90844 0 7.11724 0 9.81689H34.3591C34.3591 7.11724 32.1503 4.90844 29.4507 4.90844H24.5422C24.5422 2.2088 22.3334 0 19.6338 0H14.7253ZM4.90844 14.7253V38.3349C4.90844 38.8749 5.30112 39.2675 5.84105 39.2675H28.5671C29.1071 39.2675 29.4997 38.8749 29.4997 38.3349V14.7253H24.5913V31.9049C24.5913 33.2792 23.5114 34.3591 22.1371 34.3591C20.7627 34.3591 19.6829 33.2792 19.6829 31.9049V14.7253H14.7744V31.9049C14.7744 33.2792 13.6946 34.3591 12.3202 34.3591C10.9458 34.3591 9.86597 33.2792 9.86597 31.9049V14.7253H4.95753H4.90844Z"
+                            fill="black" fill-opacity="0.5" />
+                    </svg>
+
+                </div>
+                <div class="top-menu">
+                    <div>
+                        <svg onclick="onDownloadSVGfile()" class="icon" width="25" height="25" viewBox="0 0 35 35"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.9336 0C17.7154 0 17.4972 0.174536 17.3663 0.392706L13.2647 8.29046C13.1775 8.50863 12.9593 8.68317 12.6975 8.68317H6.5451C2.92348 8.68317 0 11.6066 0 15.2283V34.4709C0 34.689 0.174536 34.8636 0.392706 34.8636H34.4709C34.689 34.8636 34.8636 34.689 34.8636 34.4709V9.11951C34.8636 8.8577 34.689 8.7268 34.4709 8.7268H30.9365C30.7183 8.7268 30.5002 8.55226 30.3693 8.33409L26.2677 0.43634C26.1368 0.21817 25.9622 0.043634 25.7004 0.043634H17.8027L17.9336 0ZM6.63237 13.0902C7.85412 13.0902 8.81407 14.0501 8.81407 15.2719C8.81407 16.4937 7.85412 17.4536 6.63237 17.4536C5.41062 17.4536 4.45067 16.4937 4.45067 15.2719C4.45067 14.0501 5.41062 13.0902 6.63237 13.0902ZM21.9043 13.0902C26.704 13.0902 30.6311 17.0173 30.6311 21.817C30.6311 26.6167 26.704 30.5438 21.9043 30.5438C17.1045 30.5438 13.1775 26.6167 13.1775 21.817C13.1775 17.0173 17.1045 13.0902 21.9043 13.0902ZM21.9043 17.4536C19.5044 17.4536 17.5409 19.4171 17.5409 21.817C17.5409 24.2169 19.5044 26.1804 21.9043 26.1804C24.3041 26.1804 26.2677 24.2169 26.2677 21.817C26.2677 19.4171 24.3041 17.4536 21.9043 17.4536Z"
+                                fill="black" fill-opacity="0.5" />
+                        </svg>
+
+                    </div>
+                    <div>
+                        <svg class="icon" width="22" height="25" viewBox="0 0 22 36" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.8808 0C7.13639 0 4.36113 1.14535 2.59906 2.90742C0.836984 4.66949 0.220259 6.87208 0 8.54605L4.40518 9.11873C4.58139 8.01743 4.9338 6.91614 5.77079 6.07915C6.60777 5.24217 7.92933 4.40518 10.8808 4.40518C13.7882 4.40518 15.3741 5.11001 16.2551 5.90294C17.1362 6.69588 17.4886 7.66502 17.4886 8.81036C17.4886 12.4667 15.9908 13.4799 13.7882 15.4181C11.5856 17.3564 8.67821 20.1757 8.67821 25.3298V26.4311H13.0834V25.3298C13.0834 21.6735 14.449 20.6603 16.6516 18.722C18.8542 16.7837 21.8938 13.9644 21.8938 8.81036C21.8938 6.69588 21.1449 4.31708 19.2947 2.59906C17.4005 0.881036 14.5812 0 10.8808 0ZM8.67821 30.8363V35.2415H13.0834V30.8363H8.67821Z"
+                                fill="black" fill-opacity="0.5" />
+                        </svg>
+
+                    </div>
+                    <div>
+                        <svg onclick="saveCam()" class="icon" width="25" height="22" viewBox="0 0 35 29" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M28.4682 0L25.4038 3.19768L13.0572 15.5443L9.4598 12.0801L6.26212 8.88244L0 15.1446L3.19768 18.3422L9.8595 25.0041L12.9239 28.2017L16.1216 25.0041L31.6659 9.45979L34.8636 6.26212L28.4682 0Z"
+                                fill="black" fill-opacity="0.5" />
+                        </svg>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="CAMContainer">
+                <svg id="CAMSVG">
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- defocus div element: -->
+<div id="alert" style="background: white; visibility: hidden;" class="content">
+    <div id="alert-text" style="text-align: center;">
+        <strong>Please do not change or minimize the browser window while the study is running. Only if there is a break
+            in the course of the study.</strong>
+        <br>
+        <button id="alert-button-text" type="button" onclick="document.getElementById('alert').style.visibility = 'hidden'; 
+     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen();">
+            <!-- showDialogOnce();-->
+            click to continue
+        </button>
+    </div>
+</div>
+
+
+
+<!-- own js files: -->
+<script src="./config/configfile.js" crossorigin="anonymous"></script>
+<!-- URL parameters -->
+<script src="./js/processing/featureStudies(URLparams).js" crossorigin="anonymous"></script>
+
+
+<!-- processing files -->
+<script src="./js/processing/preprocessingCAM.js"></script>
+<script src="./js/processing/postprocessingCAM.js"></script>
+
+<!-- backend files -->
+<script src="./js/backend/Elements.js" crossorigin="anonymous"></script>
+<script src="./js/backend/nodeCAM.js" crossorigin="anonymous"></script>
+<script src="./js/backend/connectorCAM.js" crossorigin="anonymous"></script>
+<script src="./js/backend/variables.js" crossorigin="anonymous"></script>
+
+<!-- frontend files -->
+<script src="./js/frontend/eventListeners_backend.js"></script>
+<script src="./js/frontend/connectorArrows.js" crossorigin="anonymous"></script>
+<!-- <script src="./js/frontend/cam-interface.js" crossorigin="anonymous"></script> -->
+<script src="./js/frontend/eventListeners_frontend.js"></script>
+<script src="./js/frontend/colours.js"></script>
+<script src="./js/frontend/draw.js"></script>
+
+<script src="./js/frontend/paradata_focus.js"></script>
+
+<script src="./js/frontend/dialogs/interactionNode.js"></script>
+<script src="./js/frontend/dialogs/interactionEdge.js"></script>
+
+<!-- define CAM object before variable.js -->
+
+<!-- add buttons participant -->
+<script src="./js/frontend/buttons/participant/reference.js"></script>
+<script src="./js/frontend/buttons/participant/saveButton.js"></script>
+<script src="./js/frontend/buttons/participant/downloadSVGButton.js"></script>
+<script src="./js/frontend/buttons/participant/deleteButton.js"></script>
+
+
+<!-- add buttons researcher 
+<script src="./js/frontend/buttons/researcher/testbutton.js"></script>
+-->
+<script src="./js/frontend/buttons/researcher/downloadJSONbutton.js"></script>
+<script src="./js/frontend/buttons/researcher/uploadJSONbutton.js"></script>
+<script src="./js/frontend/buttons/researcher/createConfigSave.js"></script>
+
+<script src="./js/backend/initialisation.js" crossorigin="anonymous"></script>
+
+<!-- <script src="./config/defaultCAM.js" crossorigin="anonymous"></script>-->
+<script>
+
+</script>
+
+</html>

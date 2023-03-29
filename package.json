@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "socketio": "^1.0.0",
-    "ws": "^8.3.0"
-  }
-}

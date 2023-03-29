@@ -256,11 +256,10 @@ $(document).on("mousemove", "#CAMSVG", function (event) {
         y: (event.clientY - $("#CAMSVG").position().top), // / zoomScale
     }
 
-
     if (CAM.readyToMove) {
         CAM.hasElementMoved = true;
         CAM.updateElement("Node", "position", positionClick);
-  
+
         arrayPositions.push({
             time: new Date(),
             type: "position",
@@ -302,13 +301,13 @@ function resetNodeSelection() {
 
 
 /* Add camera feature */
-if(config.cameraFeature){
+if (config.cameraFeature) {
     $(document).on("mouseover", "#background", function (event) {
         var positionMouse = {
             x: (event.clientX - $("#CAMSVG").position().left), // / zoomScale,
             y: (event.clientY - $("#CAMSVG").position().top), // / zoomScale
         }
-    
+
         /*
        var arrayPosX = [];
         CAM.nodes.forEach(element => {
@@ -316,16 +315,16 @@ if(config.cameraFeature){
         });
         /arrayPosX = arrayPosX.filter(element => element > 1900 || element < -300);
         */
-    
+
         //console.log("positionMouse - X: ", positionMouse.x, "positionMouse - Y: ", positionMouse.y);
         //console.log("positionMouse.y: ", positionMouse.y);
         if (positionMouse.x < 20 || positionMouse.x > 1280 || positionMouse.y < 20 || positionMouse.y > 740) {
-          
-    
+
+
             //console.log("stopConY: ", stopConY);
-           // $("body").css("cursor", "move");
-    
-    
+            // $("body").css("cursor", "move");
+
+
             if (stopConX > -500 && positionMouse.x > 1290) {
                 CAM.nodes.forEach(element => {
                     element.position.x -= moveCAMSpeed;
@@ -337,7 +336,7 @@ if(config.cameraFeature){
                 });
                 stopConX += moveCAMSpeed;
             }
-            
+
             if (stopConY > -250 && positionMouse.y > 755) {
                 CAM.nodes.forEach(element => {
                     element.position.y -= moveCAMSpeed;
@@ -349,7 +348,7 @@ if(config.cameraFeature){
                 });
                 stopConY += moveCAMSpeed;
             }
-    
+
             CAM.draw()
         } else {
             $("body").css("cursor", "default");

@@ -30,6 +30,7 @@ function draw(CAM) {
 
 }
 
+
 function drawBackground() {
     let background = document.createElementNS(svgns, "rect");
     background.setAttribute("id", "background");
@@ -63,7 +64,7 @@ function getShapeSVG(node) {
 
         case (node.value < 0): // negative concept
             return drawNegativeNode(node);
-        
+
         case (node.value > 0): // positive concept
             return drawPositiveNode(node);
     }
@@ -114,18 +115,18 @@ function drawPositiveNode(node) {
     positiveNode.setAttribute(null, "cx", 0);
     positiveNode.setAttribute(null, "cy", 0);
     positiveNode.setAttribute("rx", "100");
-    positiveNode.setAttribute("ry", "70");
+    positiveNode.setAttribute("ry", "60");
     positiveNode.setAttribute("transform", "translate(0,0)");
     positiveNode.setAttribute("fill", COLOUR.positiveNode);
     positiveNode.setAttribute("stroke", COLOUR.positiveLine);
 
-    positiveNode.setAttribute("stroke-width", Math.abs(node.value) * 3);
+    positiveNode.setAttribute("stroke-width", Math.abs(node.value) * 5);
 
     if (node.isSelected === true) {
-        positiveNode.setAttribute("fill", COLOUR.selected);
+        positiveNode.setAttribute("stroke", COLOUR.selected);
     }
     if (node.isConnectorSelected === true) {
-        positiveNode.setAttribute("fill", COLOUR.adjacent);
+        positiveNode.setAttribute("stroke", COLOUR.adjacent);
     }
 
     return positiveNode;
@@ -139,13 +140,13 @@ function drawNegativeNode(node) {
     negativeNode.setAttribute("transform", "translate(0,0)")
     negativeNode.setAttribute("fill", COLOUR.negativeNode);
     negativeNode.setAttribute("stroke", COLOUR.negativeLine);
-    negativeNode.setAttribute("stroke-width", Math.abs(node.value) * 3);
+    negativeNode.setAttribute("stroke-width", Math.abs(node.value) * 5);
 
     if (node.isSelected === true) {
-        negativeNode.setAttribute("fill", COLOUR.selected);
+        negativeNode.setAttribute("stroke", COLOUR.selected);
     }
     if (node.isConnectorSelected === true) {
-        negativeNode.setAttribute("fill", COLOUR.adjacent);
+        negativeNode.setAttribute("stroke", COLOUR.adjacent);
     }
 
     return negativeNode;
@@ -163,13 +164,13 @@ function drawNeutral(node) {
 
     neutralNode.setAttribute("fill", COLOUR.neutralNode);
     neutralNode.setAttribute("stroke", COLOUR.neutralLine);
-    neutralNode.setAttribute("stroke-width", 5);
+    neutralNode.setAttribute("stroke-width", 8);
 
     if (node.isSelected === true) {
-        neutralNode.setAttribute("fill", COLOUR.selected);
+        neutralNode.setAttribute("stroke", COLOUR.selected);
     }
     if (node.isConnectorSelected === true) {
-        neutralNode.setAttribute("fill", COLOUR.adjacent);
+        neutralNode.setAttribute("stroke", COLOUR.adjacent);
     }
 
     return neutralNode;

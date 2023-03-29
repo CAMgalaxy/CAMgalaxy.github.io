@@ -5,21 +5,21 @@
 // Text elements
 const TEXT = {
     colour: "black",
-    size: "20px"
+    size: "30px"
 };
 
 
 
 const COLOUR = {
-    background: "white",
+    background: "#F2F2F2",
     selected: "#03A3FF",
     adjacent: "rgb(163, 163, 163)",
     positiveNode: "#B9F1B9",
     positiveLine: "#22AA22",
-    negativeNode: "#EB8989",
-    negativeLine: "#E04848",
-    neutralNode: "#F0EEC0",
-    neutralLine: "#F3F033",
+    negativeNode: "#FFF",
+    negativeLine: "#FF8989",
+    neutralNode: "#FFF",
+    neutralLine: "#F7E64F",
     ambivalentNode: "rgb(247, 151, 226)",
     ambivalentLine: "rgb(142, 19, 146)",
     line: "#808080",

@@ -1,5 +1,5 @@
 /* add single stylesheets to main stylesheet  */
-@import 'shared/variables.css'; 
+@import 'shared/variables.css';
 
 @import 'shared/buttons.css';
 @import 'shared/properties.css';
@@ -9,8 +9,9 @@
 
 @import 'shared/setconfig.css';
 
-:root{
-  font-family: Verdana, Geneva, Tahoma, sans-serif; /* also change: ".ui-dialog-buttonset > button"*/
+:root {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* also change: ".ui-dialog-buttonset > button"*/
 }
 
 body {
@@ -19,11 +20,11 @@ body {
   font-size: 20px;
 }
 
-/* header of CAM div*/ 
+/* header of CAM div*/
 .cam-header-left {
   height: 30px;
-  width: 33.3333333333333333333333333333333333333%;
-  float:left;
+  width: 33%;
+  float: left;
   border-bottom: 1px solid black;
   vertical-align: middle;
 }
@@ -40,31 +41,34 @@ body {
 .cam-header-right {
   height: 30px;
   width: 33.3333333333333333333333333333333333333%;
-  float:right;
+  float: right;
   text-align: right;
   border-bottom: 1px solid black;
   vertical-align: middle;
 }
 
-.cam-header-right button:last-child{ /* ancestor child combination */
+.cam-header-right button:last-child {
+  /* ancestor child combination */
   margin-right: 10px;
 }
 
-.cam-header-right button{
-cursor: pointer;
+.cam-header-right button {
+  cursor: pointer;
 }
-.cam-header-right button:hover{
-background-color: rgb(139, 139, 139);
+
+.cam-header-right button:hover {
+  background-color: rgb(139, 139, 139);
 }
 
 
-/* main + CAM svg*/ 
+/* main + CAM svg*/
 .main {
   margin: 10px auto;
   padding-left: 10px;
   padding-right: 10px;
   width: 1300px;
-  min-height: 800px; /*change to X pixel*/
+  min-height: 800px;
+  /*change to X pixel*/
 }
 
 .boxCAMSVG {
@@ -73,16 +77,48 @@ background-color: rgb(139, 139, 139);
   border-radius: 15px;
 
   /*border-radius:10px;*/
-  background-color: rgba(139, 129, 129, 0.25);
-  height: 800px; /*change to X pixel*/
+  background-color: "#FFF1DD";
+  height: 800px;
+  /*change to X pixel*/
   width: 100%;
   overflow: hidden;
   /* overflow-y: scroll;  */
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
-.CAMContainer{
+.trash {
+  position: absolute;
+  top: 25px;
+  left: 80px;
+}
+
+.top-menu {
+  position: absolute;
+  top: 20px;
+  width: 150px;
+  height: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid #FCD296;
+  background-color: #FFF7EC;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.icon:hover {
+  opacity: 1;
+}
+
+.icon {
+  opacity: 0.5;
+}
+
+.CAMContainer {
   width: 100%;
   height: 100%;
 }
@@ -92,7 +128,7 @@ background-color: rgb(139, 139, 139);
   height: 100%;
 }
 
-/* footer */ 
+/* footer */
 .footerdiv {
   text-align: center;
   margin-bottom: 10px;
@@ -106,8 +142,6 @@ background-color: rgb(139, 139, 139);
 
 
 /* hover over connector */
-.outer-connector:hover{
-  stroke:rgba(48, 48, 48, 0.39);
+.outer-connector:hover {
+  stroke: rgba(48, 48, 48, 0.39);
 }
-
-
