@@ -97,8 +97,112 @@ function saveCam() {
 
       return false;
     } else {
+
+      // confirm saving
+      $("#dialogConfirmSave").dialog('open');
+    }
+  }
+}
+
+
+
+function saveCAMsuccess(){
+  toastr.success(
+    languageFileOut.popSave_01savedData,
+    {
+      closeButton: true,
+      timeOut: 4000,
+      positionClass: "toast-top-center",
+      preventDuplicates: true,
+    }
+  );
+
+  // after 4 seconds
+  var delay = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+      clearTimeout(timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
+
+  delay(function () {
+    // set defocus data
+    if (config.fullScreen == true) {
+      CAM.defocusCAM = arraydefocusevent;
+    }
+
+    /* if server is >>> JATOS <<< */
+    console.log("usingJATOS: ", usingJATOS);
+    if (usingJATOS) {
+      if (typeof jatos.jQuery === "function") {
+     // if an ID was sent via URL param overwrite CAM creator
+     if (Object.keys(jatos.urlQueryParameters).indexOf("participantID") >= 0) {
+      CAM.creator = jatos.urlQueryParameters.participantID;
+    }else{
+      CAM.creator = "noID";
+    }
+
+        // If JATOS is available, send data there
+        var resultJson = CAM;
+        console.log("my result data sent to JATOS first and final time");
+        jatos
+          .submitResultData(resultJson)
+          .then(() => console.log("success"))
+          .catch(() => console.log("error"));
+
+        // > with adaptive design
+        if (config.AdaptiveStudy) {
+          var newUrl = updateQueryStringParameter(
+            config.ADAPTIVESTUDYurl,
+            "participantID",
+            CAM.creator
+          );
+          jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
+        } else {
+          jatos.endStudy(true, "everything worked fine");
+        }
+      }
+    }
+
+    /* if server is >>> MangoDB <<< */
+    console.log("usingMangoDB: ", usingMangoDB);
+    if (usingMangoDB) {
+      async function pushData() {
+        let info = {
+          method: "POST",
+          body: JSON.stringify({
+            jwt: token,
+            cam: CAM,
+          }),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        };
+
+        const res = await fetch(
+          "https://camel-main.herokuapp.com/participants/addExperience",
+          info
+        );
+
+        if (res.status == 201) {
+          window.location =
+            linkRedirect +
+            "&jwt=" +
+            token +
+            "&participantID=" +
+            CAM.creator;
+        }
+      }
+      pushData();
+    } 
+    
+    /* if NO server >>> <<< */
+    if(!usingJATOS &&  !usingMangoDB){
       toastr.success(
-        languageFileOut.popSave_01savedData,
+        languageFileOut.popSave_01notSavedData,
         {
           closeButton: true,
           timeOut: 4000,
@@ -106,102 +210,7 @@ function saveCam() {
           preventDuplicates: true,
         }
       );
-
-      // after 3 seconds
-      var delay = (function () {
-        var timer = 0;
-        return function (callback, ms) {
-          clearTimeout(timer);
-          timer = setTimeout(callback, ms);
-        };
-      })();
-
-      delay(function () {
-        // set defocus data
-        if (config.fullScreen == true) {
-          CAM.defocusCAM = arraydefocusevent;
-        }
-
-        /* if server is >>> JATOS <<< */
-        console.log("usingJATOS: ", usingJATOS);
-        if (usingJATOS) {
-          if (typeof jatos.jQuery === "function") {
-         // if an ID was sent via URL param overwrite CAM creator
-         if (Object.keys(jatos.urlQueryParameters).indexOf("participantID") >= 0) {
-          CAM.creator = jatos.urlQueryParameters.participantID;
-        }else{
-          CAM.creator = "noID";
-        }
-
-            // If JATOS is available, send data there
-            var resultJson = CAM;
-            console.log("my result data sent to JATOS first and final time");
-            jatos
-              .submitResultData(resultJson)
-              .then(() => console.log("success"))
-              .catch(() => console.log("error"));
-
-            // > with adaptive design
-            if (config.AdaptiveStudy) {
-              var newUrl = updateQueryStringParameter(
-                config.ADAPTIVESTUDYurl,
-                "participantID",
-                CAM.creator
-              );
-              jatos.endStudyAndRedirect(newUrl, true, "everything worked fine");
-            } else {
-              jatos.endStudy(true, "everything worked fine");
-            }
-          }
-        }
-
-        /* if server is >>> MangoDB <<< */
-        console.log("usingMangoDB: ", usingMangoDB);
-        if (usingMangoDB) {
-          async function pushData() {
-            let info = {
-              method: "POST",
-              body: JSON.stringify({
-                jwt: token,
-                cam: CAM,
-              }),
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            };
-
-            const res = await fetch(
-              "https://camel-main.herokuapp.com/participants/addExperience",
-              info
-            );
-
-            if (res.status == 201) {
-              window.location =
-                linkRedirect +
-                "&jwt=" +
-                token +
-                "&participantID=" +
-                CAM.creator;
-            }
-          }
-          pushData();
-        } 
-        
-        /* if NO server >>> <<< */
-        if(!usingJATOS &&  !usingMangoDB){
-          toastr.success(
-            languageFileOut.popSave_01notSavedData,
-            {
-              closeButton: true,
-              timeOut: 4000,
-              positionClass: "toast-top-center",
-              preventDuplicates: true,
-            }
-          );
-        }
-
-      }, 4000); // end delay
     }
-  }
+
+  }, 4000); // end delay
 }

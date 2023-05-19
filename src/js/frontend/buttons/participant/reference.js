@@ -9,8 +9,7 @@ const ref = `
     </div>
     <!-- interactive component: DEFAULT -->
     <div id="informationDefault" class="tab-defaulttext">
-        <i>${languageFileOut.qr_start}</i>
-            
+        <i>${languageFileOut.qr_start}</i>  
     </div>
     
     

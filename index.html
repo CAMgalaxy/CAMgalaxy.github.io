@@ -67,19 +67,33 @@
   <body id="hideall">
     <!-- DIALOGS -->
      <!-- -->
-    <div id="dialogStart" title="Welcome to the CAM study!">
-      <div class="properties" style="font-size: 14px;">
-        The following rules apply to the <i>Cognitive-Affective Map</i> you should draw: 
-          <ul  style="font-size: 14px;">
-              <li>Draw a minimum of 24 concepts in total.</li>
-              <li>Use no more than three words per concept.</li>
-              <li>Connect all the drawn concepts with each other.</li>
-          </ul>
-          If you need any help you can click on the green reference button top right. To save your CAM click on the disk symbol.
-          <br>
-          Please zoom out so that you can see the entire drawing window of the CAM. You can now close this dialogue window and start drawing. Have fun. 
+    <div id="dialogStart" title="Herzlich willkommen zur CAM-Studie!">
+      <div class="properties" style="font-size: 12px;">
+        Die folgenden Regeln gelten für die <i>kognitiv-affektive Karte</i> (CAM), die Sie zeichnen sollten:
+        <ul  style="font-size: 12px;">
+                 <li>Zeichnen Sie insgesamt mindestens 8 Konzepte.</li>
+                 <li>Verwenden Sie nicht mehr als drei Wörter pro Begriff.</li>
+                 <li>Verbinden Sie alle gezeichneten Begriffe miteinander.</li>
+                 <li>Sie haben insgesamt 12 Minuten Zeit.</li>
+             </ul>
+            Wenn Sie Hilfe benötigen, klicken Sie auf den grünen Referenzknopf oben rechts. Um Ihr CAM zu speichern, klicken Sie auf das Diskettensymbol.
+             <br>
+             <br>
+               Bitte zoomen Sie heraus, so dass Sie das gesamte Zeichenfenster des CAMs sehen können. Sie können nun dieses Dialogfenster schließen und mit dem Zeichnen beginnen. Viel Spaß!
           </div>
   </div>
+
+
+    <!-- > remind participant -->
+  <div id="dialogReminder" title="Hinweis">
+    <div id="textDialogReminder" class="properties" style="font-size: 14px;">
+        </div>
+</div>
+
+    <!-- > confirm save -->
+<div id="dialogConfirmSave" title="Confirm">
+  </div>
+</div>
 
     <!-- > set up study -->
     <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
@@ -140,6 +154,8 @@
     document.getElementById("dialogReference").title = languageFileOut.qr_top; // Quick reference
 
     document.getElementById("quickref").title = languageFileOut.btr_01; // buttons top right (btr)
+
+    document.getElementById("dialogConfirmSave").title =  "Confirm Saving"; // languageFileOut.qr_top; // Quick reference
     })
   </script>
 
@@ -277,6 +293,12 @@
         document.head.appendChild(script);
       })();
 
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/dialogs/confirmSave.js"; // hide researcher functionalities
+        script.async = false;
+        document.head.appendChild(script);
+      })();
       // add buttons participant 
       (function () {
         const script = document.createElement("script");
@@ -345,11 +367,18 @@
         script.async = true;
         document.head.appendChild(script);
       })();
+
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/backend/setReminder.js";
+        script.async = true;
+        document.head.appendChild(script);
+      })();
     }, 500); // end delay
     }, 300); // end delay
 
 
-
+    
   </script>
   
 </html>

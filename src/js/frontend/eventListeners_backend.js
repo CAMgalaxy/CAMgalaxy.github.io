@@ -226,7 +226,8 @@ $(document).on("mousedown", ".connector, .outer-connector", function (event) {
                 var changeAtTop = "top+" + (MeanPositionY);
             }
 
-            $("#dialogInteractionEdge").dialog("open");
+            
+        $("#dialogInteractionEdge").dialog("open");
         }
 
         CAM.draw();

@@ -27,7 +27,7 @@ $(function () {
             $(this).dialog({
                 draggable: false
             }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
-        
+
             $('.ui-widget-overlay').on('click', function () {
                 $("#dialogStart").dialog('close');
             });
@@ -35,14 +35,102 @@ $(function () {
         close: function (event, ui) {
             console.log('dialog got closed');
 
-            
-            },
+
+        },
         position: {
             my: "center", // add percentage offsets
             at: "center",
             of: $(".boxCAMSVG")
         }
     });
+
+
+    // starting dialog
+    $("#dialogReminder").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: false,
+        draggable: true,
+        width: 400,
+        maxWidth: 400,
+        height: 'auto',
+
+        open: function (event, ui) {
+            $(".ui-dialog-titlebar").show(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
+
+            $('.ui-widget-overlay').on('click', function () {
+                $("#dialogReminder").dialog('close');
+            });
+        },
+        close: function (event, ui) {
+            console.log('dialog got closed');
+
+
+        },
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
+
+
+    // dialog confirm save START
+    $("#dialogConfirmSave").dialog({
+        autoOpen: false,
+        modal: true,
+        show: "fade",
+        hide: false,
+        resizable: false,
+        draggable: true,
+        width: 400,
+        maxWidth: 400,
+        height: 'auto',
+
+        open: function (event, ui) {
+            $(".ui-dialog-titlebar").show(); // hide titlebar
+            $(this).dialog({
+                draggable: false
+            }).parent().draggable(); // see: https://stackoverflow.com/questions/6410720/jquery-ui-dialog-draggable-on-entire-dialog-not-just-title
+
+            $('.ui-widget-overlay').on('click', function () {
+                $("#dialogConfirmSave").dialog('close');
+            });
+        },
+        close: function (event, ui) {
+            console.log('dialog got closed');
+        },
+        buttons: [{
+            id: 'YesButtonConfirm',
+            click: function () {
+                console.log("clicked dialogConfirmSave Yes");
+                saveCAMsuccess();
+                $("#dialogConfirmSave").dialog('close');
+            }
+        },
+        {
+            id: 'NoButtonConfirm',
+            click: function () {
+                console.log("clicked dialogConfirmSave No")
+                $("#dialogConfirmSave").dialog('close');
+            }
+        }],
+        position: {
+            my: "center", // add percentage offsets
+            at: "center",
+            of: $(".boxCAMSVG")
+        }
+    });
+
+    $('#YesButtonConfirm').button('option', 'label', 'Yes');
+    $('#NoButtonConfirm').button('option', 'label', 'No');
+    // dialog confirm save END
+
 
     $("#dialogReference").dialog({
         autoOpen: false,
@@ -196,26 +284,26 @@ $(function () {
                 CAM.draw();
 
                 // adjust event Log
-                if(currentText !== CAM.currentNode.getText()){
+                if (currentText !== CAM.currentNode.getText()) {
                     CAM.currentNode.enterLog({
                         type: "text",
                         value: CAM.currentNode.getText()
                     });
                 }
 
-                if(currentValue !== CAM.currentNode.getValue()){
-                CAM.currentNode.enterLog({
-                    type: "value",
-                    value: CAM.currentNode.getValue()
-                });
-            }
+                if (currentValue !== CAM.currentNode.getValue()) {
+                    CAM.currentNode.enterLog({
+                        type: "value",
+                        value: CAM.currentNode.getValue()
+                    });
+                }
 
-            if(currentComment !== CAM.currentNode.getComment()){
-                CAM.currentNode.enterLog({
-                    type: "comment",
-                    value: CAM.currentNode.getComment()
-                });
-            }
+                if (currentComment !== CAM.currentNode.getComment()) {
+                    CAM.currentNode.enterLog({
+                        type: "comment",
+                        value: CAM.currentNode.getComment()
+                    });
+                }
 
                 CAM.currentNode.enterLog({
                     type: "selected",
