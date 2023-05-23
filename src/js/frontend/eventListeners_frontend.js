@@ -17,11 +17,13 @@ $(function () {
         width: 400,
         maxWidth: 400,
         height: 'auto',
-        buttons: {
-            Close: function () {
+        buttons: [{
+            id: 'CloseButton',
+            click: function () {
+                console.log("clicked close button");
                 $(this).dialog("close");
             }
-        },
+        }],
         open: function (event, ui) {
             $(".ui-dialog-titlebar").show(); // hide titlebar
             $(this).dialog({
@@ -43,9 +45,9 @@ $(function () {
             of: $(".boxCAMSVG")
         }
     });
+    $('#CloseButton').button('option', 'label', languageFileOut.closeButton);
 
-
-    // starting dialog
+    // reminder dialog
     $("#dialogReminder").dialog({
         autoOpen: false,
         modal: true,
@@ -127,8 +129,8 @@ $(function () {
         }
     });
 
-    $('#YesButtonConfirm').button('option', 'label', 'Yes');
-    $('#NoButtonConfirm').button('option', 'label', 'No');
+    $('#YesButtonConfirm').button('option', 'label', languageFileOut.yesButton);
+    $('#NoButtonConfirm').button('option', 'label', languageFileOut.noButton);
     // dialog confirm save END
 
 

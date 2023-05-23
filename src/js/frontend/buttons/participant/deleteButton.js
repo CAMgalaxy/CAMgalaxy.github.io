@@ -9,11 +9,11 @@ $(function () {
   });
 
 function deleteCam() {
-    let confirmdel = confirm("Do you really want to delete your CAM? No data will be saved on the server.");
+    let confirmdel = confirm(languageFileOut.confirmDeleting_01text);
     if (confirmdel == true) {
         CAM.connectors = [];
         CAM.nodes = [];
-        toastr.error('You CAM has been deleted. No data will be saved on the server. Default CAM has been restored.');
+        toastr.error(languageFileOut.confirmDeleting_02message);
         console.log("complete CAM has been deleted");
 
         defaultCAM()

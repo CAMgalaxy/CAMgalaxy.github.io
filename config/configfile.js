@@ -17,8 +17,8 @@ var config = {
 
     setLanguage: "English", // set language of your CAM study
 
-    fullScreen: false, // if true = study in fullscreen mode + paradata
-    showNotPopupStart: true, // only working if fullScreen is set to true
+    fullScreen: true, // if true = study in fullscreen mode + paradata
+    showNotPopupStart: false, // only working if fullScreen is set to true
 
     AdaptiveStudy: true, // run as adaptive study 
     ADAPTIVESTUDYurl: "https://baselpsychology.eu.qualtrics.com/jfe/form/SV_5BCiPNlYEphOQWa", // "https://studien.psychologie.uni-freiburg.de/publix/304/start?batchId=379&generalMultiple" // URL the CAM data should be append to
