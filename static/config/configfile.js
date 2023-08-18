@@ -13,7 +13,7 @@ var config = {
     MaxLengthChars: 40, // maximum number of characters for each concept
     LengthSentence: 20, // include breaklines if >= X characters
     LengthWords: 8, // include breaklines after each word with cumsum >= X characters
-    ShowResearcherButtons: true, // if true = show researcher functionalities
+    ShowResearcherButtons: false, // if true = show researcher functionalities
     cameraFeature: false, // include camera / splotlight feature to move screen
     setLanguage: "English", // set language of your CAM study, e.g. French 
 
