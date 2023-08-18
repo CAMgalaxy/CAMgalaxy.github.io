@@ -6,9 +6,17 @@ authors:
     given-names: Julius
   - family-names: Gouret
     given-names: Florian
+  - family-names: Gorki
+    given-names: Michael
+  - family-names: Hüttner
+    given-names: Paul
+  - family-names: Reuter
+    given-names: Lisa
+  - family-names: Gros
+    given-names: Wilhelm
   - family-names: Kiesel
     given-names: Andrea
-url: https://camgalaxy.github.io/
+url: https://github.com/Camel-app/DataCollection
 title: "Cognitive-Affective Maps extended logic"
-version: 1.0.5
-date-released: 2022-01-15
+version: 1.9
+date-released: 2023-06-01
