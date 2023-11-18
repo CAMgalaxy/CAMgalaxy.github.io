@@ -6,7 +6,12 @@ To instruct participants we  currently present a use-case (shopping at a farmers
 
 Currently presentations in a short / long version for **English, German** can be downloaded: 
 
-* ....
+> You need to change the text highlighted in dark blue!
+
+* "CAMEL_Instrunctions_EN_long": English CAMEL instructions for the following configuration: ambivalent concepts, positive / negative for connection ([-3, 3]), arrows
+* "CAMEL_Instrunctions_EN_noArrows_long": English CAMEL instructions for the following configuration: ambivalent concepts, positive / negative for connection ([-3, 3]); <b>no</b> arrows
+* "CAMEL_Instrunctions_DE_long": German CAMEL instructions for the following configuration: ambivalent concepts, positive / negative for connection ([-3, 3]), arrows
+
 
 
 ## Video instructions

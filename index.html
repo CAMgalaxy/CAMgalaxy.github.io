@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./src/css/main.css" />
     <link rel="stylesheet" href="./src/css/toastrmin.css" />
 
+    
     <!-- 
     <script src="./src/js/server/connection.js"></script>
     -->
@@ -24,6 +25,11 @@
         integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 -->
+
+<script
+src="./src/js/libraries/utf8.js"
+crossorigin="anonymous"
+></script>
 
     <script
       src="./src/js/libraries/uuidmin.js"
@@ -147,20 +153,6 @@
 
 
 
-  <script>
-    $(function () {
-    document.getElementById("alert-text").innerHTML = languageFileOut.ls_01; // leaving fullscreen
-
-    document.getElementById("dialogReference").title = languageFileOut.qr_top; // Quick reference
-
-    document.getElementById("quickref").title = languageFileOut.btr_01; // buttons top right (btr)
-
-    document.getElementById("dialogConfirmSave").title =   languageFileOut.confirmSaving_01_title; // languageFileOut.qr_top; // Quick reference
-    })
-  </script>
-
-
-
   <!-- defocus div element: -->
   <div id="alert" style="background: white; visibility: hidden" class="content">
     <div style="text-align: center;">
@@ -182,25 +174,33 @@
   </div>
 
   <!-- Config files: -->
-  <script src="./config/configfile.js" crossorigin="anonymous"></script>
+  <script src="./config/configfile.js" crossorigin="anonymous" defer></script>
   <!-- URL parameters -->
   <script
     src="./src/js/processing/featureStudies(URLparams).js"
     crossorigin="anonymous"
-  ></script>
+    defer></script>
   <!-- overwrite config if CAMEL administrative panel was used -->
   <script
     src="./src/js/backend/initialisationConfig.js"
     crossorigin="anonymous"
-  ></script>
+    defer></script>
 
-  <script
-    src=" ./src/js/frontend/paradata_focus.js"
-    crossorigin="anonymous"
-  ></script>
+     <!-- paradata file -->
+     <script>
+$(function () {
+  if(!usingMangoDB){
+        (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/paradata_focus.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      }
+});
+     </script>
 
      <!-- language file -->
-     <script src="./config/languageFile.js" crossorigin="anonymous"></script>
 
   <script>
     var delay = (function () {
@@ -212,6 +212,30 @@
     })();
 
     delay(function () {
+      if(usingMangoDB){
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/paradata_focus.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+      }
+
+             // processing files
+             (function () {
+        const script = document.createElement("script");
+        script.src = "./config/languageFile.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+
+      (function () {
+        const script = document.createElement("script");
+        script.src = "./src/js/frontend/paradata_focus_text.js";
+        script.async = false;
+        document.head.appendChild(script);
+      })();
+
        // processing files
       (function () {
         const script = document.createElement("script");
@@ -374,11 +398,8 @@
         script.async = true;
         document.head.appendChild(script);
       })();
-    }, 500); // end delay
     }, 300); // end delay
-
-
-    
+    }, 700); // end delay
   </script>
   
 </html>
