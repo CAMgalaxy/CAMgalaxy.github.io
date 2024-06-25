@@ -25,23 +25,24 @@ function defaultCAM() {
     /* MAKE CHANGES: start*/
 
 
-    CAM.addElement(new NodeCAM(0, "Religion", {
-      x: 500,
+    CAM.addElement(new NodeCAM(0, "Central Concept", {
+      x: 650,
       y: 400
     }, false, false, false));
 
-    CAM.addElement(new NodeCAM(0, "Atheismus", {
+
+/*
+    CAM.addElement(new NodeCAM(0, "concept2", {
       x: 800,
       y: 400
     }, false, false, false));
-
 
     var connector1 = new ConnectorCAM();
     connector1.establishConnection(CAM.nodes[0], CAM.nodes[1], IncreaseSliderIntensity, false);
     connector1.value = 1;
     connector1.isDeletable = false;
     CAM.addElement(connector1);
-
+*/
 
 
     /* MAKE Changes: end*/

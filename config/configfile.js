@@ -8,7 +8,7 @@ var config = {
     BidirectionalDefault: false, // if true the default connection is bidirectional
 
     hideAmbivalent: false, // if false = possible to draw ambivalent node
-    showOnlyPosSlid: true, // if true = show only slider for agreement (+1 - +3)
+    showOnlyPosSlid: false, // if true = show only slider for agreement (+1 - +3)
     
     MaxLengthWords: 3, // maximum number of words for each concept
     MaxLengthChars: 40, // maximum number of characters for each concept
@@ -44,6 +44,6 @@ console.log("config config file:", config)
 
 
 // ! not change
-const webAddress = "http://localhost:3002/api/"; // "https://drawyourminds.de/API/"; // "http://localhost:3001/"; 
+const webAddress = "https://camadministrative.vercel.app/api/"; // "https://drawyourminds.de/API/"; // "http://localhost:3001/"; 
 
 

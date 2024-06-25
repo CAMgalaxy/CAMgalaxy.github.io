@@ -62,6 +62,16 @@ const params = Object.fromEntries(urlSearchParams.entries());
 
 console.log("url params: ", params);
 
+
+// hide researcher buttons
+if (
+    urlSearchParams.has("external") &&
+    urlSearchParams.get("external") === "true"
+) {
+    var usingSupabase = false;
+    var usingJATOS = false;
+}
+
 // hide researcher buttons
 if (
     urlSearchParams.has("ShowResearcherButtons") &&
