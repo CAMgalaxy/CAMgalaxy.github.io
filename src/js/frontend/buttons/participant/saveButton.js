@@ -206,72 +206,78 @@ function saveCAMsuccess() {
 
             async function getData() {
                 const url = webAddress + 'try';
-          
+
                 const get = await fetch(url)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
             }
 
             // getData();
 
 
-           async function postData() {
-            const url = webAddress + 'poststudy';
-            // const url = 'http://localhost:3002/api/poststudy';
-            
-            const headers = {'Content-Type':'application/json'}
+            async function postData() {
+                const url = webAddress + 'poststudy';
+                // const url = 'http://localhost:3002/api/poststudy';
 
-            console.log("postData")
+                const headers = { 'Content-Type': 'application/json' }
 
-            var dateStart = new Date(CAM.date);
-            var dateEnd = new Date();
-            var diffTime = Math.abs(dateEnd - dateStart);
-            
-            const post = await fetch(url, {
-                method: 'POST',   // Specifying the HTTP method
-                headers: headers,  // Including headers in the request
-                body: JSON.stringify({
-                    namestudy: nameStudy,
-                    camid: CAM.idCAM, // .replace(/-/g, '')
-                    participantid: CAM.creator,
-                    datestart: dateStart,
-                    dateend: dateEnd,
-                    datediff: Math.round(diffTime / 1000 / 60 * 100) / 100,
-                    numconcepts: CAM.nodes.length,
-                    numconnectors: CAM.connectors.length,
-                    avgvalence: getMeanValenceNodes(getActiveListNodes()),
-                    cam: CAM,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-        }
-        postData()
+                console.log("postData")
+
+                var dateStart = new Date(CAM.date);
+                var dateEnd = new Date();
+                var diffTime = Math.abs(dateEnd - dateStart);
+
+                const post = await fetch(url, {
+                    method: 'POST',   // Specifying the HTTP method
+                    headers: headers,  // Including headers in the request
+                    body: JSON.stringify({
+                        namestudy: nameStudy,
+                        camid: CAM.idCAM, // .replace(/-/g, '')
+                        participantid: CAM.creator,
+                        datestart: dateStart,
+                        dateend: dateEnd,
+                        datediff: Math.round(diffTime / 1000 / 60 * 100) / 100,
+                        numconcepts: CAM.nodes.length,
+                        numconnectors: CAM.connectors.length,
+                        avgvalence: getMeanValenceNodes(getActiveListNodes()),
+                        cam: CAM,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+
+                window.location =
+                    linkRedirect +
+                    "?participantID=" +
+                    CAM.creator;
+
+            }
+            postData()
 
 
-        
-        async function postData2() {
-            const url = webAddress + 'try';
-            //const url = 'http://localhost:3000/api/try';
-            const headers = {'Content-Type':'application/json'}
 
-            console.log("postData")
-            const post = await fetch(url, {
-                method: 'POST',   // Specifying the HTTP method
-                headers: headers,  // Including headers in the request
-                body: JSON.stringify({
-                    name: 'France',
-                    cam: CAM,
-                    welcomeYourGirl: 'Hello Sarah'
-                }),
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-        }
-        //postData2()
+            async function postData2() {
+                const url = webAddress + 'try';
+                //const url = 'http://localhost:3000/api/try';
+                const headers = { 'Content-Type': 'application/json' }
+
+                console.log("postData")
+                const post = await fetch(url, {
+                    method: 'POST',   // Specifying the HTTP method
+                    headers: headers,  // Including headers in the request
+                    body: JSON.stringify({
+                        name: 'France',
+                        cam: CAM,
+                        welcomeYourGirl: 'Hello Sarah'
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+            }
+            //postData2()
 
             /*
             // URL of the API endpoint
