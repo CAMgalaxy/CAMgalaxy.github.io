@@ -37,102 +37,90 @@
 
     <script src="./src/js/libraries/xlsxmin.js" crossorigin="anonymous" defer></script>
 
-    <style>
-      /* Loading screen styles */
-      #loading-screen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 2rem;
-          z-index: 9999;
-      }
-  </style>
+
 
     <script>
-function loadScript(src) {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-        script.onload = () => resolve(src);
-        script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-        document.head.appendChild(script);
-    });
-}
+      function loadScript(src) {
+          return new Promise((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = src;
+              script.async = true;
+              script.onload = () => resolve(src);
+              script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+              document.head.appendChild(script);
+          });
+      }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-(async function() {
-    try {
-        // Display alert after a short delay to allow the initial script loading to start
-        /**/
-        setTimeout(() => {
-           // alert("Please wait up to 2 seconds for the CAM to load.");
-        }, 100);
-
-        await loadScript('./config/configfile.js'); // config files
-        await loadScript('./src/js/processing/featureStudies(URLparams).js'); // URL parameters
-        await loadScript('./src/js/backend/initialisationConfig.js'); // overwrite config if CAMEL administrative panel was used
-        console.log('!!! All scripts loaded 1');
-
-        await delay(1500); // 2-second delay
-
-        await loadScript('./config/languageFile.js');
-        await loadScript('./src/js/frontend/paradata_focus.js');
-        await loadScript('./src/js/frontend/paradata_focus_text.js');
-        await loadScript('./src/js/processing/preprocessingCAM.js'); // Pre-processing files
-        await loadScript('./src/js/processing/postprocessingCAM.js'); // Pre-processing files
-        await loadScript('./src/js/backend/Elements.js'); // Backend files
-        await loadScript('./src/js/backend/nodeCAM.js'); // Backend files
-        await loadScript('./src/js/backend/connectorCAM.js'); // Backend files
-        await loadScript('./src/js/backend/variables.js'); // Backend files
-        await loadScript('./src/js/frontend/colours.js'); // Frontend files - UI
-        await loadScript('./src/js/frontend/eventListeners_backend.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/connectorArrows.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/draw.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/dialogs/interactionNode.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/interactionEdge.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/confirmSave.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/setReminder.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/buttons/participant/reference.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/saveButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/downloadSVGButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/deleteButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/researcher/downloadJSONbutton.js'); // Frontend files - buttons researcher
-        await loadScript('./src/js/frontend/buttons/researcher/uploadJSONbutton.js'); // Frontend files - buttons researcher
-        await loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js'); // Frontend files - buttons researcher
-        await loadScript('./src/js/frontend/eventListeners_frontend.js'); // Frontend files - eventListeners frontend
-        await loadScript('./config/defaultCAM.js'); // default CAM + initialisation
-        await loadScript('./src/js/backend/initialisation.js'); // default CAM + initialisation
-       alert("Thank you for waiting. The CAM has loaded."); // to create an blur event
-        console.log('!!! All scripts loaded 2');
-    } catch (error) {
-        console.error(error);
-    } finally {
-                // Hide the loading screen after all scripts are loaded
-                document.getElementById('loading-screen').style.display = 'none';
-            }
-})();
+      loadScript('./config/configfile.js')
+          .then(() => loadScript('./src/js/processing/featureStudies(URLparams).js'))
+          .then(() => loadScript('./src/js/backend/initialisationConfig.js'))
+          .then(() => {
+              console.log('All scripts loaded');
+          })
+          .catch(error => {
+              console.error(error);
+          });
   </script>
+
+    
+      <!-- Config files: -->
+      <script src="./config/configfile.js" crossorigin="anonymous" defer></script>
+      <!-- URL parameters -->
+      <script src="./src/js/processing/featureStudies(URLparams).js" crossorigin="anonymous" defer></script>
+      <!-- overwrite config if CAMEL administrative panel was used -->
+      <script src="./src/js/backend/initialisationConfig.js" crossorigin="anonymous" defer></script>
+
+      <!-- Frontend files - UI: -->
+      <script src="./src/js/frontend/paradata_focus.js" crossorigin="anonymous" defer></script>
+      <script src="./config/languageFile.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/paradata_focus_text.js" crossorigin="anonymous" defer></script>
+
+      <!-- Pre-processing files: -->
+      <script src="./src/js/processing/preprocessingCAM.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/processing/postprocessingCAM.js" crossorigin="anonymous" defer></script>
+
+        <!-- Backend files: -->
+      <script src="./src/js/backend/Elements.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/backend/nodeCAM.js" crossorigin="anonymous" defer></script>
+
+
+
+      <script src="./src/js/backend/connectorCAM.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/backend/variables.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/colours.js" crossorigin="anonymous" defer></script> <!-- !!! below connectorArrows -->
+      
+      <!-- Frontend files - eventListeners backend: -->
+      <script src="./src/js/frontend/eventListeners_backend.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/connectorArrows.js" crossorigin="anonymous" defer></script> <!-- !!! below eventListeners_backend -->
+
+      <script src="./src/js/frontend/draw.js" crossorigin="anonymous" defer></script>
+
+      <!-- Frontend files - dialogs: -->
+      <script src="./src/js/frontend/dialogs/interactionNode.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/dialogs/interactionEdge.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/dialogs/confirmSave.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/dialogs/setReminder.js" crossorigin="anonymous" defer></script> <!-- !!! below defaultCAM -->
+
+     <!-- Frontend files - buttons participant: --> 
+      <script src="./src/js/frontend/buttons/participant/reference.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/buttons/participant/saveButton.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/buttons/participant/downloadSVGButton.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/buttons/participant/deleteButton.js" crossorigin="anonymous" defer></script>
+
+      <!-- Frontend files - buttons participant: --> 
+      <script src="./src/js/frontend/buttons/researcher/downloadJSONbutton.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/buttons/researcher/uploadJSONbutton.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/frontend/buttons/researcher/createConfigSave.js" crossorigin="anonymous" defer></script>
+
+      <!-- Frontend files - eventListeners frontend: -->
+      <script src="./src/js/frontend/eventListeners_frontend.js" crossorigin="anonymous" defer></script>
+
+      <!-- default CAM + initialisation: -->
+      <script src="./config/defaultCAM.js" crossorigin="anonymous" defer></script>
+      <script src="./src/js/backend/initialisation.js" crossorigin="anonymous" defer></script>
   </head>
 
   <body id="hideall">
-
-
-    <div id="loading-screen">
-      Please wait, loading...
-  </div>
-
-
     <!-- DIALOGS -->
      <!-- -->
     <div id="dialogStart" title="Herzlich willkommen zur CAM-Studie!">

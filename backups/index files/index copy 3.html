@@ -1,0 +1,258 @@
+    <!-- 
+        <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    -->
+    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- for Microsoft Browser? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>C.A.M.E.L</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="./img/favicon_logoCAM2.PNG"
+    />
+
+    <!-- css files: -->
+    <link rel="stylesheet" href="./src/css/main.css"/>
+    <link rel="stylesheet" href="./src/css/toastrmin.css"/>
+
+    <!-- load libraries: -->
+    <script src="./src/js/libraries/utf8.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/uuidmin.js" crossorigin="anonymous" defer></script>
+
+    <script src="./src/js/libraries/jquery.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/jqueryUI.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/toastrmin.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/cytoscapemin.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/base64.js" crossorigin="anonymous" defer></script>
+    <script src="./src/js/libraries/jatos.js" crossorigin="anonymous" defer></script>
+
+    <script src="./src/js/libraries/xlsxmin.js" crossorigin="anonymous" defer></script>
+
+
+
+    <script>
+      function loadScript(src) {
+          return new Promise((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = src;
+              script.async = true;
+              script.onload = () => resolve(src);
+              script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+              document.head.appendChild(script);
+          });
+      }
+
+
+      var delay = (function () {
+      var timer = 0;
+      return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+
+
+    async function loadScripts() {
+            try {
+              console.log("aaa 1")
+              await  loadScript('./config/configfile.js')
+                await loadScript('./src/js/processing/featureStudies(URLparams).js') // URL parameters
+                await loadScript('./src/js/backend/initialisationConfig.js') // overwrite config if CAMEL administrative panel was used
+                await loadScript('./config/languageFile.js')
+                delay(async function () {
+                console.log("aaa 2")
+          await loadScript('./src/js/frontend/paradata_focus.js')
+          await loadScript('./src/js/frontend/paradata_focus_text.js')
+          await loadScript('./src/js/processing/preprocessingCAM.js') // Pre-processing files
+          await loadScript('./src/js/processing/postprocessingCAM.js') // Pre-processing files
+          await loadScript('./src/js/backend/Elements.js') // Backend files
+          await loadScript('./src/js/backend/nodeCAM.js') // Backend files
+          await loadScript('./src/js/backend/connectorCAM.js') // Backend files
+          await loadScript('./src/js/backend/variables.js') // Backend files
+          await loadScript('./src/js/frontend/colours.js') // Frontend files - UI
+          await loadScript('./src/js/frontend/eventListeners_backend.js') // Frontend files - eventListeners backend
+          await loadScript('./src/js/frontend/connectorArrows.js') // Frontend files - eventListeners backend
+          await loadScript('./src/js/frontend/draw.js') // Frontend files - eventListeners backend
+          await loadScript('./src/js/frontend/dialogs/interactionNode.js') // Frontend files - dialogs
+          await loadScript('./src/js/frontend/dialogs/interactionEdge.js') // Frontend files - dialogs
+          await loadScript('./src/js/frontend/dialogs/confirmSave.js') // Frontend files - dialogs
+          await loadScript('./src/js/frontend/dialogs/setReminder.js') // Frontend files - dialogs
+          await loadScript('./src/js/frontend/buttons/participant/reference.js') // Frontend files - buttons participant
+          await loadScript('./src/js/frontend/buttons/participant/saveButton.js') // Frontend files - buttons participant
+          await loadScript('./src/js/frontend/buttons/participant/downloadSVGButton.js') // Frontend files - buttons participant
+          await loadScript('./src/js/frontend/buttons/participant/deleteButton.js') // Frontend files - buttons participant
+          await loadScript('./src/js/frontend/buttons/researcher/downloadJSONbutton.js') // Frontend files - buttons researcher
+          await loadScript('./src/js/frontend/buttons/researcher/uploadJSONbutton.js') // Frontend files - buttons researcher
+          await loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js') // Frontend files - buttons researcher
+          await loadScript('./src/js/frontend/eventListeners_frontend.js') // Frontend files - eventListeners frontend
+          await loadScript('./config/defaultCAM.js') // default CAM + initialisation
+          await loadScript('./src/js/backend/initialisation.js') // default CAM + initialisation
+        }, 1000); // end delay
+                console.log('All scripts loaded');
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        loadScripts();
+    
+/*
+      loadScript('./config/configfile.js') // config files
+          .then(() => loadScript('./src/js/processing/featureStudies(URLparams).js')) // URL parameters
+          .then(() => loadScript('./src/js/backend/initialisationConfig.js')) // overwrite config if CAMEL administrative panel was used
+          .then(() => {
+              console.log('!!! All scripts loaded 1');
+          })
+          .catch(error => {
+              console.error(error);
+          });
+
+
+          delay(function () {
+            loadScript('./config/languageFile.js')
+            .then(() => loadScript('./src/js/frontend/paradata_focus.js'))
+          .then(() => loadScript('./src/js/frontend/paradata_focus_text.js'))
+          .then(() => loadScript('./src/js/processing/preprocessingCAM.js')) // Pre-processing files
+          .then(() => loadScript('./src/js/processing/postprocessingCAM.js')) // Pre-processing files
+          .then(() => loadScript('./src/js/backend/Elements.js')) // Backend files
+          .then(() => loadScript('./src/js/backend/nodeCAM.js')) // Backend files
+          .then(() => loadScript('./src/js/backend/connectorCAM.js')) // Backend files
+          .then(() => loadScript('./src/js/backend/variables.js')) // Backend files
+          .then(() => loadScript('./src/js/frontend/colours.js')) // Frontend files - UI
+          .then(() => loadScript('./src/js/frontend/eventListeners_backend.js')) // Frontend files - eventListeners backend
+          .then(() => loadScript('./src/js/frontend/connectorArrows.js')) // Frontend files - eventListeners backend
+          .then(() => loadScript('./src/js/frontend/draw.js')) // Frontend files - eventListeners backend
+          .then(() => loadScript('./src/js/frontend/dialogs/interactionNode.js')) // Frontend files - dialogs
+          .then(() => loadScript('./src/js/frontend/dialogs/interactionEdge.js')) // Frontend files - dialogs
+          .then(() => loadScript('./src/js/frontend/dialogs/confirmSave.js')) // Frontend files - dialogs
+          .then(() => loadScript('./src/js/frontend/dialogs/setReminder.js')) // Frontend files - dialogs
+          .then(() => loadScript('./src/js/frontend/buttons/participant/reference.js')) // Frontend files - buttons participant
+          .then(() => loadScript('./src/js/frontend/buttons/participant/saveButton.js')) // Frontend files - buttons participant
+          .then(() => loadScript('./src/js/frontend/buttons/participant/downloadSVGButton.js')) // Frontend files - buttons participant
+          .then(() => loadScript('./src/js/frontend/buttons/participant/deleteButton.js')) // Frontend files - buttons participant
+          .then(() => loadScript('./src/js/frontend/buttons/researcher/downloadJSONbutton.js')) // Frontend files - buttons researcher
+          .then(() => loadScript('./src/js/frontend/buttons/researcher/uploadJSONbutton.js')) // Frontend files - buttons researcher
+          .then(() => loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js')) // Frontend files - buttons researcher
+          .then(() => loadScript('./src/js/frontend/eventListeners_frontend.js')) // Frontend files - eventListeners frontend
+          .then(() => loadScript('./config/defaultCAM.js')) // default CAM + initialisation
+          .then(() => loadScript('./src/js/backend/initialisation.js')) // default CAM + initialisation
+
+          .then(() => {
+              console.log('!!! All scripts loaded 2');
+          })
+          .catch(error => {
+              console.error(error);
+          });
+      }, 2000); // end delay
+      */
+  </script>
+  </head>
+
+  <body id="hideall">
+    <!-- DIALOGS -->
+     <!-- -->
+    <div id="dialogStart" title="Herzlich willkommen zur CAM-Studie!">
+      <div class="properties" style="font-size: 12px;">
+        Die folgenden Regeln gelten für die <i>kognitiv-affektive Karte</i> (CAM), die Sie zeichnen sollten:
+        <ul  style="font-size: 12px;">
+                 <li>Zeichnen Sie insgesamt mindestens 10 Konzepte.</li>
+                 <li>Verwenden Sie nicht mehr als drei Wörter pro Begriff.</li>
+                 <li>Verbinden Sie alle gezeichneten Begriffe miteinander.</li>
+                 <li>Sie haben insgesamt 15 Minuten Zeit.</li>
+             </ul>
+            Wenn Sie Hilfe benötigen, klicken Sie auf den grünen Referenzknopf oben rechts. Um Ihr CAM zu speichern, klicken Sie auf das Diskettensymbol.
+             <br>
+             <br>
+               Bitte zoomen Sie heraus, so dass Sie das gesamte Zeichenfenster des CAMs sehen können. Sie können nun dieses Dialogfenster schließen und mit dem Zeichnen beginnen. Viel Spaß!
+          </div>
+  </div>
+
+
+    <!-- > remind participant -->
+  <div id="dialogReminder" title="Hinweis">
+    <div id="textDialogReminder" class="properties" style="font-size: 14px;">
+        </div>
+  </div>
+
+    <!-- > confirm save -->
+  <div id="dialogConfirmSave" title="Confirm">
+    </div>
+  </div>
+
+    <!-- > set up study -->
+    <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
+
+    <!-- > quick reference -->
+    <div id="dialogReference" title="Quick reference"></div>
+
+    <!-- > change connector -->
+    <div id="dialogInteractionEdge" title="Change connector"></div>
+
+    <!-- > change node -->
+    <div id="dialogInteractionNode" title="Change concept"></div>
+
+    <!-- HEADER -->
+
+    <!-- SVG, components  -->
+    <div class="main">
+      <div class="boxCAMSVG">
+        <div id="headerInterface">
+          <div id="leftButton" class="cam-header-left">
+            <div id="hideResearcherButtonsTop"></div>
+          </div>
+
+          <div class="cam-header-middle">
+            <span style="font-weight: bold">Cognitive-Affective Maps</span>
+            <img
+              src="./img/logoCAM2.svg"
+              alt="img Valence logo not found"
+              style="height: 1.3rem; width: auto; margin-top: 3px"
+            />
+          </div>
+
+          <div id="rightButton" class="cam-header-right">
+            <button
+              id="quickref"
+              class="material-icons"
+              title="Open a quick reference"
+              style="color: green"
+            >
+              help
+            </button>
+          </div>
+        </div>
+        <div class="CAMContainer">
+          <svg id="CAMSVG">
+          </svg>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- defocus div element: -->
+  <div id="alert" style="background: white; visibility: hidden" class="content">
+    <div style="text-align: center;">
+      <div id="alert-text" style="font-weight: bold;">
+        </div>
+      <br/>
+      <button
+        id="alert-button-text"
+        type="button"
+        onclick="document.getElementById('alert').style.visibility = 'hidden'; 
+     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen(); showDialogOnce();"
+      >
+        <!-- showDialogOnce();-->
+        click to continue
+      </button>
+    </div>
+  </div>
+</html>

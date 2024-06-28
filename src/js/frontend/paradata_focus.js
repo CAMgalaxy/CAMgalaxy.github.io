@@ -1,4 +1,5 @@
 console.log("starting paradata")
+console.log("config.fullScreen - paradata", config.fullScreen)
 
 if (config.fullScreen == true) { // || usingSupabase  to late loaded
 console.log("config.fullScreen - paradata", config.fullScreen)
