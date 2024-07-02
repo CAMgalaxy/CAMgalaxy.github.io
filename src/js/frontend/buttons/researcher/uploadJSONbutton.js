@@ -4,6 +4,7 @@ const uploadJSONButton = `<button class="material-icons" onclick="document.getEl
 var target = document.getElementById("hideResearcherButtonsTop");
 target.innerHTML += uploadJSONButton;
 
+
 /* > upload CAM as JSON file
 adjusted: https://stackoverflow.com/questions/36127648/uploading-a-json-file-and-using-it
 https://stackoverflow.com/questions/23344776/how-to-access-data-of-uploaded-json-file
