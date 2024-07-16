@@ -107,12 +107,12 @@ function delay(ms) {
         await loadScript('./src/js/frontend/buttons/participant/saveButton.js'); // Frontend files - buttons participant
         await loadScript('./src/js/frontend/buttons/participant/downloadSVGButton.js'); // Frontend files - buttons participant
         await loadScript('./src/js/frontend/buttons/participant/deleteButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js'); // Frontend files - buttons researcher
         await loadScript('./src/js/frontend/eventListeners_frontend.js'); // Frontend files - eventListeners frontend
         await loadScript('./config/defaultCAM.js'); // default CAM + initialisation
         await loadScript('./src/js/backend/initialisation.js'); // default CAM + initialisation
         await loadScript('./src/js/frontend/buttons/researcher/downloadJSONbutton.js'); // Frontend files - buttons researcher
         await loadScript('./src/js/frontend/buttons/researcher/uploadJSONbutton.js'); // Frontend files - buttons researcher
+        await loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js'); // Frontend files - buttons researcher
        alert("Thank you for waiting. The CAM has loaded."); // to create an blur event
         console.log('!!! All scripts loaded 2');
     } catch (error) {
