@@ -125,3 +125,31 @@ $(function () {
         $("#showCameraFeature").hide();
     }
 });
+
+
+// hide arrows edges
+if (config.hideArrows) {
+    $('#hideConnectorDirInfluence').hide();
+    $(function () {
+        $('#hideConnectorDirInfluence').hide();
+    });
+}else{
+    $('#hideConnectorDirInfluence').show();
+    $(function () {
+        $('#hideConnectorDirInfluence').show();
+    });
+}
+
+
+// hide ambivalent nodes
+if(config.hideAmbivalent){
+    $('#hideAmvivalentNode').hide();
+    $(function () {
+        $('#hideAmvivalentNode').hide();
+    });
+}else{
+    $('#hideAmvivalentNode').show();
+    $(function () {
+        $('#hideAmvivalentNode').show();
+    });
+}
