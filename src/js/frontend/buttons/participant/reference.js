@@ -128,7 +128,7 @@ $(function () {
 
 
 // hide arrows edges
-if (config.hideArrows) {
+if (config.enableArrows) {
     $('#hideConnectorDirInfluence').hide();
     $(function () {
         $('#hideConnectorDirInfluence').hide();
@@ -142,7 +142,7 @@ if (config.hideArrows) {
 
 
 // hide ambivalent nodes
-if(config.hideAmbivalent){
+if(config.enableAmbivalent){
     $('#hideAmvivalentNode').hide();
     $(function () {
         $('#hideAmvivalentNode').hide();

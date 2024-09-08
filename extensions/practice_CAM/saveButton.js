@@ -48,11 +48,11 @@ function saveCam() {
         return false;
     }
     // necessary # of concepts
-    if (CAMnodes.length < config.ConNumNodes) {
+    if (CAMnodes.length < config.MinNumNodes) {
         toastr.warning(
             languageFileOut.popSave_01numNodes,
             languageFileOut.popSave_02numNodes +
-            config.ConNumNodes +
+            config.MinNumNodes +
             languageFileOut.popSave_03numNodes,
             {
                 closeButton: true,
@@ -106,37 +106,146 @@ function saveCam() {
 
             return false;
         } else {
+            /* check drawn concepts */
 
-            // initalize arrays to test
+            // Initialize arrays to test
             var conceptsToDraw = ["wenig Auswahl", "frische Lebensmittel", "leckere Lebensmittel", "Einkauf Wochenmarkt", "teuer", "im Freien", "schlechtes Wetter", "frische Luft"];
             var conceptsValence = [-1, 2, 2, 0, -3, 10, -1, 1];
 
-
-            //   var CAMnodes = CAM.nodes.filter((element) => element.isActive === true);
-
-            var arrayText = CAMnodes.map((element) => {
-                return element.text;
-            });
-            
-            // removes whitespace from both ends of this string
-            arrayText = arrayText.map(function (el) {
-                return el.trim();
+            // Create a new array of objects containing cleaned text and raw values
+            var cleanedCAMnodes = CAMnodes.map((element) => {
+                return {
+                    text: element.text.trim().replace(/\s+/g, ' '), // Clean the text
+                    value: element.value                           // Keep the value as is
+                };
             });
 
-            var includePredefined = [];
-            conceptsToDraw.forEach((el) => {
-                includePredefined.push(arrayText.includes(el));
+            console.log("cleanedCAMnodes: ", cleanedCAMnodes);
+
+            // Compare valence values
+            var includePredefinedTextValence = [];
+
+            cleanedCAMnodes.forEach((concept, index) => {
+                var textIndex = conceptsToDraw.indexOf(concept.text);
+
+                // Check if the concept exists in arrayText
+                if (textIndex !== -1) {
+                    var arrayValenceValue = concept.value;
+                    var conceptsValenceValue = conceptsValence[textIndex];
+
+                    // Compare valence values
+                    var isEqual = arrayValenceValue === conceptsValenceValue || arrayValenceValue === conceptsValenceValue - 1 || arrayValenceValue === conceptsValenceValue + 1;
+
+                    includePredefinedTextValence.push(isEqual);
+
+                    console.log(`Concept: ${concept.text}`);
+                    console.log(`arrayValence: ${arrayValenceValue}`);
+                    console.log(`conceptsValence: ${conceptsValenceValue}`);
+                    console.log(`Is equal: ${isEqual}`);
+                } else {
+                    // If the concept does not exist in arrayText, push false
+                    includePredefinedTextValence.push(false);
+
+                    console.log(`Concept: ${concept} is not found in arrayText`);
+                }
             });
 
-            console.log("arrayText: ", arrayText);
-            console.log("includePredefined: ", includePredefined);
+            var allMatch = includePredefinedTextValence.every(value => value === true);
+
+            console.log("includePredefinedTextValence: ", includePredefinedTextValence);
+            console.log("allMatch: ", allMatch);
 
 
-            for(var i = 0; i < conceptsToDraw.length; i++){
-                var index = arrayText.findIndex(x => x == conceptsToDraw[i]); 
-                console.log(index); // 1
+            if (!allMatch) {
+                toastr.warning(
+                    "Bitte überprüfen Sie die Schreibweise ihrer gezeichneten Konzepte und die vergebene emotionale Bewertung.",
+                    {
+                        closeButton: true,
+                        timeOut: 4000,
+                        positionClass: "toast-top-center",
+                        preventDuplicates: true,
+                    }
+                );
+
+                return false;
             }
 
+
+            /* check drawn connectors */
+
+            // Create a new array of objects containing raw values and raw agreement
+            var cleanedCAMconnectors = CAMconnectors.map((element) => {
+                return {
+                    agreement: element.agreement,  // Keep agreement as is
+                    value: element.agreement ? element.intensity / 3 : element.intensity / 3 * -1                       // Keep the value as is
+                };
+            });
+
+
+            console.log("cleanedCAMconnectors: ", cleanedCAMconnectors);
+
+
+
+            if (cleanedCAMconnectors.length != 8) { // 8
+                toastr.warning(
+                    "Bitte überprüfen Sie die Anzahl der gezeichneten Verbindungen zwischen den Konzepten, diese sollten acht sein.",
+                    {
+                        closeButton: true,
+                        timeOut: 4000,
+                        positionClass: "toast-top-center",
+                        preventDuplicates: true,
+                    }
+                );
+
+                return false;
+            }
+
+
+            // Count the occurrences of each agreement
+            var agreementCount = {};
+            var valueCount = {};
+
+            // Iterate through the cleanedCAMconnectors to count agreements and values
+            cleanedCAMconnectors.forEach(connector => {
+                // Count agreements
+                if (agreementCount[connector.agreement]) {
+                    agreementCount[connector.agreement]++;
+                } else {
+                    agreementCount[connector.agreement] = 1;
+                }
+
+                // Count values
+                if (valueCount[connector.value]) {
+                    valueCount[connector.value]++;
+                } else {
+                    valueCount[connector.value] = 1;
+                }
+            });
+
+
+            console.log("cleanedCAMconnectors: ", cleanedCAMconnectors);
+            console.log("Agreement counts: ", agreementCount);
+            console.log("Agreement counts true: ", agreementCount.true);
+            console.log("Agreement counts false: ", agreementCount.false);
+
+            console.log("Value counts: ", valueCount);
+
+
+
+            
+            if (agreementCount.true != 6 && agreementCount.false != 2) { // 6, 2
+                toastr.warning(
+                    "Bitte überprüfen Sie den Typ der gezeichneten Verbindungen zwischen den Konzepten. Achten Sie hierbei auf die Anzahl der positiven und negativen Verbindungen.",
+                    {
+                        closeButton: true,
+                        timeOut: 4000,
+                        positionClass: "toast-top-center",
+                        preventDuplicates: true,
+                    }
+                );
+
+                return false;
+            }
 
             // confirm saving
             $("#dialogConfirmSave").dialog("open");
@@ -241,10 +350,10 @@ function saveCAMsuccess() {
                         "?participantID=" +
                         CAM.creator;
 
-/*
-"?jwt=" +
-token +
-*/
+                    /*
+                    "?jwt=" +
+                    token +
+                    */
                 }
             }
             pushData();

@@ -21,15 +21,15 @@ var showDialogOnce = (function () {
 
 /* !!! RENAME within code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 // necessary conditions to save CAM
-//var ConNumNodes = config.ConNumNodes; // # of nodes
+//var MinNumNodes = config.MinNumNodes; // # of nodes
 
 // stop / breaklines in text:
 // > maximum number of characters:
-//var MaxLengthWords = config.MaxLengthWords; // allow not more than X characters
+//var MaxNumWords = config.MaxNumWords; // allow not more than X characters
 
 /* DEFAULT values */
 // if no arrows closeness to node
-if (config.hideArrows) {
+if (config.enableArrows) {
     var DistanceArrows = 20;
 } else {
     var DistanceArrows = 40;
@@ -87,54 +87,54 @@ if (
 
 // show agreement only slider
 if (
-    urlSearchParams.has("showOnlyPosSlid") &&
-    urlSearchParams.get("showOnlyPosSlid") === "true"
+    urlSearchParams.has("OnlyStraightCon") &&
+    urlSearchParams.get("OnlyStraightCon") === "true"
 ) {
-    config.showOnlyPosSlid = true;
+    config.OnlyStraightCon = true;
 } else if (
-    urlSearchParams.has("showOnlyPosSlid") &&
-    urlSearchParams.get("showOnlyPosSlid") === "false"
+    urlSearchParams.has("OnlyStraightCon") &&
+    urlSearchParams.get("OnlyStraightCon") === "false"
 ) {
-    config.showOnlyPosSlid = false;
+    config.OnlyStraightCon = false;
 }
 
 // hide connector: direction of influence + reference
 if (
-    urlSearchParams.has("hideArrows") &&
-    urlSearchParams.get("hideArrows") === "true"
+    urlSearchParams.has("enableArrows") &&
+    urlSearchParams.get("enableArrows") === "true"
 ) {
-    config.hideArrows = true;
+    config.enableArrows = true;
     DistanceArrows = 20;
 } else if (
-    urlSearchParams.has("hideArrows") &&
-    urlSearchParams.get("hideArrows") === "false"
+    urlSearchParams.has("enableArrows") &&
+    urlSearchParams.get("enableArrows") === "false"
 ) {
-    config.hideArrows = false;
+    config.enableArrows = false;
 }
 
 // hide ambivalent node + reference
 if (
-    urlSearchParams.has("hideAmbivalent") &&
-    urlSearchParams.get("hideAmbivalent") === "true"
+    urlSearchParams.has("enableAmbivalent") &&
+    urlSearchParams.get("enableAmbivalent") === "true"
 ) {
-    config.hideAmbivalent = true;
+    config.enableAmbivalent = true;
 } else if (
-    urlSearchParams.has("hideAmbivalent") &&
-    urlSearchParams.get("hideAmbivalent") === "false"
+    urlSearchParams.has("enableAmbivalent") &&
+    urlSearchParams.get("enableAmbivalent") === "false"
 ) {
-    config.hideAmbivalent = false;
+    config.enableAmbivalent = false;
 }
 
 // necessary conditions to save CAM
-if (urlSearchParams.has("ConNumNodes")) {
-    config.ConNumNodes = parseInt(urlSearchParams.get("ConNumNodes"), 10);
-    //ConNumNodes = parseInt(urlSearchParams.get('ConNumNodes'), 10);
+if (urlSearchParams.has("MinNumNodes")) {
+    config.MinNumNodes = parseInt(urlSearchParams.get("MinNumNodes"), 10);
+    //MinNumNodes = parseInt(urlSearchParams.get('MinNumNodes'), 10);
 }
 
 // stop / breaklines in text:
-if (urlSearchParams.has("MaxLengthWords")) {
-    config.MaxLengthWords = parseInt(urlSearchParams.get("MaxLengthWords"), 10);
-    //MaxLengthWords = parseInt(urlSearchParams.get('MaxLengthWords'), 10);
+if (urlSearchParams.has("MaxNumWords")) {
+    config.MaxNumWords = parseInt(urlSearchParams.get("MaxNumWords"), 10);
+    //MaxNumWords = parseInt(urlSearchParams.get('MaxNumWords'), 10);
 }
 
 // enable camera functionality

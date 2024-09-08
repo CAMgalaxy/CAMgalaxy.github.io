@@ -24,6 +24,14 @@ function defaultCAM() {
   if (!usingSupabase) {
     /* MAKE CHANGES: start*/
 
+    CAM.addElement(new NodeCAM(0, "Central Concept", {
+      x: 650,
+      y: 400
+    }, false, false, false));
+
+
+    /* MAKE Changes: end*/
+/*
 
     CAM.addElement(new NodeCAM(0, "Central Concept", {
       x: 650,
@@ -31,7 +39,6 @@ function defaultCAM() {
     }, false, false, false));
 
 
-/*
     CAM.addElement(new NodeCAM(0, "concept2", {
       x: 800,
       y: 400
@@ -43,9 +50,6 @@ function defaultCAM() {
     connector1.isDeletable = false;
     CAM.addElement(connector1);
 */
-
-
-    /* MAKE Changes: end*/
   } else {
     // add nodes from fetched data
     camMother.nodes.forEach((element) => {

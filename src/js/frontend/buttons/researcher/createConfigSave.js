@@ -12,14 +12,14 @@ const interactionSetUpStudy = `
     <!-- > adjust text -->
     <div class="properties-align">
         <div class="properties-size-naming" style="font-size:18px;">
-            Define the configuration of your C.A.M.E.L. study:
+            Define the configuration of your CAM study:
         </div>
         <div class="row" style="background-color:#aaa;">
             <div class="column1">
                 Number of nodes necessary to draw (about 10 recommended):
             </div>
             <div class="column2">
-            <input type="number" id="setConNumNodes" min="1" max="50" style="width: 60%; margin-top: 14px;" value="10">
+            <input type="number" id="setMinNumNodes" min="1" max="50" style="width: 60%; margin-top: 14px;" value="10">
             </div>
         </div>
         <div class="row" style="background-color:#bababa;">
@@ -27,7 +27,7 @@ const interactionSetUpStudy = `
                 Maximum number of words for each concept (2-3 recommended):
             </div>
             <div class="column2">
-                <input type="number" id="setMaxLengthWords" min="1" max="5" style="width: 60%; margin-top: 10px;" value="3">
+                <input type="number" id="setMaxNumWords" min="1" max="5" style="width: 60%; margin-top: 10px;" value="3">
             </div>
         </div>
         <div class="row" style="background-color:#aaa;">
@@ -45,7 +45,7 @@ const interactionSetUpStudy = `
             </div>
             <div class="column2">
                 <label class="switch" style="margin-top: 8px;">
-                <input type="checkbox" id="sethideArrows" checked>
+                <input type="checkbox" id="setenableArrows" checked>
                 <div class="slider round">
                 </div>
                 </label>
@@ -74,7 +74,7 @@ const interactionSetUpStudy = `
             </div>
             <div class="column2">
                 <label class="switch" style="margin-top: 8px;">
-                <input type="checkbox" id="setshowOnlyPosSlid">
+                <input type="checkbox" id="setOnlyStraightCon">
                 <div class="slider round">
                 </div>
                 </label>
@@ -87,7 +87,7 @@ const interactionSetUpStudy = `
             </div>
             <div class="column2">
                 <label class="switch" style="margin-top: 8px;">
-                <input type="checkbox" id="sethideAmbivalent" checked>
+                <input type="checkbox" id="setenableAmbivalent" checked>
                 <div class="slider round">
                 </div>
                 </label>
@@ -122,7 +122,7 @@ const interactionSetUpStudy = `
 
     <div class="row" style="background-color:#bababa;">
         <div class="column1">
-            Set the language of the C.A.M.E.L. interface:
+            Set the language of the Data Collection Tool interface:
         </div>
     <div class="column2">
         <label class="switch" style="margin-top: 8px;">
@@ -175,16 +175,16 @@ function copyText() {
 function setConfigCAMfile() {
     var setCAMConfig = {
         config: {
-            ConNumNodes: $("#setConNumNodes").val(), // number of nodes necessary to draw
-            MaxLengthWords: $("#setMaxLengthWords").val(), // maximum number of words for each concept
+            MinNumNodes: $("#setMinNumNodes").val(), // number of nodes necessary to draw
+            MaxNumWords: $("#setMaxNumWords").val(), // maximum number of words for each concept
             MaxLengthChars: $("#setMaxLengthChars").val(), // maximum number of characters for each concept
 
-            hideArrows: null, // if false = possible to draw arrows
+            enableArrows: null, // if false = possible to draw arrows
             BidirectionalDefault: null, // if false = possible to draw arrows
 
-            showOnlyPosSlid: null, // if true show only slider for agreement (+1 - +3)
+            OnlyStraightCon: null, // if true show only slider for agreement (+1 - +3)
 
-            hideAmbivalent: null, // if false = possible to draw ambivalent node
+            enableAmbivalent: null, // if false = possible to draw ambivalent node
             cameraFeature: null, // if true include camera / splotlight feature to move screen
             fullScreen: null, // if true = study in fullscreen mode + paradata
 
@@ -210,10 +210,10 @@ function setConfigCAMfile() {
      */
 
     /* set up the config */
-    if ($("#sethideArrows").is(":checked")) {
-        setCAMConfig.config.hideArrows = false;
+    if ($("#setenableArrows").is(":checked")) {
+        setCAMConfig.config.enableArrows = false;
     } else {
-        setCAMConfig.config.hideArrows = true;
+        setCAMConfig.config.enableArrows = true;
     }
 
     if ($("#setBidirectionalDefault").is(":checked")) {
@@ -222,16 +222,16 @@ function setConfigCAMfile() {
         setCAMConfig.config.BidirectionalDefault = false;
     }
 
-    if ($("#sethideAmbivalent").is(":checked")) {
-        setCAMConfig.config.hideAmbivalent = false;
+    if ($("#setenableAmbivalent").is(":checked")) {
+        setCAMConfig.config.enableAmbivalent = false;
     } else {
-        setCAMConfig.config.hideAmbivalent = true;
+        setCAMConfig.config.enableAmbivalent = true;
     }
 
-    if ($("#setshowOnlyPosSlid").is(":checked")) {
-        setCAMConfig.config.showOnlyPosSlid = true;
+    if ($("#setOnlyStraightCon").is(":checked")) {
+        setCAMConfig.config.OnlyStraightCon = true;
     } else {
-        setCAMConfig.config.showOnlyPosSlid = false;
+        setCAMConfig.config.OnlyStraightCon = false;
     }
 
     if ($("#setcameraFeature").is(":checked")) {
@@ -354,13 +354,13 @@ $(function () {
     });
 
     $(
-        "#sethideArrows, #setBidirectionalDefault, #setfullScreen, #sethideAmbivalent, #setshowOnlyPosSlid, #setcameraFeature"
+        "#setenableArrows, #setBidirectionalDefault, #setfullScreen, #setenableAmbivalent, #setOnlyStraightCon, #setcameraFeature"
     ).click(function () {
         setConfigCAMfile();
     });
 
     $(
-        "#setConNumNodes,#setMaxLengthWords, #setMaxLengthChars, #setLanguage"
+        "#setMinNumNodes,#setMaxNumWords, #setMaxLengthChars, #setLanguage"
     ).change(function () {
         setConfigCAMfile();
     });

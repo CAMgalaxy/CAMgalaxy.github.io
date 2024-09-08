@@ -69,7 +69,7 @@ class Elements {
 
     addConnector(connector) {
         if (this.isConnectorIn(connector) == false) {
-            if (config.BidirectionalDefault || config.hideArrows) {
+            if (config.BidirectionalDefault || config.enableArrows) {
                 connector.setBidirectional(true);
             }
 

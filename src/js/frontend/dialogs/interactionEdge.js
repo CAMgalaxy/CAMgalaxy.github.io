@@ -109,7 +109,7 @@ $(function () {
         $('#hideResearcherButtonsConnector').hide();
         $('#hideResearcherButtonsTop').hide();
     }
-    if(config.showOnlyPosSlid){
+    if(config.OnlyStraightCon){
         $('#hideSliderDisAgree').hide();
         $('#hideSliderAgreementOnly').show();
     }else{
@@ -150,6 +150,7 @@ $(function () {
         intensity = intensitySlider.value <= 3 ? (4 - intensitySlider.value) * IncreaseSliderIntensity : (intensitySlider.value - 3) * IncreaseSliderIntensity;
 
         CAM.currentConnector.intensity = intensity
+        CAM.currentConnector.value = intensitySlider.value
         CAM.draw();
     });
 
@@ -174,6 +175,7 @@ $(function () {
         intensity = intensitySlider.value <= 3 ? (4 - intensitySlider.value) * IncreaseSliderIntensity : (intensitySlider.value - 3) * IncreaseSliderIntensity;
 
         CAM.currentConnector.intensity = intensity
+        CAM.currentConnector.value = intensitySlider.value
         CAM.draw();
     });
     
@@ -218,7 +220,7 @@ $(function () {
 })
 
 // hide arrows
-if (config.hideArrows) {
+if (config.enableArrows) {
     $('#hideConnectorDirInfluence').hide();
     $(function () {
         $('#hideConnectorDirInfluence').hide();
@@ -233,7 +235,7 @@ if (config.hideArrows) {
 
 
 // hide / show slider reference 
-if (config.showOnlyPosSlid) {
+if (config.OnlyStraightCon) {
     $(function () {
         $('#hideSliderDisAgreeRef').hide();
         $('#hideSliderDisAgreeRef2').hide();

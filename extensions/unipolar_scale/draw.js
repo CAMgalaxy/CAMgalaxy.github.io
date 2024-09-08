@@ -439,7 +439,7 @@ function drawConnector(connector, mother, daughter) {
         dir.x === 0 ? Math.atan(dir.y / 0.001) : Math.atan(dir.y / dir.x);
 
 let motherD;
-        if(config.hideArrows){
+        if(config.enableArrows){
             motherD = Math.sqrt(
                 (Math.cos(angle) * 25) ** 2 + (Math.sin(angle) * 10) ** 2 // !!!
             );

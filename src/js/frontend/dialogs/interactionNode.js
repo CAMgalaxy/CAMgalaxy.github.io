@@ -99,7 +99,7 @@ $(function () {
 $(function () {
 
     $('#inptextnode').on("input", function () {
-        var MaxLengthWords = config.MaxLengthWords; // allow not more than X words
+        var MaxNumWords = config.MaxNumWords; // allow not more than X words
         var MaxLengthChars = config.MaxLengthChars; // allow not more than X characters
 
         // console.log("CAM.currentNode.isTextChangeable:", CAM.currentNode.isTextChangeable)
@@ -108,14 +108,14 @@ $(function () {
             var numWords = this.value.split(' ').filter(word => word != "");
             numWords = numWords.length;
             // console.log("length chars: ", this.value.length, this.value.length <= MaxLengthChars);
-            // console.log("numWords: ", numWords, numWords <= MaxLengthWords);
+            // console.log("numWords: ", numWords, numWords <= MaxNumWords);
     
-            if (numWords <= MaxLengthWords && this.value.length <= MaxLengthChars) {
+            if (numWords <= MaxNumWords && this.value.length <= MaxLengthChars) {
                 //console.log("show me:", this.value);
                 CAM.updateElement("Node", "text", this.value);
                 CAM.draw();
-            } else if (numWords > MaxLengthWords) {
-                toastr.warning(languageFileOut.ndw_01tooManyWords, languageFileOut.ndw_02tooManyWords + MaxLengthWords + languageFileOut.ndw_03tooManyWords, {
+            } else if (numWords > MaxNumWords) {
+                toastr.warning(languageFileOut.ndw_01tooManyWords, languageFileOut.ndw_02tooManyWords + MaxNumWords + languageFileOut.ndw_03tooManyWords, {
                     closeButton: true,
                     timeOut: 2000,
                     positionClass: "toast-top-center",
@@ -123,7 +123,7 @@ $(function () {
                 })
     
                 
-                // alert("Please do not use more than " + MaxLengthWords + " words for a single node!\nInstead, please draw several connected nodes.");
+                // alert("Please do not use more than " + MaxNumWords + " words for a single node!\nInstead, please draw several connected nodes.");
             } else if (this.value.length > MaxLengthChars) {
                 toastr.warning(languageFileOut.ndw_01tooManyWords, languageFileOut.ndw_02tooManyWords + MaxLengthChars + languageFileOut.ndw_03tooManyWordsA, {
                     closeButton: true,
@@ -282,7 +282,7 @@ $(function () {
 
 
 // hide ambivalent nodes
-if(config.hideAmbivalent){
+if(config.enableAmbivalent){
     $('#hideAmvivalentNode').hide();
     $(function () {
         $('#hideAmvivalentNode').hide();

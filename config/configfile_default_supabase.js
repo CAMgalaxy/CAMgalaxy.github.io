@@ -2,15 +2,15 @@
 /* default values */
 var config = {
     CAMproject: "projectName", // "proj_" + uuid.v4(), // necessary for server (see ERM) !!!
-    ConNumNodes: 10, // number of nodes necessary to draw
+    MinNumNodes: 10, // number of nodes necessary to draw
     
-    hideArrows: false, // if false = possible to draw arrows
+    enableArrows: false, // if false = possible to draw arrows
     BidirectionalDefault: false, // if true the default connection is bidirectional
 
-    hideAmbivalent: true, // if false = possible to draw ambivalent node
-    showOnlyPosSlid: false, // if true = show only slider for agreement (+1 - +3), only works if hideArrows is set to true
+    enableAmbivalent: true, // if false = possible to draw ambivalent node
+    OnlyStraightCon: false, // if true = show only slider for agreement (+1 - +3), only works if enableArrows is set to true
     
-    MaxLengthWords: 3, // maximum number of words for each concept
+    MaxNumWords: 3, // maximum number of words for each concept
     MaxLengthChars: 40, // maximum number of characters for each concept
     LengthSentence: 14, // include breaklines if >= X characters
     LengthWords: 8, // include breaklines after each word with cumsum >= X characters

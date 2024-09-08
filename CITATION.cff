@@ -8,15 +8,15 @@ authors:
     given-names: Florian
   - family-names: Gorki
     given-names: Michael
-  - family-names: Hüttner
-    given-names: Paul
   - family-names: Reuter
     given-names: Lisa
   - family-names: Gros
     given-names: Wilhelm
+  - family-names: Hüttner
+    given-names: Paul
   - family-names: Kiesel
     given-names: Andrea
-url: https://github.com/Camel-app/DataCollection
-title: "Cognitive-Affective Maps extended logic"
-version: 2.2
+url: https://github.com/CAM-E-L/DataCollection
+title: "Data Analysis Tool"
+version: 2.3
 date-released: 2023-06-01
