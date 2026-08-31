@@ -1,167 +1,84 @@
-    <!-- 
-        <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    -->
-    
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <!-- for Microsoft Browser? -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>C.A.M.E.L</title>
+    <title>CAM</title>
     <link
       rel="shortcut icon"
       type="image/png"
       href="./img/favicon_logoCAM2.PNG"
     />
 
-    <!-- css files: -->
-    <link rel="stylesheet" href="./src/css/main.css"/>
-    <link rel="stylesheet" href="./src/css/toastrmin.css"/>
-
-    <!-- load libraries: -->
-    <script src="./src/js/libraries/utf8.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/uuidmin.js" crossorigin="anonymous" defer></script>
-
-    <script src="./src/js/libraries/jquery.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/jqueryUI.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/toastrmin.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/cytoscapemin.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/base64.js" crossorigin="anonymous" defer></script>
-    <script src="./src/js/libraries/jatos.js" crossorigin="anonymous" defer></script>
-
-    <script src="./src/js/libraries/xlsxmin.js" crossorigin="anonymous" defer></script>
+    <!--
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    -->
 
     <style>
-      /* Loading screen styles */
       #loading-screen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.8);
-          color: white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 2rem;
-          z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        z-index: 9999;
       }
-  </style>
-
-    <script>
-function loadScript(src) {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-        script.onload = () => resolve(src);
-        script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-        document.head.appendChild(script);
-    });
-}
-
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-(async function() {
-    try {
-        // Display alert after a short delay to allow the initial script loading to start
-        /**/
-        setTimeout(() => {
-           // alert("Please wait up to 2 seconds for the CAM to load.");
-        }, 100);
-
-        await loadScript('./config/configfile.js'); // config files
-        await loadScript('./src/js/processing/featureStudies(URLparams).js'); // URL parameters
-        await loadScript('./src/js/backend/initialisationConfig.js'); // overwrite config if CAMEL administrative panel was used
-        console.log('!!! All scripts loaded 1');
-
-        await delay(1500); // 2-second delay
-
-        await loadScript('./config/languageFile.js');
-        await loadScript('./src/js/frontend/paradata_focus.js');
-        await loadScript('./src/js/frontend/paradata_focus_text.js');
-        await loadScript('./src/js/processing/preprocessingCAM.js'); // Pre-processing files
-        await loadScript('./src/js/processing/postprocessingCAM.js'); // Pre-processing files
-        await loadScript('./src/js/backend/Elements.js'); // Backend files
-        await loadScript('./src/js/backend/nodeCAM.js'); // Backend files
-        await loadScript('./src/js/backend/connectorCAM.js'); // Backend files
-        await loadScript('./src/js/backend/variables.js'); // Backend files
-        await loadScript('./src/js/frontend/colours.js'); // Frontend files - UI
-        await loadScript('./src/js/frontend/eventListeners_backend.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/connectorArrows.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/draw.js'); // Frontend files - eventListeners backend
-        await loadScript('./src/js/frontend/dialogs/interactionNode.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/interactionEdge.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/confirmSave.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/dialogs/setReminder.js'); // Frontend files - dialogs
-        await loadScript('./src/js/frontend/buttons/participant/reference.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/saveButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/downloadSVGButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/buttons/participant/deleteButton.js'); // Frontend files - buttons participant
-        await loadScript('./src/js/frontend/eventListeners_frontend.js'); // Frontend files - eventListeners frontend
-        await loadScript('./config/defaultCAM.js'); // default CAM + initialisation
-        await loadScript('./src/js/backend/initialisation.js'); // default CAM + initialisation
-        await loadScript('./src/js/frontend/buttons/researcher/downloadJSONbutton.js'); // Frontend files - buttons researcher
-        await loadScript('./src/js/frontend/buttons/researcher/uploadJSONbutton.js'); // Frontend files - buttons researcher
-        await loadScript('./src/js/frontend/buttons/researcher/createConfigSave.js'); // Frontend files - buttons researcher
-       alert("Thank you for waiting. The CAM has loaded."); // to create an blur event
-        console.log('!!! All scripts loaded 2');
-    } catch (error) {
-        console.error(error);
-    } finally {
-                // Hide the loading screen after all scripts are loaded
-                document.getElementById('loading-screen').style.display = 'none';
-            }
-})();
-  </script>
+    </style>
+    <script type="module" crossorigin src="./assets/index-gRz1nVmc.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BPF7vrYE.css">
   </head>
 
   <body id="hideall">
-
-
     <div id="loading-screen">
       Please wait, loading...
-  </div>
-
+    </div>
 
     <!-- DIALOGS -->
-     <!-- -->
     <div id="dialogStart" title="Herzlich willkommen zur CAM-Studie!">
       <div class="properties" style="font-size: 12px;">
-        Die folgenden Regeln gelten für die <i>kognitiv-affektive Karte</i> (CAM), die Sie zeichnen sollten:
-        <ul  style="font-size: 12px;">
-                 <li>Zeichnen Sie insgesamt mindestens 10 Konzepte.</li>
-                 <li>Verwenden Sie nicht mehr als drei Wörter pro Begriff.</li>
-                 <li>Verbinden Sie alle gezeichneten Begriffe miteinander.</li>
-                 <li>Sie haben insgesamt 15 Minuten Zeit.</li>
-             </ul>
-            Wenn Sie Hilfe benötigen, klicken Sie auf den grünen Referenzknopf oben rechts. Um Ihr CAM zu speichern, klicken Sie auf das Diskettensymbol.
-             <br>
-             <br>
-               Bitte zoomen Sie heraus, so dass Sie das gesamte Zeichenfenster des CAMs sehen können. Sie können nun dieses Dialogfenster schließen und mit dem Zeichnen beginnen. Viel Spaß!
-          </div>
-  </div>
-
+        Die folgenden Regeln gelten für die <i>kognitiv-affektive Karte</i>
+        (CAM), die Sie zeichnen sollten:
+        <ul style="font-size: 12px;">
+          <li>Zeichnen Sie insgesamt mindestens 10 Konzepte.</li>
+          <li>Verwenden Sie nicht mehr als drei Wörter pro Begriff.</li>
+          <li>Verbinden Sie alle gezeichneten Begriffe miteinander.</li>
+          <li>Sie haben insgesamt 15 Minuten Zeit.</li>
+        </ul>
+        Wenn Sie Hilfe benötigen, klicken Sie auf den grünen
+        Referenzknopf oben rechts. Um Ihr CAM zu speichern, klicken Sie auf das
+        Diskettensymbol.
+        <br />
+        <br />
+        Bitte zoomen Sie heraus, so dass Sie das gesamte Zeichenfenster des CAMs
+        sehen können. Sie können nun dieses Dialogfenster schließen und
+        mit dem Zeichnen beginnen. Viel Spaß!
+      </div>
+    </div>
 
     <!-- > remind participant -->
-  <div id="dialogReminder" title="Hinweis">
-    <div id="textDialogReminder" class="properties" style="font-size: 14px;">
-        </div>
-  </div>
+    <div id="dialogReminder" title="Hinweis">
+      <div id="textDialogReminder" class="properties" style="font-size: 14px;">
+      </div>
+    </div>
 
     <!-- > confirm save -->
-  <div id="dialogConfirmSave" title="Confirm">
+    <div id="dialogConfirmSave" title="Confirm">
     </div>
-  </div>
+
+    <!-- > confirm delete -->
+    <div id="dialogConfirmDelete" title="Confirm">
+    </div>
 
     <!-- > set up study -->
     <div id="dialogSetUpStudy" title="Define parameters for your study"></div>
@@ -176,8 +93,6 @@ function delay(ms) {
     <div id="dialogInteractionNode" title="Change concept"></div>
 
     <!-- HEADER -->
-
-    <!-- SVG, components  -->
     <div class="main">
       <div class="boxCAMSVG">
         <div id="headerInterface">
@@ -205,29 +120,29 @@ function delay(ms) {
             </button>
           </div>
         </div>
+
         <div class="CAMContainer">
-          <svg id="CAMSVG">
-          </svg>
+          <svg id="CAMSVG"></svg>
         </div>
       </div>
     </div>
-  </body>
 
-  <!-- defocus div element: -->
-  <div id="alert" style="background: white; visibility: hidden" class="content">
-    <div style="text-align: center;">
-      <div id="alert-text" style="font-weight: bold;">
+    <!-- defocus div element: -->
+    <div id="alert" style="background: white; visibility: hidden" class="content">
+      <div style="text-align: center;">
+        <div id="alert-text" style="font-weight: bold;">
         </div>
-      <br/>
-      <button
-        id="alert-button-text"
-        type="button"
-        onclick="document.getElementById('alert').style.visibility = 'hidden'; 
-     document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen(); showDialogOnce();"
-      >
-        <!-- showDialogOnce();-->
-        click to continue
-      </button>
+        <br />
+        <button
+          id="alert-button-text"
+          type="button"
+          onclick="document.getElementById('alert').style.visibility = 'hidden';
+          document.getElementById('hideall').style.visibility = 'visible'; enterFullscreen(); showDialogOnce();"
+        >
+          click to continue
+        </button>
+      </div>
     </div>
-  </div>
+
+  </body>
 </html>
